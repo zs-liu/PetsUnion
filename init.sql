@@ -1,4 +1,4 @@
-DROP DATABASE petsunion;
+DROP DATABASE IF EXISTS `petsunion`;
 CREATE DATABASE IF NOT EXISTS `petsunion` CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE petsunion;
 
