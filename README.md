@@ -7,6 +7,7 @@ A Java Web Application aims to provide reservation services between pet owners a
 
 ## 环境说明
 - Web服务器：Apache Tomcat 9.0.12
+- DBMS：MySQL 5.7
 - SDK：Java SE SDK >=8.0
 - IDE：IntelliJ IDEA
 
@@ -17,5 +18,7 @@ A Java Web Application aims to provide reservation services between pet owners a
 - src/filter：过滤器
 - src/jsp：存放Java Served Pages代码
 - src/servlet：存放Servlet代码
+- src/service：存放Service代码，Servlet通过Service与Dao进行交互
+- src/tools：存放其他工具
 - web：Web项目根目录
 - web/WEB-INF/web.xml：Web项目的tomcat服务器配置文件
