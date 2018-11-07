@@ -11,13 +11,13 @@ import java.io.IOException;
 import service.ShopService;
 import tools.StaticPara;
 
-@WebServlet(name = "ShopLoginServlet")
-public class ShopLoginServlet extends HttpServlet {
+@WebServlet(name = "ShopRegisterServlet")
+public class ShopRegisterServlet extends HttpServlet {
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShopLoginServlet() {
+    public ShopRegisterServlet() {
         super();
     }
 
@@ -32,22 +32,24 @@ public class ShopLoginServlet extends HttpServlet {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String returnPath = request.getParameter("returnPath");
-        int result = ShopService.loginCheck(name, password);
+        int result = ShopService.registerCheck(name, password);
 
         if (result == StaticPara.success) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("logged", name);
+            session.setAttribute("registered", name);
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);
             } else {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
-
-        } else if (result == StaticPara.loginWrongPassword || result == StaticPara.invalid) {
-            request.setAttribute("errorMessage", "WrongPassword");
-            request.getRequestDispatcher("/shopLogin.jsp").forward(request, response);
+        } else if (result == StaticPara.registerExistsName) {
+            request.setAttribute("errorMessage", "NameExists");
+            request.getRequestDispatcher("/shopRegister.jsp").forward(request, response);
+        } else if (result == StaticPara.invalid) {
+            request.setAttribute("errorMessage", "NameOrPasswordNull");
+            request.getRequestDispatcher("/shopRegister.jsp").forward(request, response);
         } else if (result == StaticPara.sqlError) {
             request.setAttribute("errorMessage", "SqlError");
             request.getRequestDispatcher("/404.jsp").forward(request, response);

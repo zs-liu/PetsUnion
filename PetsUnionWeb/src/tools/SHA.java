@@ -9,15 +9,15 @@ public class SHA {
 
     }
 
-    public String SHA256(final String strText) {
+    public static String SHA256(final String strText) {
         return SHA(strText, "SHA-256");
     }
 
-    public String SHA512(final String strText) {
+    public static String SHA512(final String strText) {
         return SHA(strText, "SHA-512");
     }
 
-    private String SHA(final String strText, final String strType) {
+    private static String SHA(final String strText, final String strType) {
 
         // if valid string
         if (strText != null && strText.length() > 0) {

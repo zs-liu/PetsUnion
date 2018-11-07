@@ -10,6 +10,7 @@ import java.util.List;
 import bean.ServiceBean;
 import bean.ShopBean;
 import db.DBUtils;
+import tools.StaticPara;
 
 public class ShopDAO {
 
@@ -20,7 +21,7 @@ public class ShopDAO {
      * @param passwordHash "sha256 on password"
      * @return whether login successful
      */
-    public static boolean login(String name, String passwordHash) {
+    public static int login(String name, String passwordHash) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
@@ -36,18 +37,19 @@ public class ShopDAO {
 
             if (result.next()) {
                 if (passwordHash.equals(result.getString("password"))) {
-                    return true;
+                    return StaticPara.success;
                 }
+            } else {
+                return StaticPara.loginWrongPassword;
             }
 
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return false;
+            return StaticPara.sqlError;
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
-
-        return false;
+        return StaticPara.unknown;
     }
 
     /**
@@ -58,11 +60,10 @@ public class ShopDAO {
      * @return whether the register is successful
      */
 
-    public static boolean register(String name, String passwordHash) {
+    public static int register(String name, String passwordHash) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
-        ShopBean shop = null;
 
         String sqlSelect = "SELECT name FROM shops WHERE name=?";
 
@@ -73,11 +74,11 @@ public class ShopDAO {
             pstmt.setString(1, name);
             result = pstmt.executeQuery();
 
-            if (result.next()) return false;
+            if (result.next()) return StaticPara.registerExistsName;
 
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return false;
+            return StaticPara.sqlError;
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
@@ -94,12 +95,11 @@ public class ShopDAO {
 
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return false;
+            return StaticPara.sqlError;
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
-
-        return true;
+        return StaticPara.success;
     }
 
 
