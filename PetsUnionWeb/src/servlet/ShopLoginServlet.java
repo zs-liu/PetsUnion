@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import service.ShopService;
-import tools.StaticPara;
+import tools.StaticPara.LoginRegisterPara;
 
 @WebServlet(name = "ShopLoginServlet")
 public class ShopLoginServlet extends HttpServlet {
@@ -34,7 +34,7 @@ public class ShopLoginServlet extends HttpServlet {
         String returnPath = request.getParameter("returnPath");
         int result = ShopService.loginCheck(name, password);
 
-        if (result == StaticPara.success) {
+        if (result == LoginRegisterPara.success) {
 
             HttpSession session = request.getSession();
             session.setAttribute("logged", name);
@@ -45,10 +45,11 @@ public class ShopLoginServlet extends HttpServlet {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
 
-        } else if (result == StaticPara.loginWrongPassword || result == StaticPara.invalid) {
+        } else if (result == LoginRegisterPara.loginWrongPassword
+                || result == LoginRegisterPara.invalid) {
             request.setAttribute("errorMessage", "WrongPassword");
             request.getRequestDispatcher("/shopLogin.jsp").forward(request, response);
-        } else if (result == StaticPara.sqlError) {
+        } else if (result == LoginRegisterPara.sqlError) {
             request.setAttribute("errorMessage", "SqlError");
             request.getRequestDispatcher("/404.jsp").forward(request, response);
         }

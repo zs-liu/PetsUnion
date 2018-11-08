@@ -37,19 +37,19 @@ public class ShopDAO {
 
             if (result.next()) {
                 if (passwordHash.equals(result.getString("password"))) {
-                    return StaticPara.success;
+                    return StaticPara.LoginRegisterPara.success;
                 }
             } else {
-                return StaticPara.loginWrongPassword;
+                return StaticPara.LoginRegisterPara.loginWrongPassword;
             }
 
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-            return StaticPara.sqlError;
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.LoginRegisterPara.sqlError;
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
-        return StaticPara.unknown;
+        return StaticPara.LoginRegisterPara.unknown;
     }
 
     /**
@@ -74,11 +74,11 @@ public class ShopDAO {
             pstmt.setString(1, name);
             result = pstmt.executeQuery();
 
-            if (result.next()) return StaticPara.registerExistsName;
+            if (result.next()) return StaticPara.LoginRegisterPara.registerExistsName;
 
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-            return StaticPara.sqlError;
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.LoginRegisterPara.sqlError;
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
@@ -93,13 +93,13 @@ public class ShopDAO {
             pstmt.setString(2, passwordHash);
             pstmt.executeUpdate();
 
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-            return StaticPara.sqlError;
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.LoginRegisterPara.sqlError;
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
-        return StaticPara.success;
+        return StaticPara.LoginRegisterPara.success;
     }
 
 
@@ -114,7 +114,7 @@ public class ShopDAO {
      * @return the list of service
      */
     /*
-    public static List<ServiceBean> getUServicesAtPage(int petCategory, int serviceCategory, int startTime, int endTime,
+    public static List<ServiceBean> getServicesAtPage(int petCategory, int serviceCategory, int startTime, int endTime,
                                                        int pageNo, int numPerPage) {
         List<ServiceBean> servicesList = new ArrayList<>();
         Connection conn = null;
@@ -145,4 +145,47 @@ public class ShopDAO {
 
         return servicesList;
     }*/
+
+
+    /**
+     * get services provided by a certain shop
+     *
+     * @param shopID          the ID of shop
+     * @param petCategory     the category of pet
+     * @param serviceCategory the category of service
+     * @return the list of service
+     */
+    public static List<ServiceBean> getServicesByShop(int shopID, int petCategory, int serviceCategory) {
+
+        List<ServiceBean> servicesList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet result = null;
+
+        String sql = "SELECT start_time,end_time FROM services " +
+                "WHERE shop=? AND pet_category = ? AND service_category=?";
+
+        try {
+            conn = DBUtils.getConn();
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, shopID);
+            pstmt.setInt(2, petCategory);
+            pstmt.setInt(3, serviceCategory);
+            result = pstmt.executeQuery();
+
+            while (result.next()) {
+                servicesList.add(new ServiceBean(shopID,
+                        result.getInt("start_time"),
+                        result.getInt("end_time")));
+            }
+
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
+
+        return servicesList;
+    }
 }
