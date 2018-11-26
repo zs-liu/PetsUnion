@@ -1,24 +1,41 @@
 package bean;
 
 public class ServiceBean {
-    private int shop;
-    private int petCategory;
-    private int serviceCategory;
-    private int startTime;
-    private int endTime;
+    private String shopName;
+    private String petsType;
+    private String serviceType;
+    private String serviceIntro;
+    private String price;
 
-    public ServiceBean(int shop, int petCategory, int serviceCategory,
-                       int startTime, int endTime) {
-        this.shop = shop;
-        this.petCategory = petCategory;
-        this.serviceCategory = serviceCategory;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public ServiceBean(String shopName,
+                       String petsType,
+                       String serviceType,
+                       String serviceIntro,
+                       String price) {
+        this.shopName = shopName;
+        this.petsType = petsType;
+        this.serviceType = serviceType;
+        this.serviceIntro = serviceIntro;
+        this.price = price;
     }
 
-    public ServiceBean(int shop, int startTime, int endTime) {
-        this.shop = shop;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public void setPetsType(String petsType) {
+        this.petsType = petsType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    public void setServiceIntro(String serviceIntro) {
+        this.serviceIntro = serviceIntro;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

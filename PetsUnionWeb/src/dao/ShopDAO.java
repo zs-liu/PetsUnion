@@ -17,22 +17,22 @@ public class ShopDAO {
     /**
      * check whether the shop exists (can login)
      *
-     * @param name         "shop name"
+     * @param id           "shop id"
      * @param passwordHash "sha256 on password"
      * @return whether login successful
      */
-    public static int login(String name, String passwordHash) {
+    public static int login(String id, String passwordHash) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
-        String sql = "SELECT name, password FROM shops WHERE name=?";
+        String sql = "SELECT ownerid, ownerpw FROM shopowner WHERE ownerid=?";
 
         try {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, name);
+            pstmt.setString(1, id);
             result = pstmt.executeQuery();
 
             if (result.next()) {
@@ -55,42 +55,28 @@ public class ShopDAO {
     /**
      * write the new shop into database
      *
+     * @param id           "shop id"
      * @param name         "shop name"
      * @param passwordHash "sha256 on password"
+     * @param tel          "shop telephone"
      * @return whether the register is successful
      */
 
-    public static int register(String name, String passwordHash) {
+    public static int register(String id, String name, String passwordHash, String tel) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
-        String sqlSelect = "SELECT name FROM shops WHERE name=?";
-
-        try {
-            conn = DBUtils.getConn();
-
-            pstmt = conn.prepareStatement(sqlSelect);
-            pstmt.setString(1, name);
-            result = pstmt.executeQuery();
-
-            if (result.next()) return StaticPara.LoginRegisterPara.registerExistsName;
-
-        } catch (SQLException sqlE) {
-            sqlE.printStackTrace();
-            return StaticPara.LoginRegisterPara.sqlError;
-        } finally {
-            DBUtils.closeAll(result, pstmt, conn);
-        }
-
-        String sqlInsert = "INSERT INTO shops (name, password) VALUES(?,?)";
+        String sqlInsert = "INSERT INTO shopowner(ownerid,ownerpw,ownername,ownertel) VALUES(?,?,?,?);";
 
         try {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sqlInsert);
-            pstmt.setString(1, name);
+            pstmt.setString(1, id);
             pstmt.setString(2, passwordHash);
+            pstmt.setString(3, name);
+            pstmt.setString(4, tel);
             pstmt.executeUpdate();
 
         } catch (SQLException sqlE) {
@@ -150,34 +136,33 @@ public class ShopDAO {
     /**
      * get services provided by a certain shop
      *
-     * @param shopID          the ID of shop
-     * @param petCategory     the category of pet
-     * @param serviceCategory the category of service
+     * @param shopName    the ID of shop
+     * @param petsType    the category of pet
+     * @param serviceType the category of service
      * @return the list of service
      */
-    public static List<ServiceBean> getServicesByShop(int shopID, int petCategory, int serviceCategory) {
+    public static List<ServiceBean> getServicesByShop(String shopName, String petsType, String serviceType) {
 
         List<ServiceBean> servicesList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
-        String sql = "SELECT start_time,end_time FROM services " +
-                "WHERE shop=? AND pet_category = ? AND service_category=?";
+        String sql = "SELECT serviceIntro, price FROM shopservice " +
+                "WHERE shopName=? AND petsType = ? AND serviceType=?";
 
         try {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, shopID);
-            pstmt.setInt(2, petCategory);
-            pstmt.setInt(3, serviceCategory);
+            pstmt.setString(1, shopName);
+            pstmt.setString(2, petsType);
+            pstmt.setString(3, serviceType);
             result = pstmt.executeQuery();
 
             while (result.next()) {
-                servicesList.add(new ServiceBean(shopID,
-                        result.getInt("start_time"),
-                        result.getInt("end_time")));
+                servicesList.add(new ServiceBean(shopName, petsType, serviceType,
+                        result.getString("serviceIntro"), result.getString("price")));
             }
 
         } catch (SQLException sqlE) {
@@ -186,6 +171,36 @@ public class ShopDAO {
             DBUtils.closeAll(result, pstmt, conn);
         }
 
+        return servicesList;
+    }
+
+    public static List<ServiceBean> getServicesByShop(String shopName) {
+        List<ServiceBean> servicesList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet result = null;
+
+
+        String sql = "SELECT serviceIntro, price FROM shopservice WHERE shopName=?";
+
+        try {
+            conn = DBUtils.getConn();
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, shopName);
+            result = pstmt.executeQuery();
+
+            while (result.next()) {
+                servicesList.add(new ServiceBean(shopName,
+                        result.getString("petsType"), result.getString("serviceType"),
+                        result.getString("serviceIntro"), result.getString("price")));
+            }
+
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
         return servicesList;
     }
 }

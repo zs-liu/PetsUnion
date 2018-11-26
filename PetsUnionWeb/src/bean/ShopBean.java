@@ -1,33 +1,29 @@
 package bean;
 
 public class ShopBean {
-    private String shopname;
-    private String password;
-    private String address = null;
+    private String shopName;
+    private String ownerId;
+    private String instruction;
+    private String shopImgUrl;
+    private String address;
+    private String shopHours;
+    private String shopTel;
+    private int grades;
 
-    public ShopBean(String shopname, String password) {
-        this.shopname = shopname;
-        this.password = password;
+    public ShopBean(String shopname) {
+        this.shopName = shopname;
     }
 
     public String getShopname() {
-        return shopname;
-    }
-
-    public String getPassword() {
-        return password;
+        return shopName;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setShopname(String shopname) {
-        this.shopname = shopname;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setShopname(String shopName) {
+        this.shopName = shopName;
     }
 
     public void setAddress(String address) {

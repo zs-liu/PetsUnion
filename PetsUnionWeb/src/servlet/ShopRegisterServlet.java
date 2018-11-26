@@ -29,10 +29,12 @@ public class ShopRegisterServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
+        String tel = request.getParameter("tel");
         String returnPath = request.getParameter("returnPath");
-        int result = ShopService.registerCheck(name, password);
+        int result = ShopService.registerCheck(id, name, password, tel);
 
         if (result == LoginRegisterPara.success) {
 

@@ -10,25 +10,27 @@ import bean.ServiceBean;
 public class ShopService {
 
     /**
-     * @param name     name from servlet
+     * @param id       id from servlet
      * @param password password from servlet
      * @return whether login successful
      */
-    public static int loginCheck(String name, String password) {
-        if (name == null || password == null) return LoginRegisterPara.invalid;
+    public static int loginCheck(String id, String password) {
+        if (id == null || password == null) return LoginRegisterPara.invalid;
         String passwordHash = SHA.SHA256(password);
-        return ShopDAO.login(name, passwordHash);
+        return ShopDAO.login(id, passwordHash);
     }
 
     /**
+     * @param id       id from servlet
      * @param name     name from servlet
      * @param password password from servlet
+     * @param tel      telephone from servlet
      * @return whether register successful
      */
-    public static int registerCheck(String name, String password) {
+    public static int registerCheck(String id, String name, String password, String tel) {
         if (name == null || password == null) return LoginRegisterPara.invalid;
         String passwordHash = SHA.SHA256(password);
-        return ShopDAO.register(name, passwordHash);
+        return ShopDAO.register(id, name, passwordHash, tel);
     }
 
     /**
@@ -37,7 +39,7 @@ public class ShopService {
      * @param serviceCategory the category of service
      * @return the list of service
      */
-    public static List<ServiceBean> getServicesByShop(int shopID, int petCategory, int serviceCategory) {
-        return ShopDAO.getServicesByShop(shopID, petCategory, serviceCategory);
+    public static List<ServiceBean> getServicesByShop(String shopName, String petsType, String serviceType) {
+        return ShopDAO.getServicesByShop(shopName, petsType, serviceType);
     }
 }

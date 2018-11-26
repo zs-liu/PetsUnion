@@ -37,7 +37,7 @@ response.setDateHeader("Expires",0);
                                 <input type="text" placeholder="用户名/username" class="form-control" name="name">
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="text" placeholder="密码/password" class="form-control" name="password">
+                                <input type="password" placeholder="密码/password" class="form-control" name="password">
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <div class="home_btn">

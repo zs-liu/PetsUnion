@@ -14,7 +14,6 @@ public class StaticPara {
     public class ShopDetailServletPara {
         public static final int fullFlag = 0;
         public static final int updateFlag = 1;
-        public static final int scheduleFlag = 2;
     }
 
 }

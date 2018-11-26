@@ -29,15 +29,15 @@ public class ShopLoginServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
+        String id = request.getParameter("id");
         String password = request.getParameter("password");
         String returnPath = request.getParameter("returnPath");
-        int result = ShopService.loginCheck(name, password);
+        int result = ShopService.loginCheck(id, password);
 
         if (result == LoginRegisterPara.success) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("logged", name);
+            session.setAttribute("logged", id);
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);

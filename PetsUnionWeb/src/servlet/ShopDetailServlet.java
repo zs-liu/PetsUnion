@@ -6,22 +6,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
+import service.ShopService;
 import tools.StaticPara.ShopDetailServletPara;
+import bean.ServiceBean;
 
 @WebServlet(name = "ShopDetailServlet")
 public class ShopDetailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int flag = Integer.parseInt(request.getParameter("flag"));
         if (flag == ShopDetailServletPara.fullFlag) {
-            int shopID = Integer.parseInt(request.getParameter("shopID"));
-            int petCategory = Integer.parseInt(request.getParameter("petCategory"));
-            int serviceCategory = Integer.parseInt(request.getParameter("serviceCategory"));
-
-            
-        } else if (flag == ShopDetailServletPara.scheduleFlag) {
-
+            String shopName = request.getParameter("shopName");
+            String petsType = request.getParameter("petsType");
+            String serviceType = request.getParameter("serviceType");
+            List<ServiceBean> serviceList= ShopService.getServicesByShop(shopName,petsType,serviceType);
         } else if (flag == ShopDetailServletPara.updateFlag) {
+            String shopName = request.getParameter("shopName");
 
         } else {
 
