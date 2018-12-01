@@ -1,5 +1,7 @@
 package bean;
 
+import org.json.JSONObject;
+
 public class ServiceBean {
     private String shopName;
     private String petsType;
@@ -37,5 +39,35 @@ public class ServiceBean {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public String getPetsType() {
+        return petsType;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public String getServiceIntro() {
+        return serviceIntro;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject serviceJson = new JSONObject();
+        serviceJson.put("shopName", this.shopName);
+        serviceJson.put("petsType", this.petsType);
+        serviceJson.put("serviceType", this.serviceType);
+        serviceJson.put("serviceIntro", this.serviceIntro);
+        serviceJson.put("price", this.price);
+        return serviceJson;
     }
 }

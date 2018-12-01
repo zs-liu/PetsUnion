@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import bean.ShopBean;
 import tools.SHA;
 import tools.StaticPara.LoginRegisterPara;
 import dao.ShopDAO;
@@ -34,12 +35,16 @@ public class ShopService {
     }
 
     /**
-     * @param shopID          the ID of shop
-     * @param petCategory     the category of pet
-     * @param serviceCategory the category of service
+     * @param shopName    the ID of shop
+     * @param petsType    the category of pet
+     * @param serviceType the category of service
      * @return the list of service
      */
     public static List<ServiceBean> getServicesByShop(String shopName, String petsType, String serviceType) {
         return ShopDAO.getServicesByShop(shopName, petsType, serviceType);
+    }
+
+    public static ShopBean getServicesByShop(String shopName) {
+        return ShopDAO.getServicesByShop(shopName);
     }
 }

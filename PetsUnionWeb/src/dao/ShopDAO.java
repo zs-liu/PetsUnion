@@ -134,7 +134,7 @@ public class ShopDAO {
 
 
     /**
-     * get services provided by a certain shop
+     * get services provided by a certain shop, on a certain pet type and a certain service type
      *
      * @param shopName    the ID of shop
      * @param petsType    the category of pet
@@ -174,19 +174,50 @@ public class ShopDAO {
         return servicesList;
     }
 
-    public static List<ServiceBean> getServicesByShop(String shopName) {
+    /**
+     * get services provided by a certain shop
+     *
+     * @param shopName the ID of shop
+     * @return a shop bean object
+     */
+    public static ShopBean getServicesByShop(String shopName) {
         List<ServiceBean> servicesList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        ShopBean shopBean = null;
 
-        String sql = "SELECT serviceIntro, price FROM shopservice WHERE shopName=?";
+        String sql1 = "SELECT * FROM petshop WHERE shopName=?";
 
         try {
             conn = DBUtils.getConn();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql1);
+            pstmt.setString(1, shopName);
+            result = pstmt.executeQuery();
+
+            shopBean = new ShopBean(result.getString("shopName"));
+            shopBean.setOwnerId(result.getString("ownerId"));
+            shopBean.setInstruction(result.getString("instruction"));
+            shopBean.setShopImgUrl(result.getString("shopImgUrl"));
+            shopBean.setAddress(result.getString("address"));
+            shopBean.setShopHours(result.getString("shopHours"));
+            shopBean.setShopTel(result.getString("shopTel"));
+            shopBean.setGrades(result.getInt("grades"));
+
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
+
+        String sql2 = "SELECT serviceIntro, price FROM shopservice WHERE shopName=?";
+
+        try {
+            conn = DBUtils.getConn();
+
+            pstmt = conn.prepareStatement(sql2);
             pstmt.setString(1, shopName);
             result = pstmt.executeQuery();
 
@@ -201,6 +232,9 @@ public class ShopDAO {
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
-        return servicesList;
+
+        if (shopBean != null) shopBean.setServiceList(servicesList);
+
+        return shopBean;
     }
 }
