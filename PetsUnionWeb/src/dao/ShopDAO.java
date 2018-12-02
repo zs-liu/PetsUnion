@@ -36,7 +36,7 @@ public class ShopDAO {
             result = pstmt.executeQuery();
 
             if (result.next()) {
-                if (passwordHash.equals(result.getString("password"))) {
+                if (passwordHash.equals(result.getString("ownerpw"))) {
                     return StaticPara.LoginRegisterPara.success;
                 }
             } else {
@@ -61,13 +61,12 @@ public class ShopDAO {
      * @param tel          "shop telephone"
      * @return whether the register is successful
      */
-
     public static int register(String id, String name, String passwordHash, String tel) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
-        String sqlInsert = "INSERT INTO shopowner(ownerid,ownerpw,ownername,ownertel) VALUES(?,?,?,?);";
+        String sqlInsert = "INSERT INTO shopowner(ownerId,ownerPw,ownerName,ownerTel) VALUES(?,?,?,?);";
 
         try {
             conn = DBUtils.getConn();
