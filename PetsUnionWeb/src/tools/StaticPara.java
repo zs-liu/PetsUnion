@@ -16,4 +16,9 @@ public class StaticPara {
         public static final int updateFlag = 1;
     }
 
+    public class ReservationStatusPara {
+        public static final int toDo = 0;
+        public static final int haveDone = 1;
+    }
+
 }

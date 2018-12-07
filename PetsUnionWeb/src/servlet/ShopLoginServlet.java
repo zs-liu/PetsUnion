@@ -60,7 +60,7 @@ public class ShopLoginServlet extends HttpServlet {
      * @param response response to jsp
      * @throws ServletException servlet exception
      * @throws IOException      ioe exception
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
