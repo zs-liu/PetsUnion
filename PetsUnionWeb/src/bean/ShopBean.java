@@ -103,11 +103,13 @@ public class ShopBean {
         shopJson.put("shopTel", this.shopTel);
         shopJson.put("grades", this.grades);
 
-        JSONArray serviceJsonList = new JSONArray();
-        for (ServiceBean service : this.serviceList) {
-            serviceJsonList.put(service.toJSON());
+        if (this.serviceList != null) {
+            JSONArray serviceJsonList = new JSONArray();
+            for (ServiceBean service : this.serviceList) {
+                serviceJsonList.put(service.toJSON());
+            }
+            shopJson.put("service", serviceJsonList);
         }
-        shopJson.put("service", serviceJsonList);
         return shopJson;
     }
 }

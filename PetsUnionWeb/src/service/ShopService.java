@@ -47,4 +47,8 @@ public class ShopService {
     public static ShopBean getServicesByShop(String shopName) {
         return ShopDAO.getServicesByShop(shopName);
     }
+
+    public static List<ShopBean> getShop(String petsType, String serviceType) {
+        return ShopDAO.getShop(petsType, serviceType);
+    }
 }

@@ -236,4 +236,38 @@ public class ShopDAO {
 
         return shopBean;
     }
+
+    public static List<ShopBean> getShop(String petsType, String serviceType) {
+        List<ShopBean> shopList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet result = null;
+
+        String sql = "SELECT a.shopname,a.instruction, a.address,a.shopTel, a.shopImgUrl " +
+                "FROM petsshop a, shopservice b " +
+                "WHERE a.shopname = b.shopname AND b.petstype=? AND b.servicetype=?";
+
+        try {
+            conn = DBUtils.getConn();
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, petsType);
+            pstmt.setString(2, serviceType);
+            result = pstmt.executeQuery();
+
+            while (result.next()) {
+                ShopBean shop = new ShopBean(result.getString("shopName"));
+                shop.setInstruction(result.getString("instruction"));
+                shop.setAddress(result.getString("address"));
+                shop.setShopTel("shopTel");
+                shop.setShopImgUrl("shopImgUrl");
+                shopList.add(shop);
+            }
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
+        return shopList;
+    }
 }

@@ -1,10 +1,9 @@
 package servlet;
 
-import bean.ReservationBean;
+import bean.ShopBean;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import service.ReservationService;
-import tools.StaticPara.ReservationStatusPara;
+import service.ShopService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "ShopReservationServlet")
-public class ShopReservationServlet extends HttpServlet {
-
-    public ShopReservationServlet() {
-        super();
-    }
+@WebServlet(name = "SearchShopServlet")
+public class SearchShopServlet extends HttpServlet {
 
     /**
      * @param request  request from jsp
@@ -30,25 +25,20 @@ public class ShopReservationServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String shopName = request.getParameter("shopName");
-        int status = Integer.parseInt(request.getParameter("status"));
-        if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone) {
-            List<ReservationBean> reservationList = ReservationService.searchForShop(shopName, status);
+        String petsType = request.getParameter("petsType");
+        String serviceType = request.getParameter("serviceType");
+        List<ShopBean> shopList = ShopService.getShop(petsType, serviceType);
+        JSONObject json = new JSONObject();
+        JSONArray shopJsonList = new JSONArray();
 
-            JSONObject json = new JSONObject();
-            JSONArray reservationJsonList = new JSONArray();
-
-            for (ReservationBean reservation : reservationList) {
-                reservationJsonList.put(reservation);
-            }
-            json.put("reservation", reservationJsonList);
-            response.setCharacterEncoding("utf-8");
-            PrintWriter out = response.getWriter();
-            out.println(json.toString());
-        } else {
-            request.setAttribute("errorMessage", "InvalidReservationStatus");
-            request.getRequestDispatcher("/404.jsp").forward(request, response);
+        for (ShopBean shop : shopList) {
+            shopJsonList.put(shop.toJSON());
         }
+
+        json.put("shop", shopJsonList);
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        out.println(json.toString());
     }
 
     /**

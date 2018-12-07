@@ -15,10 +15,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "ShopReservationServlet")
-public class ShopReservationServlet extends HttpServlet {
+@WebServlet(name = "OwnerReservationServlet")
+public class OwnerReservationServlet extends HttpServlet {
 
-    public ShopReservationServlet() {
+    public OwnerReservationServlet() {
         super();
     }
 
@@ -30,10 +30,10 @@ public class ShopReservationServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String shopName = request.getParameter("shopName");
+        String userId = request.getParameter("userId");
         int status = Integer.parseInt(request.getParameter("status"));
         if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone) {
-            List<ReservationBean> reservationList = ReservationService.searchForShop(shopName, status);
+            List<ReservationBean> reservationList = ReservationService.searchForShop(userId, status);
 
             JSONObject json = new JSONObject();
             JSONArray reservationJsonList = new JSONArray();
