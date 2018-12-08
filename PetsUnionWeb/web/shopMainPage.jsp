@@ -262,9 +262,13 @@
 			<div class="col-md-6 single-top-right">
 				<br><br>	
 				<h3 id="myname"></h3>
-				<p id="motto">个性签名：</p>
+				<p id="address">地址：</p>
 				<br>
 				<button type="button" id="history" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 查看历史订单</button>
+				<br><br>
+				<button type="button" id="data" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 门店信息管理</button>
+				<br><br>
+				<button type="button" id="schedule" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 日程管理</button>
 			</div>
 			<div class="clearfix"> </div> 
 			
@@ -283,7 +287,7 @@
 							<div class="panel-body">
 								<table class="hovertable" width=1000px>
 									<tr>
-										<th>订单号</th><th>订单状态</th><th>宠物店名</th><th>花费</th><th>订单详情</th>
+										<th>订单号</th><th>订单状态</th><th>顾客名</th><th>发起时间</th><th>订单详情</th><th>执行操作</th>
 									</tr>
 									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
 										<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td> -->
@@ -327,18 +331,18 @@
 		// alert("开始加载用户界面！");
 		
 		// $.ajax({
-			// url:"OwnerReservationServlet",
+			// url:"ShopReservationServlet",
 			// type:"post",
 			// data:{
-				// source："user";//表明是在询问个人用户的信息
+				// source："shopOwner";
 			// },
 			// cache:false,
 			// dataType:"jsonp",
 			// success:function(resp) {
 				// console.log(resp);
 				
-				// $("#myname").text(resp[0].name);//用户名
-				// $("#motto").append(resp[0].motto);//个性签名
+				// $("#myname").text(resp[0].name);//店主名
+				// $("#motto").append(resp[0].address);//地址
 				// $("#myimg").attr("src", resp[0].image);//头像
 				
 				// var number=resp.number;
@@ -350,27 +354,77 @@
 					// $tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
 					// $tr.append("<td>"+ resp[iter].orderNumber +"</td>");
 					// $tr.append("<td>"+ resp[iter].orderStatus +"</td>");
-					// $tr.append("<td>"+ resp[iter].shopName +"</td>");
-					// $tr.append("<td>"+ resp[iter].expenditure +"</td>");
+					// $tr.append("<td>"+ resp[iter].guestName +"</td>");
+					// $tr.append("<td>"+ resp[iter].requeryTime +"</td>");
 					// $tr.append("<td>"+ resp[iter].orderDetail +"</td>");
+					
+					// if(resp[iter].orderStatus=="未确认"){
+						// var $button=$("<button>").attr("value",resp[iter].orderNumber).attr("id","confirm").append($("<P>").text("确认"));
+						// $td=$("<td>").append($button);
+						// $tr.append($td);
+					// }
+					// else if(resp[iter].orderStatus=="进行中"){
+						// var $button=$("<button>").attr("value",resp[iter].orderNumber).attr("id","finish").append($("<P>").text("服务完成"));
+						// $td=$("<td>").append($button);
+						// $tr.append($td);
+					// }
+					// else;
 
 					// $tr.appendTo($(".hovertable"));
 				// }
 			// }
 		// });
 		
-		// alert("用户界面加载完成！");
+		// $("button#confirm").click(function(){
+			// var $value=$(this).val();
+			// alert("您点击了确认按钮，订单号是"+$value);
+			
+			// $.ajax({
+				// url:"ReservationUpdateServlet",
+				// type:"post",
+				// data:{
+					// source："comfirmation";
+					// id: $value;
+				// },
+				// cache:false,
+				// dataType:"jsonp",
+				// success:function(resp) {
+					// reload();
+				// }
+			// });
+		// });
+		
+		// $("button#finish").click(function(){
+			// var $value=$(this).val();
+			// alert("您点击了完成按钮，订单号是"+$value);
+			
+			// $.ajax({
+				// url:"ReservationUpdateServlet",
+				// type:"post",
+				// data:{
+					// source："finish";
+					// id: $value;
+				// },
+				// cache:false,
+				// dataType:"jsonp",
+				// success:function(resp) {
+					// reload();
+				// }
+			// });
+		// });
+		
+		// alert("店主界面加载完成");
 	// });
-	// </script>
+	</script>
 	<!-- //load user information when enter-->
 	
 	<!-- @@ just for test -->
 	<script type="text/javascript">
 	$(document).ready(function(){
-		alert("开始加载用户界面");
+		alert("开始加载店主界面");
 	
 		$("#myname").text("代达罗斯");
-		$("#motto").append("Dea");
+		$("#address").append("THU#z11");
 		$("#myimg").attr("src", "images/s1.jpg");
 			
 		var iter=0;
@@ -384,11 +438,37 @@
 			$tr.append("<td>"+ "item3" +"</td>");
 			$tr.append("<td>"+ "item4" +"</td>");
 			$tr.append("<td>"+ "item5" +"</td>");
-
+			
+			if(iter==2){
+				var $button=$("<button>").attr("value",123).attr("id","confirm").append($("<P>").text("确认"));
+				$td=$("<td>").append($button);
+				$tr.append($td);
+			}
+			else if(iter==3){
+				var $button=$("<button>").attr("value",12).attr("id","finish").append($("<P>").text("服务完成"));
+				$td=$("<td>").append($button);
+				$tr.append($td);
+			}
+			else{
+				$td=$("<td>");
+				$tr.append($td);
+			}
+				
 			$tr.appendTo($(".hovertable"));
 		}
-				
-		alert("用户界面加载完成");
+		
+		$("button#confirm").click(function(){
+			var $value=$(this).val();
+			alert("您点击了确认按钮"+$value);
+			reload();
+		});
+		
+		$("button#finish").click(function(){
+			var $value=$(this).val();
+			alert("您点击了完成按钮"+$value);
+		});
+		
+		alert("店主界面加载完成");
 	});
 	</script>
 	<!-- //just for test -->
@@ -398,13 +478,37 @@
 	$("button#history").click(function (){
 		alert("你点击了查看历史订单");
 		
-		window.open("ownerHistoryReservation.jsp");
+		window.open("shopHistoryReservation.jsp");
 		
 		alert("新页面加载完成");
 	});
 	</script>
 	<!-- //jump-->
-			
+		
+	<!-- @@ jump -->
+	<script>
+	$("button#data").click(function (){
+		alert("你点击了门店信息管理");
+		
+		window.open("shopDetailUpdate.jsp");
+		
+		alert("新页面加载完成");
+	});
+	</script>
+	<!-- //jump-->
+
+	<!-- @@ jump -->
+	<script>
+	$("button#schedule").click(function (){
+		alert("你点击了日程管理");
+		
+		window.open("shopSchedule.jsp");
+		
+		alert("新页面加载完成");
+	});
+	</script>
+	<!-- //jump-->
+	
 	<!-- footer-top -->
 	<div class="w3agile-ftr-top">
 		<div class="container">
