@@ -87,50 +87,73 @@ public class ShopDAO {
         return StaticPara.LoginRegisterPara.success;
     }
 
-
-    /*
     /**
-     * @param petCategory     the category of pet(valid)
-     * @param serviceCategory the category of service(valid)
-     * @param startTime       the willing start time of service(valid)
-     * @param endTime         the willing end time of service(valid)
-     * @param pageNo          the page number of results
-     * @param numPerPage      the number of results in per page
-     * @return the list of service
+     * update services of a certain shop, given certain service information
+     *
+     * @param shopName     the ID of shop
+     * @param serviceIntro the introduction of service
+     * @param serviceType  the service type
+     * @param petsType     the pet type of service
+     * @param price        the service price
+     * @return
      */
-    /*
-    public static List<ServiceBean> getServicesAtPage(int petCategory, int serviceCategory, int startTime, int endTime,
-                                                       int pageNo, int numPerPage) {
-        List<ServiceBean> servicesList = new ArrayList<>();
+    public static int updateServiceByShop(String shopName, String serviceIntro, String serviceType,
+                                          String petsType, String price) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
-        String sql = "SELECT shop,start_time,end_time FROM services " +
-                "WHERE pet_category=? AND service_category=?";
+        String sql = "INSERT INTO shopservice(shopName,serviceIntro,serviceType,petsType,price) VALUES(?,?,?,?,?);";
 
         try {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, startTime);
-            pstmt.setInt(2, endTime);
-            result = pstmt.executeQuery();
+            pstmt.setString(1, shopName);
+            pstmt.setString(2, serviceIntro);
+            pstmt.setString(3, serviceType);
+            pstmt.setString(4, petsType);
+            pstmt.setString(5, price);
+            pstmt.executeUpdate();
 
-            while (result.next()) {
-                servicesList.add(new ServiceBean(result.getInt("shop"),
-                        result.getInt("start_time"),
-                        result.getInt("end_time")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.SqlPara.sqlError;
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
+        return StaticPara.SqlPara.success;
+    }
 
-        return servicesList;
-    }*/
 
+    public static int updateInfoByShop(String shopName, String instruction, String shopImgUrl,
+                                       String address, String shopHours, String shopTel) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet result = null;
+
+        String sql = "UPDATE petsshop SET instruction=?,shopImgUrl=?,address=?,shopHours=?,shopTel=? WHERE shopName=?";
+
+        try {
+            conn = DBUtils.getConn();
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, instruction);
+            pstmt.setString(2, shopImgUrl);
+            pstmt.setString(3, address);
+            pstmt.setString(4, shopHours);
+            pstmt.setString(5, shopTel);
+            pstmt.setString(6, shopName);
+            pstmt.executeUpdate();
+
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.SqlPara.sqlError;
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
+        return StaticPara.SqlPara.success;
+    }
 
     /**
      * get services provided by a certain shop, on a certain pet type and a certain service type
@@ -237,6 +260,13 @@ public class ShopDAO {
         return shopBean;
     }
 
+    /**
+     * get shops provides certain service
+     *
+     * @param petsType    the pet type of service
+     * @param serviceType the service type
+     * @return the list of shop
+     */
     public static List<ShopBean> getShop(String petsType, String serviceType) {
         List<ShopBean> shopList = new ArrayList<>();
         Connection conn = null;

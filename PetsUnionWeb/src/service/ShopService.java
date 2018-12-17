@@ -44,11 +44,38 @@ public class ShopService {
         return ShopDAO.getServicesByShop(shopName, petsType, serviceType);
     }
 
+    /**
+     * @param shopName the ID of shop
+     * @return the shop object
+     */
     public static ShopBean getServicesByShop(String shopName) {
         return ShopDAO.getServicesByShop(shopName);
     }
 
+    /**
+     * @param petsType    the type of pet
+     * @param serviceType the typeof service
+     * @return the list of service
+     */
     public static List<ShopBean> getShop(String petsType, String serviceType) {
         return ShopDAO.getShop(petsType, serviceType);
+    }
+
+    /**
+     * @param shopName the ID of shop
+     * @param serviceIntro the introduction of service
+     * @param serviceType the type of service
+     * @param petsType the type of pet
+     * @param price the price of service
+     * @return whether update seccessful
+     */
+    public static int updateServiceByShop(String shopName, String serviceIntro, String serviceType,
+                                          String petsType, String price) {
+        return ShopDAO.updateServiceByShop(shopName, serviceIntro, serviceType, petsType, price);
+    }
+
+    public static int updateInfoByShop(String shopName, String instruction, String shopImgUrl,
+                                       String address, String shopHours, String shopTel) {
+        return ShopDAO.updateInfoByShop(shopName, instruction, shopImgUrl, address, shopHours, shopTel);
     }
 }
