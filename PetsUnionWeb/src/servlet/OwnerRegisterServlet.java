@@ -26,18 +26,18 @@ public class OwnerRegisterServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String tel = request.getParameter("tel");
+        String userId = request.getParameter("userId");
+        String userName = request.getParameter("userName");
+        String userPw = request.getParameter("userPw");
+        String userTel = request.getParameter("userTel");
         String returnPath = request.getParameter("returnPath");
 
-        int result = OwnerService.registerCheck(id, name, password, tel);
+        int result = OwnerService.registerCheck(userId, userName, userPw, userTel);
 
         if (result == LoginRegisterPara.success) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("registered", name);
+            session.setAttribute("registered", userId);
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);

@@ -13,8 +13,8 @@ public class OwnerDAO {
     /**
      * check whether the user exists (can login)
      *
-     * @param id           "user id"
-     * @param passwordHash "sha256 on password"
+     * @param id           user id
+     * @param passwordHash sha256 on password
      * @return whether login successful
      */
     public static int login(String id, String passwordHash) {
@@ -22,7 +22,7 @@ public class OwnerDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
-        String sql ="SELECT userId, userpw FROM petsowner WHERE userId=?";
+        String sql = "SELECT userId, userpw FROM petsowner WHERE userId=?";
         try {
             conn = DBUtils.getConn();
 
@@ -47,6 +47,15 @@ public class OwnerDAO {
         return StaticPara.LoginRegisterPara.unknown;
     }
 
+    /**
+     * register a given owner
+     *
+     * @param id           user id
+     * @param name         user name
+     * @param passwordHash sha256 on password
+     * @param tel          user telephone
+     * @return whether register successful
+     */
     public static int register(String id, String name, String passwordHash, String tel) {
         Connection conn = null;
         PreparedStatement pstmt = null;

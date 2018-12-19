@@ -234,7 +234,7 @@ public class ShopDAO {
             DBUtils.closeAll(result, pstmt, conn);
         }
 
-        String sql2 = "SELECT serviceIntro, price FROM shopservice WHERE shopName=?";
+        String sql2 = "SELECT * FROM shopservice WHERE shopName=?";
 
         try {
             conn = DBUtils.getConn();

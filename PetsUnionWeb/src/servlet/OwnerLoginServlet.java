@@ -26,15 +26,15 @@ public class OwnerLoginServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
-        String password = request.getParameter("password");
+        String userId = request.getParameter("userId");
+        String userPw = request.getParameter("userPw");
         String returnPath = request.getParameter("returnPath");
-        int result = OwnerService.loginCheck(id, password);
+        int result = OwnerService.loginCheck(userId, userPw);
 
         if (result == LoginRegisterPara.success) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("logged", id);
+            session.setAttribute("logged", userId);
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);

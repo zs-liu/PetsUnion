@@ -32,14 +32,15 @@ public class ShopReservationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String shopName = request.getParameter("shopName");
         int status = Integer.parseInt(request.getParameter("status"));
-        if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone) {
+        if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone
+                || status == ReservationStatusPara.confirm) {
             List<ReservationBean> reservationList = ReservationService.searchForShop(shopName, status);
 
             JSONObject json = new JSONObject();
             JSONArray reservationJsonList = new JSONArray();
 
             for (ReservationBean reservation : reservationList) {
-                reservationJsonList.put(reservation);
+                reservationJsonList.put(reservation.toJSON());
             }
             json.put("reservation", reservationJsonList);
             response.setCharacterEncoding("utf-8");

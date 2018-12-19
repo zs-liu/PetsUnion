@@ -1,6 +1,6 @@
 package servlet;
 
-import tools.StaticPara.ReservationInsertPara;
+import tools.StaticPara.SqlPara;
 import service.ReservationService;
 
 import javax.servlet.ServletException;
@@ -21,6 +21,7 @@ public class ReserveServiceServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String returnPath = request.getParameter("returnPath");
         String shopName = request.getParameter("shopName");
         String userId = request.getParameter("userId");
         String petsOwnerTel = request.getParameter("petsOwnerTel");
@@ -33,14 +34,17 @@ public class ReserveServiceServlet extends HttpServlet {
         int result = ReservationService.insert(shopName, userId, petsOwnerTel, petsType, serviceType,
                 serBeginTime, serEndTime, comment);
 
-        if (result == ReservationInsertPara.success) {
-            request.setAttribute("errorMessage", "success");
-            request.getRequestDispatcher("/reserveService.jsp").forward(request, response);
-        } else if (result == ReservationInsertPara.sqlError) {
-            request.setAttribute("errorMessage", "sqlError");
+        if (result ==  SqlPara.success) {
+            if (returnPath != null) {
+                request.getRequestDispatcher(returnPath).forward(request, response);
+            } else {
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            }
+        } else if (result == SqlPara.sqlError) {
+            request.setAttribute("errorMessage", "SqlError");
             request.getRequestDispatcher("/404.jsp").forward(request, response);
-        } else if (result == ReservationInsertPara.invalid) {
-            request.setAttribute("errorMessage", "invalid");
+        } else if (result == SqlPara.invalid) {
+            request.setAttribute("errorMessage", "Invalid");
             request.getRequestDispatcher("/reserveService.jsp").forward(request, response);
         }
     }
