@@ -11,7 +11,7 @@ import java.io.IOException;
 import service.ShopService;
 import tools.StaticPara.LoginRegisterPara;
 
-@WebServlet(name = "ShopLoginServlet")
+@WebServlet(name = "/ShopLoginServlet")
 public class ShopLoginServlet extends HttpServlet {
 
     /**

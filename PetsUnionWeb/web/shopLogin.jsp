@@ -32,7 +32,7 @@ response.setDateHeader("Expires",0);
                 <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 text-center">
                     <div class="hero-text">
                         <h2><font color="black" face="Microsoft YaHei" size="+3">宠物店登录</font></h2>
-                        <form action="login.do" method ="post">
+                        <form action="OwnerLoginServlet" method ="post">
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <input type="text" placeholder="用户名/username" class="form-control" name="name">
                             </div>

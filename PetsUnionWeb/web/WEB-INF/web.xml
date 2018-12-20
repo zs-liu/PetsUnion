@@ -4,11 +4,102 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
+        <servlet-name>OwnerLoginServlet</servlet-name>
+        <servlet-class>servlet.OwnerLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OwnerLoginServlet</servlet-name>
+        <url-pattern>/OwnerLoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ShopLoginServlet</servlet-name>
         <servlet-class>servlet.ShopLoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ShopLoginServlet</servlet-name>
-        <url-pattern>/login.do</url-pattern>
+        <url-pattern>/ShopLoginServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OwnerRegisterServlet</servlet-name>
+        <servlet-class>servlet.OwnerRegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OwnerRegisterServlet</servlet-name>
+        <url-pattern>/OwnerRegisterServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShopRegisterServlet</servlet-name>
+        <servlet-class>servlet.ShopRegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShopRegisterServlet</servlet-name>
+        <url-pattern>/ShopRegisterServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OwnerReservationServlet</servlet-name>
+        <servlet-class>servlet.OwnerReservationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OwnerReservationServlet</servlet-name>
+        <url-pattern>/OwnerReservationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShopReservationServlet</servlet-name>
+        <servlet-class>servlet.ShopReservationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShopReservationServlet</servlet-name>
+        <url-pattern>/ShopReservationServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchShopServlet</servlet-name>
+        <servlet-class>servlet.SearchShopServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchShopServlet</servlet-name>
+        <url-pattern>/SearchShopServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShopDetailServlet</servlet-name>
+        <servlet-class>servlet.ShopDetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShopDetailServlet</servlet-name>
+        <url-pattern>/ShopDetailServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShopDetailUpdateServlet</servlet-name>
+        <servlet-class>servlet.ShopDetailUpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShopDetailUpdateServlet</servlet-name>
+        <url-pattern>/ShopDetailUpdateServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReserveServiceServlet</servlet-name>
+        <servlet-class>servlet.ReserveServiceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReserveServiceServlet</servlet-name>
+        <url-pattern>/ReserveServiceServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReservationUpdateServlet</servlet-name>
+        <servlet-class>servlet.ReservationUpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationUpdateServlet</servlet-name>
+        <url-pattern>/ReservationUpdateServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
