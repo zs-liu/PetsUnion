@@ -179,8 +179,8 @@
 			$(document).ready(function(){
 				$("#confirm1").click(function(){
 					x=$("#shopDetailForm").serializeArray();
-					$.post("ShopDetailUpdateServlet",x,function(){
-					});
+					$.post("ShopDetailUpdateServlet",{flag:0});
+					$.post("ShopDetailUpdateServlet",x)
 				})
 			})
 		</script>
@@ -233,7 +233,6 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	time=0;
 	$(document).ready(function(){
 		$("#new1").click(function(){
 			var newItem='<tr id="tr1">'
@@ -251,10 +250,9 @@
 	<script type="text/javascript">
 		$("#confirm2").click(function(){
 			x=$("#form1").serializeArray();
-			var flag=1;
-			$.post("ShopDetailUpdateServlet",flag);
+			$.post("ShopDetailUpdateServlet",{"flag":1});
 			$.post("ShopDetailUpdateServlet",x,function(){
-			alert("serialize finish");
+			alert("post finish");
 		})
 		$("#tr1").remove();
 		alert("finish");
