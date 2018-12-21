@@ -8,16 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import service.ShopService;
+import service.OwnerService;
 import tools.StaticPara.LoginRegisterPara;
 
-@WebServlet(name = "ShopRegisterServlet")
-public class ShopRegisterServlet extends HttpServlet {
+@WebServlet(name = "OwnerRegisterServlet")
+public class OwnerRegisterServlet extends HttpServlet {
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ShopRegisterServlet() {
+    public OwnerRegisterServlet() {
         super();
     }
 
@@ -29,17 +26,18 @@ public class ShopRegisterServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String tel = request.getParameter("tel");
+        String userId = request.getParameter("userId");
+        String userName = request.getParameter("userName");
+        String userPw = request.getParameter("userPw");
+        String userTel = request.getParameter("userTel");
         String returnPath = request.getParameter("returnPath");
-        int result = ShopService.registerCheck(id, name, password, tel);
+
+        int result = OwnerService.registerCheck(userId, userName, userPw, userTel);
 
         if (result == LoginRegisterPara.success) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("registered", name);
+            session.setAttribute("registered", userId);
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);
@@ -48,10 +46,10 @@ public class ShopRegisterServlet extends HttpServlet {
             }
         } else if (result == LoginRegisterPara.registerExistsName) {
             request.setAttribute("errorMessage", "NameExists");
-            request.getRequestDispatcher("/shopRegister.jsp").forward(request, response);
+            request.getRequestDispatcher("/ownerRegister.jsp").forward(request, response);
         } else if (result == LoginRegisterPara.invalid) {
             request.setAttribute("errorMessage", "NameOrPasswordNull");
-            request.getRequestDispatcher("/shopRegister.jsp").forward(request, response);
+            request.getRequestDispatcher("/ownerRegister.jsp").forward(request, response);
         } else if (result == LoginRegisterPara.sqlError) {
             request.setAttribute("errorMessage", "SqlError");
             request.getRequestDispatcher("/404.jsp").forward(request, response);
@@ -66,6 +64,6 @@ public class ShopRegisterServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+        doGet(request, response);
     }
 }

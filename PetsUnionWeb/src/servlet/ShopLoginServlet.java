@@ -11,7 +11,7 @@ import java.io.IOException;
 import service.ShopService;
 import tools.StaticPara.LoginRegisterPara;
 
-@WebServlet(name = "ShopLoginServlet")
+@WebServlet(name = "/ShopLoginServlet")
 public class ShopLoginServlet extends HttpServlet {
 
     /**
@@ -29,15 +29,15 @@ public class ShopLoginServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
+        String ownerId = request.getParameter("ownerId");
+        String ownerPw = request.getParameter("ownerPw");
         String returnPath = request.getParameter("returnPath");
-        int result = ShopService.loginCheck(name, password);
+        int result = ShopService.loginCheck(ownerId, ownerPw);
 
         if (result == LoginRegisterPara.success) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("logged", name);
+            session.setAttribute("logged", ownerId);
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);
@@ -60,7 +60,7 @@ public class ShopLoginServlet extends HttpServlet {
      * @param response response to jsp
      * @throws ServletException servlet exception
      * @throws IOException      ioe exception
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);

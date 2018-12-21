@@ -1,5 +1,11 @@
 package servlet;
 
+import bean.ReservationBean;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import service.ReservationService;
+import tools.StaticPara.ReservationStatusPara;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,18 +15,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import org.json.JSONObject;
-import org.json.JSONArray;
+@WebServlet(name = "OwnerReservationServlet")
+public class OwnerReservationServlet extends HttpServlet {
 
-import bean.ShopBean;
-import service.ShopService;
-import tools.StaticPara.ShopDetailServletPara;
-import bean.ServiceBean;
-
-@WebServlet(name = "ShopDetailServlet")
-public class ShopDetailServlet extends HttpServlet {
-
-    public ShopDetailServlet() {
+    public OwnerReservationServlet() {
         super();
     }
 
@@ -32,36 +30,24 @@ public class ShopDetailServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int flag = Integer.parseInt(request.getParameter("flag"));
-        if (flag == ShopDetailServletPara.fullFlag) {
-            String shopName = request.getParameter("shopName");
-            String petsType = request.getParameter("petsType");
-            String serviceType = request.getParameter("serviceType");
-            List<ServiceBean> serviceList = ShopService.getServicesByShop(shopName, petsType, serviceType);
+        String userId = request.getParameter("userId");
+        int status = Integer.parseInt(request.getParameter("status"));
+        if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone
+                || status == ReservationStatusPara.confirm) {
+            List<ReservationBean> reservationList = ReservationService.searchForShop(userId, status);
 
             JSONObject json = new JSONObject();
+            JSONArray reservationJsonList = new JSONArray();
 
-            JSONArray serviceJsonList = new JSONArray();
-            for (ServiceBean service : serviceList) {
-                serviceJsonList.put(service.toJSON());
+            for (ReservationBean reservation : reservationList) {
+                reservationJsonList.put(reservation.toJSON());
             }
-
-            json.put("service", serviceJsonList);
-            response.setCharacterEncoding("utf-8");
-            PrintWriter out = response.getWriter();
-            out.println(json.toString());
-
-        } else if (flag == ShopDetailServletPara.updateFlag) {
-            String shopName = request.getParameter("shopName");
-            ShopBean shop = ShopService.getServicesByShop(shopName);
-
-            JSONObject json = shop.toJSON();
-
+            json.put("reservation", reservationJsonList);
             response.setCharacterEncoding("utf-8");
             PrintWriter out = response.getWriter();
             out.println(json.toString());
         } else {
-            request.setAttribute("errorMessage", "InvalidRequest");
+            request.setAttribute("errorMessage", "InvalidReservationStatus");
             request.getRequestDispatcher("/404.jsp").forward(request, response);
         }
     }

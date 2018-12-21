@@ -1,23 +1,19 @@
 package servlet;
 
+import service.ReservationService;
+import tools.StaticPara;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import service.ShopService;
-import tools.StaticPara.LoginRegisterPara;
+@WebServlet(name = "ReservationUpdateServlet")
+public class ReservationUpdateServlet extends HttpServlet {
 
-@WebServlet(name = "ShopRegisterServlet")
-public class ShopRegisterServlet extends HttpServlet {
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ShopRegisterServlet() {
+    public ReservationUpdateServlet() {
         super();
     }
 
@@ -26,33 +22,22 @@ public class ShopRegisterServlet extends HttpServlet {
      * @param response response to jsp
      * @throws ServletException servlet exception
      * @throws IOException      ioe exception
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String tel = request.getParameter("tel");
         String returnPath = request.getParameter("returnPath");
-        int result = ShopService.registerCheck(id, name, password, tel);
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        int status = Integer.parseInt(request.getParameter("status"));
 
-        if (result == LoginRegisterPara.success) {
+        int result = ReservationService.update(orderId, status);
 
-            HttpSession session = request.getSession();
-            session.setAttribute("registered", name);
-
+        if (result == StaticPara.SqlPara.success) {
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);
             } else {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
-        } else if (result == LoginRegisterPara.registerExistsName) {
-            request.setAttribute("errorMessage", "NameExists");
-            request.getRequestDispatcher("/shopRegister.jsp").forward(request, response);
-        } else if (result == LoginRegisterPara.invalid) {
-            request.setAttribute("errorMessage", "NameOrPasswordNull");
-            request.getRequestDispatcher("/shopRegister.jsp").forward(request, response);
-        } else if (result == LoginRegisterPara.sqlError) {
+        } else if (result == StaticPara.SqlPara.sqlError) {
             request.setAttribute("errorMessage", "SqlError");
             request.getRequestDispatcher("/404.jsp").forward(request, response);
         }

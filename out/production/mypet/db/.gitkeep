@@ -1,6 +1,0 @@
-# Java production:
-*.class
-
-# Sone floders:
-PetsUnionWeb/.idea
-PetsUnionWeb/out
