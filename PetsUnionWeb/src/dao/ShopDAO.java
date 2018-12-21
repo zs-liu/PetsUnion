@@ -55,27 +55,44 @@ public class ShopDAO {
     /**
      * write the new shop into database
      *
-     * @param id           "shop id"
+     * @param ownerId           "shop id"
      * @param name         "shop name"
      * @param passwordHash "sha256 on password"
      * @param tel          "shop telephone"
      * @return whether the register is successful
      */
-    public static int register(String id, String name, String passwordHash, String tel) {
+    public static int register(String ownerId, String name, String passwordHash, String tel, String shopName) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
-        String sqlInsert = "INSERT INTO shopowner(ownerId,ownerPw,ownerName,ownerTel) VALUES(?,?,?,?);";
+        String sql1 = "INSERT INTO shopowner(ownerId,ownerPw,ownerName,ownerTel) VALUES(?,?,?,?);";
 
         try {
             conn = DBUtils.getConn();
 
-            pstmt = conn.prepareStatement(sqlInsert);
-            pstmt.setString(1, id);
+            pstmt = conn.prepareStatement(sql1);
+            pstmt.setString(1, ownerId);
             pstmt.setString(2, passwordHash);
             pstmt.setString(3, name);
             pstmt.setString(4, tel);
+            pstmt.executeUpdate();
+
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.LoginRegisterPara.sqlError;
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
+
+        String sql2 = "INSERT INTO petsshop(shopName, ownerId) VALUES(?,?);";
+
+        try {
+            conn = DBUtils.getConn();
+
+            pstmt = conn.prepareStatement(sql2);
+            pstmt.setString(1, shopName);
+            pstmt.setString(2, ownerId);
             pstmt.executeUpdate();
 
         } catch (SQLException sqlE) {
