@@ -180,8 +180,6 @@
 				$("#confirm1").click(function(){
 					x=$("#shopDetailForm").serializeArray();
 					$.post("ShopDetailUpdateServlet",x,function(){
-						$.getJSON("",function(data){
-						})
 					});
 				})
 			})
