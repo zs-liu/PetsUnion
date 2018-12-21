@@ -28,10 +28,10 @@ public class ShopService {
      * @param tel      telephone from servlet
      * @return whether register successful
      */
-    public static int registerCheck(String id, String name, String password, String tel) {
+    public static int registerCheck(String id, String name, String password, String tel, String shopName) {
         if (name == null || password == null) return LoginRegisterPara.invalid;
         String passwordHash = SHA.SHA256(password);
-        return ShopDAO.register(id, name, passwordHash, tel);
+        return ShopDAO.register(id, name, passwordHash, tel, shopName);
     }
 
     /**

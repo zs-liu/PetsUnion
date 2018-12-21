@@ -29,17 +29,18 @@ public class ShopRegisterServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String tel = request.getParameter("tel");
+        String ownerId = request.getParameter("ownerId");
+        String ownerName = request.getParameter("ownerName");
+        String ownerPw = request.getParameter("ownerPw");
+        String ownerTel = request.getParameter("ownerTel");
+        String shopName = request.getParameter("shopName");
         String returnPath = request.getParameter("returnPath");
-        int result = ShopService.registerCheck(id, name, password, tel);
+        int result = ShopService.registerCheck(ownerId, ownerName, ownerPw, ownerTel, shopName);
 
         if (result == LoginRegisterPara.success) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("registered", name);
+            session.setAttribute("registered", ownerName);
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);
