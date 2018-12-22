@@ -38,24 +38,27 @@
 		<!-- scroll to fixed--> 
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 		<script>
-			$(document).ready(function() {
+		<!-- @@ 全局变量 pageNumber计数器 -->
+		var pageNumber=1;
+		<!-- @@ pageNumber计数器 -->
+		$(document).ready(function() {
 
-				// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
+			// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
 
-				$('.header-two').scrollToFixed();   
-				// previous summary up the page.
+			$('.header-two').scrollToFixed();   
+			// previous summary up the page.
 
-				var summaries = $('.summary');
-				summaries.each(function(i) {
-					var summary = $(summaries[i]);
-					var next = summaries[i + 1];
+			var summaries = $('.summary');
+			summaries.each(function(i) {
+				var summary = $(summaries[i]);
+				var next = summaries[i + 1];
 
-					summary.scrolltofixed({
-						margintop: $('.header-two').outerheight(true) + 10, 
-						zindex: 999
-					});
+				summary.scrolltofixed({
+					margintop: $('.header-two').outerheight(true) + 10, 
+					zindex: 999
 				});
 			});
+		});
 		</script>
 		<!-- //scroll to fixed--> 
 		
@@ -176,7 +179,7 @@
 				<div class="clearfix"> </div>
 				
 				<div class="product-top" >
-					<p>搜索结果</p>
+					<p>搜索结果: 第1页</p>
 					<div class="clearfix"> </div>
 				</div>
 				
@@ -200,12 +203,12 @@
 			</script>
 			<!-- get the shop information -->
 
-			<!-- @@ load the shop information when first enter -->
+			<!-- @**@ load the shop information when first enter -->
 		    <script type="text/javascript">
 			/* $(document).ready(function(){
 				alert("开始加载搜索界面！");
 				
-				var $search=getQuery("search");
+				var $search=decodeURI(getQuery("search"));
 				alert("上一个页面请求的search是："+$search);
 				
 				$("input#search").attr("value",$search);
@@ -214,14 +217,16 @@
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page:"firstpage";
+						page:1;
 						petsType: $search;
 						serviceType: $search;
 					},
 					cache:false,
 					dataType:"jsonp",
-					success:function(resp) {
-						console.log(resp);
+					success:function(data) {
+						console.log(data);
+						var resp=data.shop;
+						
 						var $product=$("<div>").addClass("products-block");
 						for(var i = 0; i < resp.length; i ++) {
 							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
@@ -272,12 +277,12 @@
 			</script>
 			<!-- //load the shop information when first enter -->
 			
-			<!-- @@ just for test of last section-->
+			<!-- @$$@ just for test of last section-->
 			<script type="text/javascript">
 			$(document).ready(function(){
 				alert("开始加载搜索界面！");
 				
-				var $search=getQuery("search");
+				var $search=decodeURI(getQuery("search"));
 				alert("上一个页面的搜索请求是："+$search);
 				$("input#search").attr("value",$search);
 			
@@ -328,7 +333,7 @@
 			</script>
 			<!-- //just for test of last section-->
 			
-			<!-- @@ load the shop information when click search button-->
+			<!-- @**@ load the shop information when click search button-->
 			<script>
 			/* $("button#submit").click(function(){
 				var $value=document.getElementById("search").value;
@@ -339,19 +344,23 @@
 				    return false;
 				}
 				
+				$("div.product-top").find("p").text("搜索结果: 第1页");
+				pageNumber=1;
 				$(".products-block").remove();
 				$.ajax({
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page:"firstpage";
+						page:pageNumber;
 						petsType: $value;
 						serviceType: $value;
 					},
 					cache:false,
 					dataType:"jsonp",
-					success:function(resp) {
-						console.log(resp);
+					success:function(data) {
+						console.log(data);
+						var resp=data.shop;
+						
 						var $product=$("<div>").addClass("products-block");
 						for(var i = 0; i < resp.length; i ++) {
 							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
@@ -402,7 +411,7 @@
 			</script>
 			<!-- load the shop information when click search button-->
 			
-			<!-- @@ just for test of last section-->
+			<!-- @$$@ just for test of last section-->
 			<script>
 			$("button#submit").click(function (){
 				var $value=document.getElementById("search").value;
@@ -411,7 +420,9 @@
 					alert("您的输入不能为空");
 				    return false;
 				}
-
+				
+				$("div.product-top").find("p").text("搜索结果: 第1页");
+				pageNumber=1;
 				$(".products-block").remove();
 				for(var i = 0; i < 1; i ++) {
 					var $shopTel=$("<p>").attr("value","110").text("电话:").addClass("tel").append(" 110");
@@ -459,29 +470,38 @@
 		    </script>
 			<!-- //just for test of last section-->
 			
-			<!-- @@ turn to last page-->
+			<!-- @||@ turn to last page-->
 			<script>
 			$("button#lastpage").click(function(){
 				alert("您点击了前一页按钮");
+				pageNumber=pageNumber-1;
+				if(pageNumber==0){
+					alert("这已经是最前一页了");
+					pageNumber=1;
+					return false;
+				}
 				
 				$.ajax({
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page: "lastpage";
+						page: pageNumber;
 						petsType: document.getElementById("search").value;
 						serviceType: document.getElementById("search").value;
 					},
 					cache:false,
 					dataType:"jsonp",
-					success:function(resp) {
-						console.log(resp);
+					success:function(data) {
+						console.log(data);
+						var resp=data.shop;
+						
 						var $product=$("<div>").addClass("products-block");
 						if(resp.length==0){
-							alert("这已经是最前一页了");
+							alert("接受List的长度为零");
 							return false;
 						}
 						
+						$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
 						$(".products-block").remove();
 						for(var i = 0; i < resp.length; i ++) {
 							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
@@ -532,29 +552,34 @@
 			</script>
 			<!-- //turn to last page-->
 			
-			<!-- @@ turn to next page-->
+			<!-- @||@ turn to next page-->
 			<script>
 			$("button#nextpage").click(function(){
 				alert("您点击了后一页按钮");
+				pageNumer=pageNumber+1;
 				
 				$.ajax({
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page: "nextpage";
+						page: pageNumber;
 						petsType: document.getElementById("search").value;
 						serviceType: document.getElementById("search").value;
 					},
 					cache:false,
 					dataType:"jsonp",
-					success:function(resp) {
-						console.log(resp);
+					success:function(data) {
+						console.log(data);
+						var resp=data.shop;
+						
 						var $product=$("<div>").addClass("products-block");
 						if(resp.length==0){
 							alert("这已经是最后一页了");
+							pageNumber=pageNumber-1;
 							return false;
 						}
 						
+						$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
 						$(".products-block").remove();
 						for(var i = 0; i < resp.length; i ++) {
 							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
