@@ -11,7 +11,7 @@ import java.util.List;
 public class DBUtils {
 
     public static Connection getConn() {
-        String url = "jdbc:mysql://localhost:3306/demo";
+        String url = "jdbc:mysql://localhost:3306/demo?characterEncoding=utf8";
         String username = "root";
         String password = "LzscsL"; // use your configuration
 
