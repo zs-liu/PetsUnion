@@ -54,7 +54,16 @@ fieldset {
     margin: 0 auto;
     padding: 0;
 }
+
 /*START PRELOADER DESIGN*/
+.white_bg{
+	background-color:lightyellow;
+	color:lightyellow;
+	left:30%;
+	right:30%;
+	top:10%;
+	bottom:10%;
+}
 .preloader {
     background:#fff;
     bottom: 0;
@@ -190,11 +199,11 @@ color:#2a80b9;
 * ----------------------------------------------------------------------------------------
 */
 .home_bg {
-    height: 760px;
+    height: 790px;
     position: relative;
 }
 .home_bg:before {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.2);
     content: "";
     height: 100%;
     filter: alpha(opacity=80);
@@ -1034,7 +1043,7 @@ position: relative;
 }
 
 .form-control {
-background: rgba(0, 0, 0, 0.4) none repeat scroll 0 0;
+background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
 border: 0 solid #eee;
 border-radius: 0;
 box-shadow: none;

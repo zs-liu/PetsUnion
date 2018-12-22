@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>shop</title>
+		<title>owner</title>
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -195,7 +195,7 @@
 				</div>	
 				<div class="header-search">
 					<form method="#">
-						<input type="search" id="search" placeholder="请输入您要搜索的关键词..." required="">
+						<input type="search" id="search" placeholder="请输入宠物类型或服务类型..." required="">
 						<button type="button" id="submit" class="btn btn-default" aria-label="Left Align" >
 							<i class="fa fa-search" aria-hidden="true"> </i>
 						</button>
@@ -226,20 +226,8 @@
 		
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
-				<div class="menu">
-					<div class="cd-dropdown-wrapper">
-						<a class="cd-dropdown-trigger" href="#0">服务类别</a>
-						<nav class="cd-dropdown"> 
-							<a href="#0" class="cd-close">Close</a>
-							<ul class="cd-dropdown-content"> 
-								<li><a href="offers.html">宠物护理</a></li> 
-								<li><a href="sitemap.html">宠物寄养</a></li>  
-							</ul> <!-- .cd-dropdown-content -->
-						</nav> <!-- .cd-dropdown -->
-					</div> <!-- .cd-dropdown-wrapper -->	 
-				</div>
 				<div class="move-text">
-					<div class="marquee"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -283,7 +271,7 @@
 							<div class="panel-body">
 								<table class="hovertable" width=1000px>
 									<tr>
-										<th>订单号</th><th>订单状态</th><th>宠物店名</th><th>花费</th><th>订单详情</th>
+										<th>订单号</th><th>订单状态</th><th>宠物店名</th><th>服务类型</th><th>订单详情</th>
 									</tr>
 									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
 										<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td> -->
@@ -323,51 +311,54 @@
 
 	<!-- @@ load user information when enter-->
 	<script type="text/javascript">
-	// $(document).ready(function(){
-		// alert("开始加载用户界面！");
+	/* $(document).ready(function(){
+		alert("开始加载用户界面！");
 		
-		// $.ajax({
-			// url:"OwnerReservationServlet",
-			// type:"post",
-			// data:{
-				// source："user";//表明是在询问个人用户的信息
-			// },
-			// cache:false,
-			// dataType:"jsonp",
-			// success:function(resp) {
-				// console.log(resp);
+		$.ajax({
+			url:"OwnerReservationServlet",
+			type:"post",
+			data:{
+				useId：'<%= session.getAttribute("Id")%>';//表明是在询问个人用户的信息
+			},
+			cache:false,
+			dataType:"jsonp",
+			success:function(resp) {
+				console.log(resp);
 				
 				// $("#myname").text(resp[0].name);//用户名
 				// $("#motto").append(resp[0].motto);//个性签名
 				// $("#myimg").attr("src", resp[0].image);//头像
 				
-				// var number=resp.number;
-				// var iter=0;
-				// while(iter<=number){
-					// iter=iter+1;
+				var number=resp.length;
+				var iter=0;
+				while(iter<=number){
+					iter=iter+1;
 					
-					// var $tr = $("<tr></tr>");
-					// $tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
-					// $tr.append("<td>"+ resp[iter].orderNumber +"</td>");
-					// $tr.append("<td>"+ resp[iter].orderStatus +"</td>");
-					// $tr.append("<td>"+ resp[iter].shopName +"</td>");
-					// $tr.append("<td>"+ resp[iter].expenditure +"</td>");
-					// $tr.append("<td>"+ resp[iter].orderDetail +"</td>");
+					var $tr = $("<tr></tr>");
+					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+					$tr.append("<td>"+ resp[iter].orderId +"</td>");
+					$tr.append("<td>"+ resp[iter].Status +"</td>");
+					$tr.append("<td>"+ resp[iter].shopName +"</td>");
+					$tr.append("<td>"+ resp[iter].servicesType +"</td>");
+					$tr.append("<td>"+ "宠物类型："+resp[iter].petsType +"起止时间："+resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 
-					// $tr.appendTo($(".hovertable"));
-				// }
-			// }
-		// });
+					$tr.appendTo($(".hovertable"));
+				}
+			}
+		});
 		
-		// alert("用户界面加载完成！");
-	// });
-	// </script>
+		alert("用户界面加载完成！");
+	}); */
+	</script>
 	<!-- //load user information when enter-->
 	
 	<!-- @@ just for test -->
 	<script type="text/javascript">
 	$(document).ready(function(){
 		alert("开始加载用户界面");
+		
+		//var userID = '<%= session.getAttribute("Id")%>';
+        //alert("session中存放的用户ID："+useID);
 	
 		$("#myname").text("代达罗斯");
 		$("#motto").append("Dea");
@@ -388,6 +379,7 @@
 			$tr.appendTo($(".hovertable"));
 		}
 				
+		$(".shop-page").find("*").attr("style","border:0px;");
 		alert("用户界面加载完成");
 	});
 	</script>

@@ -63,12 +63,12 @@
 		<script type="text/javascript" src="js/move-top.js"></script>
 		<script type="text/javascript" src="js/easing.js"></script>	
 		<script type="text/javascript">
-				jQuery(document).ready(function($) {
-					$(".scroll").click(function(event){		
-						event.preventDefault();
-						$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-					});
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 				});
+			});
 		</script>
 		<!-- //end-smooth-scrolling -->
 		
@@ -165,8 +165,8 @@
 				</div>	
 				<div class="header-search">
 					<form action="#" method="post">
-						<input type="search" id="search" name="Search" placeholder="Search for a shop..." required="">
-						<button type="submit" id="submit" class="btn btn-default" aria-label="Left Align" >
+						<input type="search" id="search" name="Search" placeholder="请输入宠物类型或服务类型..." required="">
+						<button type="button" id="submit" class="btn btn-default" aria-label="Left Align" >
 							<i class="fa fa-search" aria-hidden="true"> </i>
 						</button>
 					</form>
@@ -181,22 +181,27 @@
 			</div>		
 		</div><!-- //header-two -->
 		
+		<!-- @@ return to searchShop -->
+		<script type="text/javascript">
+		$("button#submit").click(function (){
+			var $value=document.getElementById("search").value;
+			alert("您的搜索请求："+$value);
+			if($value==""){
+				alert("您的输入不能为空");
+				return false;
+			}
+				
+			window.open("searchShop.jsp?search="+encodeURI(encodeURI($value)));
+			
+			alert("打开页面完成");
+		});
+		</script>
+		<!-- return to searchShop -->
+		
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
-				<div class="menu">
-					<div class="cd-dropdown-wrapper">
-						<a class="cd-dropdown-trigger" href="#0">服务类别</a>
-						<nav class="cd-dropdown"> 
-							<a href="#0" class="cd-close">Close</a>
-							<ul class="cd-dropdown-content"> 
-								<li><a href="offers.html">宠物护理</a></li> 
-								<li><a href="sitemap.html">宠物寄养</a></li>  
-							</ul> <!-- .cd-dropdown-content -->
-						</nav> <!-- .cd-dropdown -->
-					</div> <!-- .cd-dropdown-wrapper -->	 
-				</div>
 				<div class="move-text">
-					<div class="marquee"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -208,7 +213,7 @@
 	</div>
 	<!-- //header --> 
 	
-	<!-- reservation --> 
+	<!-- @@ reservation --> 
 	<div class="reservation-page">
 		<div class="container">
 		    <div class="reserve"><br><h1 class="reserve">您好，请确认您的订单信息！</h1><br></div>
@@ -216,11 +221,12 @@
 			<p id="date" class="reserve">所选时间：</p>
 			<p id="pet" class="reserve">宠物种类：</p>
 			<p id="service" class="reserve">服务类型：</p>
-			<p id="price" class="reserve">价格：</p>
+			<p id="tel" class="reserve">您的电话：</p>
 			<p class="reserve">备注：</p>
 			<textarea placeholder="请填写对店家的留言..." class="reserve" required=""></textarea>
 			<br>
 			<button type="submit" id="submit" class="btn btn-default reserve" aria-label="Center Align" >正式提交</button>
+			<br>
 			<div class="clearfix"> </div> 
 		</div>
 	</div> 
@@ -236,47 +242,53 @@
 	</script>
 	<!-- get the shop information -->
 
-	<!-- load the shop information -->
+	<!-- @@ load the shop information -->
 	<script type="text/javascript">
 	$(document).ready(function(){
 		alert("开始加载订单确认界面！");
 		
-		alert("上一个页面请求的宠物店名是："+getQuery("name"));
+		alert("上一个页面请求的宠物店名是："+decodeURI(getQuery("shopName")));
 
-		$("#name").append(getQuery("name"));
-		$("#date").append(getQuery("date"));
-		$("#pet").append(getQuery("pet"));
-		$("#service").append(getQuery("service"));
-		$("#price").append(getQuery("price"));
+		$("#name").append(decodeURI(getQuery("shopName")));
+		$("#date").append(decodeURI(getQuery("serBeginTime"))+" - "+decodeURI(getQuery("serEndTime")));
+		$("#pet").append(decodeURI(getQuery("petsType")));
+		$("#service").append(decodeURI(getQuery("serviceType")));
+		$("#tel").append(decodeURI(getQuery("petsOwnerTel")));
 				
+		$(".reservation-page").find("*").not("button").attr("style","border:0px;");
+		//$(".reservation-page").find("textarea").attr("style","border:2px solid blue;");
+		$(".reservation-page").find("p").not("#comment").attr("style","border:0px;color:black;");
+		
 		alert("订单确认界面加载完成！");
 	});
 	</script>
 	<!-- load the shop information -->
 	
-	<!-- @@ pass the data -->
+	<!-- @||@ pass the data -->
 	<script>
 	$("button#submit").click(function (){
 		alert("您点击了提交按钮");
 		
-		// $.ajax({
-			// url:"ReserveServiceServlet",
-			// type:"post",
-			// data:{
-				// name: getQuery("name");
-				// date: getQuery("date");
-				// pet: getQuery("pet");
-				// service: getQuery("service");
-				// price: getQuery("price");
-				// note: $("textarea.reserve").val();
-				// id: getQuery("id");
-			// },
-			// cache:false,
-			// dataType:"jsonp",
-			// success:function(resp) {
-				// window.location.href = "shopDetail.jsp?id="+getQuery("id");
-			// }
-		// };
+		$.ajax({
+			url:"ReserveServiceServlet",
+			type:"post",
+			data:{
+				shopName: decodeURI(getQuery("shopName"));
+				serBeginTime: decodeURI(getQuery("serBeginTime");
+				serEndTime: decodeURI(getQuery("serEndTime"));
+				petsType: decodeURI(getQuery("petsType"));
+				serviceType: decodeURI(getQuery("serviceType"));
+				petsOwnerTel:decodeURI(getQuery("petsOwnerTel"));
+				userId:decodeURI(getQuery("userId"));
+				comment: $("textarea.reserve").val();
+				returnPath:"shopDetail.jsp?shopName="+decodeURI(getQuery("shopName"));
+			},
+			cache:false,
+			dataType:"jsonp",
+			success:function(resp) {
+				//window.location.href = "shopDetail.jsp?id="+getQuery("id");
+			}
+		};
 		
 		window.location.href = "shopDetail.jsp?id="+getQuery("id");
 	});

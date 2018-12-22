@@ -16,7 +16,7 @@ response.setDateHeader("Expires",0);
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
         <!-- SITE TITLE -->
-        <title>shopLogin</title>
+        <title>OwnerLogin</title>
         <!-- Latest Bootstrap min CSS -->
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <!-- Style CSS -->
@@ -31,8 +31,8 @@ response.setDateHeader("Expires",0);
             <div class="row">
                 <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 text-center">
                     <div class="hero-text">
-                        <h2><font color="black" face="Microsoft YaHei" size="+3">宠物店登录</font></h2>
-                        <form action="ShopLoginServlet" method ="post">
+                        <h2><font color="black" face="Microsoft YaHei" size="+3">宠物主登录</font></h2>
+                        <form action="OwnerLoginServlet" method ="post">
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <input type="text" placeholder="用户名/username" class="form-control" name="name">
                             </div>
@@ -50,7 +50,7 @@ response.setDateHeader("Expires",0);
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <div class="home_btn">
                                     <button type="submit" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">登录</font></button>
-                                    <a href="shopregister.html" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
+                                    <a href="ownerregister.html" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
                                 </div>
                             </div>
                             <% } %>
