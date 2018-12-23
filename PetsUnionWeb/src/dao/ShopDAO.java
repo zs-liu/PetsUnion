@@ -61,7 +61,8 @@ public class ShopDAO {
      * @param tel          "shop telephone"
      * @return whether the register is successful
      */
-    public static int register(String ownerId, String name, String passwordHash, String tel, String shopName) {
+    public static int register(String ownerId, String name, String passwordHash, String tel,
+                               String shopName, String address) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
@@ -85,7 +86,7 @@ public class ShopDAO {
             DBUtils.closeAll(result, pstmt, conn);
         }
 
-        String sql2 = "INSERT INTO petsshop(shopName, ownerId) VALUES(?,?);";
+        String sql2 = "INSERT INTO petsshop(shopName, ownerId, address) VALUES(?,?,?);";
 
         try {
             conn = DBUtils.getConn();
@@ -93,6 +94,7 @@ public class ShopDAO {
             pstmt = conn.prepareStatement(sql2);
             pstmt.setString(1, shopName);
             pstmt.setString(2, ownerId);
+            pstmt.setString(3, address);
             pstmt.executeUpdate();
 
         } catch (SQLException sqlE) {

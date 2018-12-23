@@ -35,7 +35,8 @@ public class ShopRegisterServlet extends HttpServlet {
         String ownerTel = request.getParameter("ownerTel");
         String shopName = request.getParameter("shopName");
         String returnPath = request.getParameter("returnPath");
-        int result = ShopService.registerCheck(ownerId, ownerName, ownerPw, ownerTel, shopName);
+        String address = request.getParameter("address");
+        int result = ShopService.registerCheck(ownerId, ownerName, ownerPw, ownerTel, shopName, address);
 
         if (result == LoginRegisterPara.success) {
 
