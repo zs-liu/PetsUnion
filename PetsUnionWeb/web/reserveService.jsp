@@ -181,7 +181,7 @@
 			</div>		
 		</div><!-- //header-two -->
 		
-		<!-- @@ return to searchShop -->
+		<!-- return to searchShop -->
 		<script type="text/javascript">
 		$("button#submit").click(function (){
 			var $value=document.getElementById("search").value;
@@ -213,7 +213,7 @@
 	</div>
 	<!-- //header --> 
 	
-	<!-- @@ reservation --> 
+	<!-- reservation --> 
 	<div class="reservation-page">
 		<div class="container">
 		    <div class="reserve"><br><h1 class="reserve">您好，请确认您的订单信息！</h1><br></div>
@@ -242,7 +242,7 @@
 	</script>
 	<!-- get the shop information -->
 
-	<!-- @@ load the shop information -->
+	<!-- @--@ load the shop information -->
 	<script type="text/javascript">
 	$(document).ready(function(){
 		alert("开始加载订单确认界面！");
@@ -288,11 +288,11 @@
 			success:function() {
 				alert("success");
 				//window.location.href = "shopDetail.jsp?id="+getQuery("id");
-			}
+			},
 			error:function(){
 				alert("error");
 			}
-		};
+		});
 		
 		window.location.href = "shopDetail.jsp?id="+getQuery("id");
 	});
@@ -337,7 +337,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- //footer-top -->  		
+	<!-- //footer-top -->
 	
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>

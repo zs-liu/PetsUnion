@@ -299,7 +299,7 @@
 	</div> 
 	<!-- //shop --> 
 	
-	<!-- @@ get information -->
+	<!-- get information -->
 	<script>
 	function getQuery(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -309,16 +309,16 @@
 	</script>
 	<!-- get information -->
 
-	<!-- @@ load user information when enter-->
+	<!-- @**@ load user information when enter-->
 	<script type="text/javascript">
-	/* $(document).ready(function(){
+	$(document).ready(function(){
 		alert("开始加载用户界面！");
 		
 		$.ajax({
 			url:"OwnerReservationServlet",
 			type:"post",
 			data:{
-				useId：'<%= session.getAttribute("Id")%>',
+				useId:'<////%=session.getAttribute("Id")%>',
 				status: 2
 			},
 			cache:false,
@@ -326,8 +326,8 @@
 			success:function(resp) {
 				console.log(resp);
 				
-				// $("#myname").text(resp[0].name);//用户名
-				// $("#myimg").attr("src", resp[0].image);//头像
+				//$("#myname").text(resp[0].name);//用户名 此处应有进一步的修改****
+				$("#myimg").attr("src", "images/s1.jpg");//头像
 				
 				var number=resp.length;
 				var iter=0;
@@ -350,18 +350,20 @@
 		
 		$(".shop-page").find("*").attr("style","border:0px;");
 		$(".shop-page").find("button").attr("style","font-size:110%;width:120px;heigt:50px;");
+
 		
 		alert("用户界面加载完成！");
-	}); */
+	});
 	</script>
 	<!-- //load user information when enter-->
 	
-	<!-- @@ just for test -->
+	<!-- @$$@ just for test -->
 	<script type="text/javascript">
-	$(document).ready(function(){
+	/*$(document).ready(function(){
 		alert("开始加载用户界面");
 		
-		//var userID = '<%= session.getAttribute("userId")%>';
+		//var userID = '<////%= session.getAttribute("userId")%>';
+
         //alert("session中存放的用户ID："+useID);
 	
 		$("#myname").text("代达罗斯");
@@ -385,13 +387,13 @@
 				
 		$(".shop-page").find("*").attr("style","border:0px;");
 		$(".shop-page").find("button").attr("style","font-size:110%;width:140px;heigt:50px;");
-		
+
 		alert("用户界面加载完成");
-	});
+	});*/
 	</script>
 	<!-- //just for test -->
 	
-	<!-- @@ jump -->
+	<!-- jump -->
 	<script>
 	$("button#history").click(function (){
 		alert("你点击了查看历史订单");

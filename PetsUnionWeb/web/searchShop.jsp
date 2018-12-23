@@ -38,9 +38,9 @@
 		<!-- scroll to fixed--> 
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 		<script>
-		<!-- @@ 全局变量 pageNumber计数器 -->
+		<!-- @--@ pageNumber -->
 		var pageNumber=1;
-		<!-- @@ pageNumber计数器 -->
+		<!-- @--@ pageNumber -->
 		$(document).ready(function() {
 
 			// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
@@ -193,7 +193,7 @@
 				</div>
 			</div>
 			
-			<!-- @@ get the shop information -->
+			<!-- @--@ get the shop information -->
 			<script>
 			function getQuery(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -205,7 +205,7 @@
 
 			<!-- @**@ load the shop information when first enter -->
 		    <script type="text/javascript">
-			/* $(document).ready(function(){
+			$(document).ready(function(){
 				alert("开始加载搜索界面！");
 				
 				var $search=decodeURI(getQuery("search"));
@@ -253,6 +253,7 @@
 							$goodbox.append($move);
 							$goodbox.find("*").attr("style","border:0px;");
 							
+
 							$product.append($goodbox);
 							
 							$jump.click(function(){
@@ -273,13 +274,13 @@
 				});
 						
 				alert("搜索界面加载完成！");
-			}); */
+			});
 			</script>
 			<!-- //load the shop information when first enter -->
 			
 			<!-- @$$@ just for test of last section-->
 			<script type="text/javascript">
-			$(document).ready(function(){
+			/* $(document).ready(function(){
 				alert("开始加载搜索界面！");
 				
 				var $search=decodeURI(getQuery("search"));
@@ -329,13 +330,13 @@
 				$(".col-md-9").append($product);
 						
 				alert("搜索界面加载完成！");
-			});
+			});*/
 			</script>
 			<!-- //just for test of last section-->
 			
 			<!-- @**@ load the shop information when click search button-->
 			<script>
-			/* $("button#submit").click(function(){
+			$("button#submit").click(function(){
 				var $value=document.getElementById("search").value;
 				
 				alert("您的搜索请求："+$value);
@@ -388,7 +389,6 @@
 							$goodbox.find("*").attr("style","border:0px;");
 							
 							$product.append($goodbox);
-							
 							$jump.click(function(){
 								var $shopImg=$(this).val();
 								var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
@@ -407,13 +407,13 @@
 				});
 				
 				alert("加载完成！");
-			}); */
+			});
 			</script>
 			<!-- load the shop information when click search button-->
 			
 			<!-- @$$@ just for test of last section-->
 			<script>
-			$("button#submit").click(function (){
+			/*$("button#submit").click(function (){
 				var $value=document.getElementById("search").value;
 				alert("您的搜索请求："+$value);
 				if($value==""){
@@ -466,7 +466,7 @@
 				$(".col-md-9").append($product);
 				
 				alert("搜索界面再次加载完成");
-			});
+			});*/
 		    </script>
 			<!-- //just for test of last section-->
 			
@@ -545,7 +545,7 @@
 						}
 						$(".col-md-9").append($product);
 					}
-				};
+				});
 				
 				alert("前一页加载完成");
 			});
@@ -568,6 +568,7 @@
 					},
 					cache:false,
 					dataType:"json",
+
 					success:function(data) {
 						console.log(data);
 						var resp=data.shop;
@@ -623,7 +624,7 @@
 						}
 						$(".col-md-9").append($product);
 					}
-				};
+				});
 				
 				alert("后一页加载完成");
 			});

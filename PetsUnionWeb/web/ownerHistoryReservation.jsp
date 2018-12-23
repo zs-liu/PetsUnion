@@ -284,47 +284,47 @@
 
 	<!-- @@ load user information when enter-->
 	<script type="text/javascript">
-	// $(document).ready(function(){
-		// alert("开始加载历史订单界面！");
-		
-		// $.ajax({
-			// url:"OwnerReservationServlet",
-			// type:"post",
-			// data:{
-				// userId:'<%= session.getAttribute("Id")%>'
-				// status:2
-			// },
-			// cache:false,
-			// dataType:"json",
-			// success:function(resp) {
-				// console.log(resp);
+	 $(document).ready(function(){
+		 alert("开始加载历史订单界面！");
 
-				// var iter=0;
-				// while(iter<=resp.reservation.length-1){
-					// var $tr = $("<tr></tr>");
-					// $tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
-					// $tr.append("<td>"+ resp.reservation[iter].orderId +"</td>");
-					// $tr.append("<td>"+ resp.reservation[iter].serBeginTime + " - " + resp.reservation[iter].serEndTime +"</td>");
-					// $tr.append("<td>"+ resp.reservation[iter].shopName +"</td>");
-					// $tr.append("<td>"+ resp.reservation[iter].serviceType +"</td>");
-					// $tr.append("<td>"+ resp.reservation[iter].petsType +"</td>");
-					// $tr.append("<td>"+ resp.reservation[iter].comment +"</td>");
-					
-					// $tr.appendTo($(".hovertable"));
-					
-					// iter=iter+1;
-				// }
-			// }
-		// });
-		
-		// alert("历史订单界面加载完成！");
-	// });
+		 $.ajax({
+			 url:"OwnerReservationServlet",
+			 type:"post",
+			 data:{
+				 userId:'<////%= session.getAttribute("Id")%>',
+				 status:2
+			 },
+			 cache:false,
+			 dataType:"json",
+			 success:function(resp) {
+				 console.log(resp);
+
+				 var iter=0;
+				 while(iter<=resp.reservation.length-1){
+					var $tr = $("<tr></tr>");
+					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+					$tr.append("<td>"+ resp.reservation[iter].orderId +"</td>");
+					$tr.append("<td>"+ resp.reservation[iter].serBeginTime + " - " + resp.reservation[iter].serEndTime +"</td>");
+					$tr.append("<td>"+ resp.reservation[iter].shopName +"</td>");
+					$tr.append("<td>"+ resp.reservation[iter].serviceType +"</td>");
+					$tr.append("<td>"+ resp.reservation[iter].petsType +"</td>");
+					$tr.append("<td>"+ resp.reservation[iter].comment +"</td>");
+
+					$tr.appendTo($(".hovertable"));
+
+					iter=iter+1;
+				 }
+			 }
+		 });
+
+		 alert("历史订单界面加载完成！");
+	 });
 	</script>
 	<!-- //load user information when enter-->
 	
 	<!-- @@ just for test -->
 	<script type="text/javascript">
-	$(document).ready(function(){
+	/*$(document).ready(function(){
 		alert("开始加载历史订单界面！");
 			
 		var iter=0;
@@ -345,7 +345,7 @@
 		
 		$(".reservation-page").find("*").attr("style","border:0px;");		
 		alert("历史订单界面加载完成！");
-	});
+	});*/
 	</script>
 	<!-- //just for test -->
 	
