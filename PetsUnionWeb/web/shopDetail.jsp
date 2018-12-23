@@ -470,18 +470,19 @@
 	    $("input#shopName").attr("value",$shopName);
 		$("input#useId").attr("value","1");
 		<!-- @@从session获取用户ID -->
-		//$("input#useId").attr("value",<%=Session["userId"]%>);
+		//$("input#useId").attr("value",<///////////////////%=Session["userId"]%>);
+
 		<!-- //从session获取用户ID -->
 		
 		$.ajax({
 			url:"ShopDetailServlet",
 			type:"post",
 			data:{
-				flag:1;
-				shopName:$shopName;
+				flag:1,
+				shopName:$shopName
 			},
 			cache:false,
-			dataType:"jsonp",
+			dataType:"json",
 			success:function(resp) {
 				console.log(resp);
 				$("#shopHours").text("营业时间："+resp.shopHours);

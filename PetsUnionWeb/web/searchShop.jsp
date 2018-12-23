@@ -217,12 +217,12 @@
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page:1;
-						petsType: $search;
-						serviceType: $search;
+						page:1,
+						petsType: $search,
+						serviceType: $search
 					},
 					cache:false,
-					dataType:"jsonp",
+					dataType:"json",
 					success:function(data) {
 						console.log(data);
 						var resp=data.shop;
@@ -253,6 +253,7 @@
 							$goodbox.append($move);
 							$goodbox.find("*").attr("style","border:0px;");
 							
+
 							$product.append($goodbox);
 							
 							$jump.click(function(){
@@ -351,12 +352,12 @@
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page:pageNumber;
-						petsType: $value;
-						serviceType: $value;
+						page:pageNumber,
+						petsType: $value,
+						serviceType: $value
 					},
 					cache:false,
-					dataType:"jsonp",
+					dataType:"json",
 					success:function(data) {
 						console.log(data);
 						var resp=data.shop;
@@ -388,7 +389,6 @@
 							$goodbox.find("*").attr("style","border:0px;");
 							
 							$product.append($goodbox);
-							
 							$jump.click(function(){
 								var $shopImg=$(this).val();
 								var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
@@ -485,12 +485,12 @@
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page: pageNumber;
-						petsType: document.getElementById("search").value;
-						serviceType: document.getElementById("search").value;
+						page: pageNumber,
+						petsType: document.getElementById("search").value,
+						serviceType: document.getElementById("search").value
 					},
 					cache:false,
-					dataType:"jsonp",
+					dataType:"json",
 					success:function(data) {
 						console.log(data);
 						var resp=data.shop;
@@ -562,12 +562,13 @@
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page: pageNumber;
-						petsType: document.getElementById("search").value;
-						serviceType: document.getElementById("search").value;
+						page: pageNumber,
+						petsType: document.getElementById("search").value,
+						serviceType: document.getElementById("search").value
 					},
 					cache:false,
-					dataType:"jsonp",
+					dataType:"json",
+
 					success:function(data) {
 						console.log(data);
 						var resp=data.shop;

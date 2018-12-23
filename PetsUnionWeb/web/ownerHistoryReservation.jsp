@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>shop</title>
+		<title>reservation</title>
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -195,7 +195,7 @@
 				</div>	
 				<div class="header-search">
 					<form action="#" method="post">
-						<input type="search" id="search" name="Search" placeholder="Search for a shop..." required="">
+						<input type="search" id="search" name="Search" placeholder="请输入宠物类型或服务类型..." required="">
 						<button type="button" id="submit" class="btn btn-default" aria-label="Left Align" >
 							<i class="fa fa-search" aria-hidden="true"> </i>
 						</button>
@@ -213,20 +213,8 @@
 		
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
-				<div class="menu">
-					<div class="cd-dropdown-wrapper">
-						<a class="cd-dropdown-trigger" href="#0">服务类别</a>
-						<nav class="cd-dropdown"> 
-							<a href="#0" class="cd-close">Close</a>
-							<ul class="cd-dropdown-content"> 
-								<li><a href="offers.html">宠物护理</a></li> 
-								<li><a href="sitemap.html">宠物寄养</a></li>  
-							</ul> <!-- .cd-dropdown-content -->
-						</nav> <!-- .cd-dropdown -->
-					</div> <!-- .cd-dropdown-wrapper -->	 
-				</div>
 				<div class="move-text">
-					<div class="marquee"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -241,10 +229,14 @@
 	<!-- return to searchShop -->
 	<script type="text/javascript">
 	$("button#submit").click(function (){
-		alert("你点击了搜索");
-		
 		var $value=document.getElementById("search").value;
-		window.location.href = "searchShop.jsp?search="+$value;
+		alert("您的搜索请求："+$value);
+		if($value==""){
+			alert("您的输入不能为空");
+			return false;
+		}
+			
+		window.location.href = "searchShop.jsp?search="+encodeURI(encodeURI($value));
 		
 		alert("跳转页面完成");
 	});
@@ -257,7 +249,7 @@
 		    <div class="reserve"><br><h1 class="reserve">您好，这是您的历史订单信息！</h1><br></div>
 			<table class="hovertable" width=1000px>
 				<tr>
-					<th>订单号</th><th>订单成交时间</th><th>宠物店名</th><th>花费</th><th>是否评价</th><th>订单详情</th>
+					<th>订单号</th><th>起止时间</th><th>宠物店名</th><th>服务类型</th><th>宠物类型</th><th>评价</th>
 				</tr>
 				<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
 					<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td><td>Item 1F</td> -->
@@ -299,28 +291,28 @@
 			// url:"OwnerReservationServlet",
 			// type:"post",
 			// data:{
-				// source："userOrderHistory";//表明是在询问历史订单的信息
+				// userId:'<%= session.getAttribute("Id")%>'
+				// status:2
 			// },
 			// cache:false,
-			// dataType:"jsonp",
+			// dataType:"json",
 			// success:function(resp) {
 				// console.log(resp);
-				
-				// var number=resp.number;
+
 				// var iter=0;
-				// while(iter<=number){
-					// iter=iter+1;
-					
+				// while(iter<=resp.reservation.length-1){
 					// var $tr = $("<tr></tr>");
 					// $tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
-					// $tr.append("<td>"+ resp[iter].orderNumber +"</td>");
-					// $tr.append("<td>"+ resp[iter].orderTime +"</td>");
-					// $tr.append("<td>"+ resp[iter].shopName +"</td>");
-					// $tr.append("<td>"+ resp[iter].expenditure +"</td>");
-					// $tr.append("<td>"+ resp[iter].evaluate +"</td>");
-					// $tr.append("<td>"+ resp[iter].orderDetail +"</td>");
-
+					// $tr.append("<td>"+ resp.reservation[iter].orderId +"</td>");
+					// $tr.append("<td>"+ resp.reservation[iter].serBeginTime + " - " + resp.reservation[iter].serEndTime +"</td>");
+					// $tr.append("<td>"+ resp.reservation[iter].shopName +"</td>");
+					// $tr.append("<td>"+ resp.reservation[iter].serviceType +"</td>");
+					// $tr.append("<td>"+ resp.reservation[iter].petsType +"</td>");
+					// $tr.append("<td>"+ resp.reservation[iter].comment +"</td>");
+					
 					// $tr.appendTo($(".hovertable"));
+					
+					// iter=iter+1;
 				// }
 			// }
 		// });
@@ -350,7 +342,8 @@
 			$tr.appendTo($(".hovertable"));
 			
 		}
-				
+		
+		$(".reservation-page").find("*").attr("style","border:0px;");		
 		alert("历史订单界面加载完成！");
 	});
 	</script>
