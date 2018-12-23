@@ -471,6 +471,7 @@
 		$("input#useId").attr("value","1");
 		<!-- @@从session获取用户ID -->
 		//$("input#useId").attr("value",<///////////////////%=Session["userId"]%>);
+
 		<!-- //从session获取用户ID -->
 		
 		$.ajax({

@@ -253,6 +253,7 @@
 							$goodbox.append($move);
 							$goodbox.find("*").attr("style","border:0px;");
 							
+
 							$product.append($goodbox);
 							
 							$jump.click(function(){
@@ -388,7 +389,6 @@
 							$goodbox.find("*").attr("style","border:0px;");
 							
 							$product.append($goodbox);
-							
 							$jump.click(function(){
 								var $shopImg=$(this).val();
 								var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
@@ -568,6 +568,7 @@
 					},
 					cache:false,
 					dataType:"json",
+
 					success:function(data) {
 						console.log(data);
 						var resp=data.shop;
