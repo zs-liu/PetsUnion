@@ -63,12 +63,12 @@
 		<script type="text/javascript" src="js/move-top.js"></script>
 		<script type="text/javascript" src="js/easing.js"></script>	
 		<script type="text/javascript">
-				jQuery(document).ready(function($) {
-					$(".scroll").click(function(event){		
-						event.preventDefault();
-						$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-					});
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 				});
+			});
 		</script>
 		<!-- //end-smooth-scrolling -->
 		
@@ -250,7 +250,7 @@
 			<div class="col-md-6 single-top-right">
 				<br><br>	
 				<h3 id="myname"></h3>
-				<p id="motto">个性签名：</p>
+				<br>
 				<br>
 				<button type="button" id="history" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 查看历史订单</button>
 			</div>
@@ -271,7 +271,7 @@
 							<div class="panel-body">
 								<table class="hovertable" width=1000px>
 									<tr>
-										<th>订单号</th><th>订单状态</th><th>宠物店名</th><th>服务类型</th><th>订单详情</th>
+										<th>订单号</th><th>订单状态</th><th>预约时间</th><th>宠物店名</th><th>服务类型</th><th>宠物类型</th>
 									</tr>
 									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
 										<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td> -->
@@ -318,15 +318,15 @@
 			url:"OwnerReservationServlet",
 			type:"post",
 			data:{
-				useId：'<%= session.getAttribute("Id")%>';//表明是在询问个人用户的信息
+				useId：'<%= session.getAttribute("Id")%>',
+				status: 2
 			},
 			cache:false,
-			dataType:"jsonp",
+			dataType:"json",
 			success:function(resp) {
 				console.log(resp);
 				
 				// $("#myname").text(resp[0].name);//用户名
-				// $("#motto").append(resp[0].motto);//个性签名
 				// $("#myimg").attr("src", resp[0].image);//头像
 				
 				var number=resp.length;
@@ -340,12 +340,16 @@
 					$tr.append("<td>"+ resp[iter].Status +"</td>");
 					$tr.append("<td>"+ resp[iter].shopName +"</td>");
 					$tr.append("<td>"+ resp[iter].servicesType +"</td>");
-					$tr.append("<td>"+ "宠物类型："+resp[iter].petsType +"起止时间："+resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
+					$tr.append("<td>"+ resp[iter].petsType);
+					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 
 					$tr.appendTo($(".hovertable"));
 				}
 			}
 		});
+		
+		$(".shop-page").find("*").attr("style","border:0px;");
+		$(".shop-page").find("button").attr("style","font-size:110%;width:120px;heigt:50px;");
 		
 		alert("用户界面加载完成！");
 	}); */
@@ -357,11 +361,10 @@
 	$(document).ready(function(){
 		alert("开始加载用户界面");
 		
-		//var userID = '<%= session.getAttribute("Id")%>';
+		//var userID = '<%= session.getAttribute("userId")%>';
         //alert("session中存放的用户ID："+useID);
 	
 		$("#myname").text("代达罗斯");
-		$("#motto").append("Dea");
 		$("#myimg").attr("src", "images/s1.jpg");
 			
 		var iter=0;
@@ -375,11 +378,14 @@
 			$tr.append("<td>"+ "item3" +"</td>");
 			$tr.append("<td>"+ "item4" +"</td>");
 			$tr.append("<td>"+ "item5" +"</td>");
+			$tr.append("<td>"+ "item6" +"</td>");
 
 			$tr.appendTo($(".hovertable"));
 		}
 				
 		$(".shop-page").find("*").attr("style","border:0px;");
+		$(".shop-page").find("button").attr("style","font-size:110%;width:140px;heigt:50px;");
+		
 		alert("用户界面加载完成");
 	});
 	</script>

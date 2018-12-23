@@ -273,20 +273,24 @@
 			url:"ReserveServiceServlet",
 			type:"post",
 			data:{
-				shopName: decodeURI(getQuery("shopName"));
-				serBeginTime: decodeURI(getQuery("serBeginTime");
-				serEndTime: decodeURI(getQuery("serEndTime"));
-				petsType: decodeURI(getQuery("petsType"));
-				serviceType: decodeURI(getQuery("serviceType"));
-				petsOwnerTel:decodeURI(getQuery("petsOwnerTel"));
-				userId:decodeURI(getQuery("userId"));
-				comment: $("textarea.reserve").val();
-				returnPath:"shopDetail.jsp?shopName="+decodeURI(getQuery("shopName"));
+				shopName: decodeURI(getQuery("shopName")),
+				serBeginTime: decodeURI(getQuery("serBeginTime")),
+				serEndTime: decodeURI(getQuery("serEndTime")),
+				petsType: decodeURI(getQuery("petsType")),
+				serviceType: decodeURI(getQuery("serviceType")),
+				petsOwnerTel:decodeURI(getQuery("petsOwnerTel")),
+				userId:decodeURI(getQuery("userId")),
+				comment: $("textarea.reserve").val(),
+				returnPath:"shopDetail.jsp?shopName="+decodeURI(getQuery("shopName"))
 			},
 			cache:false,
-			dataType:"jsonp",
-			success:function(resp) {
+			dataType:"json",
+			success:function() {
+				alert("success");
 				//window.location.href = "shopDetail.jsp?id="+getQuery("id");
+			}
+			error:function(){
+				alert("error");
 			}
 		};
 		
