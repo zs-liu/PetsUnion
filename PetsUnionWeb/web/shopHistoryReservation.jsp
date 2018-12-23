@@ -292,6 +292,7 @@
 			type:"post",
 			data:{
 				useId:'<////%= session.getAttribute("Id")%>',
+
 				status: 2
 			},
 			cache:false,

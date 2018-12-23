@@ -434,6 +434,7 @@
 			type:"post",
 			data:{
 				useId:'<////%= session.getAttribute("Id")%>',
+
 				status: 1
 			},
 			cache:false,
