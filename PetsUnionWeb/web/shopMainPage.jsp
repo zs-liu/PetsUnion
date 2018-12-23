@@ -352,14 +352,14 @@
 
 	<!-- @@ load user information when enter-->
 	<script type="text/javascript">
-	/* $(document).ready(function(){
+	$(document).ready(function(){
 		alert("开始加载用户界面！");
 		
 		$.ajax({
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId：'<%= session.getAttribute("Id")%>',
+				useId:'<////%= session.getAttribute("Id")%>',
 				status: 0
 			},
 			cache:false,
@@ -416,7 +416,7 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId：'<%= session.getAttribute("Id")%>',
+				useId:'<%= session.getAttribute("Id")%>',
 				status: 1
 			},
 			cache:false,
@@ -471,14 +471,14 @@
 		
 		$(".shop-page").find("*").not("button").attr("style","border:0px;");
 		
-		alert("店主界面加载完成"); */
+		alert("店主界面加载完成");
 	});
 	</script>
 	<!-- //load user information when enter-->
 	
 	<!-- @@ just for test -->
 	<script type="text/javascript">
-	$(document).ready(function(){
+	/*$(document).ready(function(){
 		alert("开始加载店主界面");
 	
 		$("#myname").text("代达罗斯");
@@ -540,7 +540,7 @@
 		$(".shop-page").find("*").not("button").attr("style","border:0px;");
 		
 		alert("店主界面加载完成");
-	});
+	});*/
 	</script>
 	<!-- //just for test -->
 	

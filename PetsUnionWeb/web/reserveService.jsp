@@ -288,11 +288,11 @@
 			success:function() {
 				alert("success");
 				//window.location.href = "shopDetail.jsp?id="+getQuery("id");
-			}
+			},
 			error:function(){
 				alert("error");
 			}
-		};
+		});
 		
 		window.location.href = "shopDetail.jsp?id="+getQuery("id");
 	});
@@ -337,7 +337,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- //footer-top -->  		
+	<!-- //footer-top -->
 	
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>

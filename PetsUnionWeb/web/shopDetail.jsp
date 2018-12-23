@@ -186,7 +186,7 @@
 			.validateTips { border: 1px solid transparent; padding: 0.3em; }
 		</style>
 		<script>
-		<!-- @@ dialog -->
+		<!--  dialog -->
 		$(function() {
 			$( "#dialog-form" ).dialog({
 			  autoOpen: false,
@@ -218,7 +218,7 @@
 			  }
 			});
 		});
-		<!-- //for dialog-form: style & js -->
+		<!-- for dialog-form: style & js -->
 		</script>
 		
 	</head>
@@ -363,11 +363,11 @@
 			</div>
 
 			<script type="text/javascript">
-			<!-- @@ open dialog -->
+			<!--  open_dialog -->
 			$("button#reserve").click(function(){
 				$( "#dialog-form" ).dialog( "open" );
 			});
-			<!-- //open dialog -->
+			<!-- open dialog -->
 			</script>
 			
 			<!-- collapse-tabs -->
@@ -438,7 +438,7 @@
 
 	<!-- @**@ load the shop information when first enter-->
 	<script type="text/javascript">
-	/* $(document).ready(function(){
+	$(document).ready(function(){
 		alert("开始加载商店界面！");
 		
 		var $search=decodeURI(getQuery("search"));
@@ -472,7 +472,7 @@
 		<!-- @@从session获取用户ID -->
 		//$("input#useId").attr("value",<///////////////////%=Session["userId"]%>);
 
-		<!-- //从session获取用户ID -->
+		<!-- 从session获取用户ID -->
 		
 		$.ajax({
 			url:"ShopDetailServlet",
@@ -506,13 +506,13 @@
 		
 		$(".shop-page").find("*").not("p").not("button").attr("style","border:0px;");
 		alert("商店界面加载完成！");
-	}); */
+	});
 	</script>
 	<!-- //load the shop information when first enter-->
 	
 	<!-- @$$@ just for test -->
 	<script type="text/javascript">
-	$(document).ready(function(){
+	/*$(document).ready(function(){
 		alert("开始加载商店界面！");
 		
         var $shopName=decodeURI(getQuery("shopName"));
@@ -560,7 +560,7 @@
 		$(".shop-page").find("*").not("p").not("button").attr("style","border:0px;");
 		
 		alert("商店界面加载完成！");
-	});
+	});*/
 	</script>
 	<!-- //just for test -->
 	

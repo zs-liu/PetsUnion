@@ -38,7 +38,7 @@
 		<!-- scroll to fixed--> 
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 		<script>
-		<!-- @@ 全局变量 pageNumber计数器 -->
+		<!--  全局变量_pageNumber计数器 -->
 		var pageNumber=1;
 		<!-- @@ pageNumber计数器 -->
 		$(document).ready(function() {
@@ -205,7 +205,7 @@
 
 			<!-- @**@ load the shop information when first enter -->
 		    <script type="text/javascript">
-			/* $(document).ready(function(){
+			$(document).ready(function(){
 				alert("开始加载搜索界面！");
 				
 				var $search=decodeURI(getQuery("search"));
@@ -274,13 +274,13 @@
 				});
 						
 				alert("搜索界面加载完成！");
-			}); */
+			});
 			</script>
 			<!-- //load the shop information when first enter -->
 			
 			<!-- @$$@ just for test of last section-->
 			<script type="text/javascript">
-			$(document).ready(function(){
+			/* $(document).ready(function(){
 				alert("开始加载搜索界面！");
 				
 				var $search=decodeURI(getQuery("search"));
@@ -330,13 +330,13 @@
 				$(".col-md-9").append($product);
 						
 				alert("搜索界面加载完成！");
-			});
+			});*/
 			</script>
 			<!-- //just for test of last section-->
 			
 			<!-- @**@ load the shop information when click search button-->
 			<script>
-			/* $("button#submit").click(function(){
+			$("button#submit").click(function(){
 				var $value=document.getElementById("search").value;
 				
 				alert("您的搜索请求："+$value);
@@ -407,13 +407,13 @@
 				});
 				
 				alert("加载完成！");
-			}); */
+			});
 			</script>
 			<!-- load the shop information when click search button-->
 			
 			<!-- @$$@ just for test of last section-->
 			<script>
-			$("button#submit").click(function (){
+			/*$("button#submit").click(function (){
 				var $value=document.getElementById("search").value;
 				alert("您的搜索请求："+$value);
 				if($value==""){
@@ -466,7 +466,7 @@
 				$(".col-md-9").append($product);
 				
 				alert("搜索界面再次加载完成");
-			});
+			});*/
 		    </script>
 			<!-- //just for test of last section-->
 			
@@ -545,7 +545,7 @@
 						}
 						$(".col-md-9").append($product);
 					}
-				};
+				});
 				
 				alert("前一页加载完成");
 			});
@@ -624,7 +624,7 @@
 						}
 						$(".col-md-9").append($product);
 					}
-				};
+				});
 				
 				alert("后一页加载完成");
 			});

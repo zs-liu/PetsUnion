@@ -311,14 +311,14 @@
 
 	<!-- @@ load user information when enter-->
 	<script type="text/javascript">
-	/* $(document).ready(function(){
+	$(document).ready(function(){
 		alert("开始加载用户界面！");
 		
 		$.ajax({
 			url:"OwnerReservationServlet",
 			type:"post",
 			data:{
-				useId：'<%= session.getAttribute("Id")%>',
+				useId:'<////%=session.getAttribute("Id")%>',
 				status: 2
 			},
 			cache:false,
@@ -353,16 +353,16 @@
 
 		
 		alert("用户界面加载完成！");
-	}); */
+	});
 	</script>
 	<!-- //load user information when enter-->
 	
 	<!-- @@ just for test -->
 	<script type="text/javascript">
-	$(document).ready(function(){
+	/*$(document).ready(function(){
 		alert("开始加载用户界面");
 		
-		//var userID = '<%= session.getAttribute("userId")%>';
+		//var userID = '<////%= session.getAttribute("userId")%>';
 
         //alert("session中存放的用户ID："+useID);
 	
@@ -389,7 +389,7 @@
 		$(".shop-page").find("button").attr("style","font-size:110%;width:140px;heigt:50px;");
 
 		alert("用户界面加载完成");
-	});
+	});*/
 	</script>
 	<!-- //just for test -->
 	
