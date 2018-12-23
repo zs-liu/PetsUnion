@@ -214,10 +214,14 @@
 		<!-- return to searchShop -->
 		<script type="text/javascript">
 		$("button#submit").click(function (){
-			alert("你点击了搜索");
-			
 			var $value=document.getElementById("search").value;
-			window.location.href = "searchShop.jsp?search="+$value;
+			alert("您的搜索请求："+$value);
+			if($value==""){
+				alert("您的输入不能为空");
+				return false;
+			}
+				
+			window.location.href = "searchShop.jsp?search="+encodeURI(encodeURI($value));
 			
 			alert("跳转页面完成");
 		});
