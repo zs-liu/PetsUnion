@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.OwnerBean;
 import bean.ServiceBean;
 import bean.ShopBean;
 import db.DBUtils;
@@ -55,14 +56,11 @@ public class ShopDAO {
     /**
      * write the new shop into database
      *
-     * @param ownerId           "shop id"
-     * @param name         "shop name"
-     * @param passwordHash "sha256 on password"
-     * @param tel          "shop telephone"
+     * @param owner shop owner
+     * @param shop  the shop
      * @return whether the register is successful
      */
-    public static int register(String ownerId, String name, String passwordHash, String tel,
-                               String shopName, String address) {
+    public static int register(OwnerBean owner, ShopBean shop) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
@@ -73,10 +71,10 @@ public class ShopDAO {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sql1);
-            pstmt.setString(1, ownerId);
-            pstmt.setString(2, passwordHash);
-            pstmt.setString(3, name);
-            pstmt.setString(4, tel);
+            pstmt.setString(1, owner.getOwnerId());
+            pstmt.setString(2, owner.getOwnerPw());
+            pstmt.setString(3, owner.getOwnerName());
+            pstmt.setString(4, owner.getOwnerTel());
             pstmt.executeUpdate();
 
         } catch (SQLException sqlE) {
@@ -86,15 +84,16 @@ public class ShopDAO {
             DBUtils.closeAll(result, pstmt, conn);
         }
 
-        String sql2 = "INSERT INTO petsshop(shopName, ownerId, address) VALUES(?,?,?);";
+        String sql2 = "INSERT INTO petsshop(shopName, ownerId, address, shopImgUrl) VALUES(?,?,?,?);";
 
         try {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sql2);
-            pstmt.setString(1, shopName);
-            pstmt.setString(2, ownerId);
-            pstmt.setString(3, address);
+            pstmt.setString(1, shop.getShopName());
+            pstmt.setString(2, shop.getOwnerId());
+            pstmt.setString(3, shop.getAddress());
+            pstmt.setString(4, shop.getShopImgUrl());
             pstmt.executeUpdate();
 
         } catch (SQLException sqlE) {
@@ -308,8 +307,8 @@ public class ShopDAO {
                 ShopBean shop = new ShopBean(result.getString("shopName"));
                 shop.setInstruction(result.getString("instruction"));
                 shop.setAddress(result.getString("address"));
-                shop.setShopTel("shopTel");
-                shop.setShopImgUrl("shopImgUrl");
+                shop.setShopTel(result.getString("shopTel"));
+                shop.setShopImgUrl(result.getString("shopImgUrl"));
                 shopList.add(shop);
             }
         } catch (SQLException sqlE) {

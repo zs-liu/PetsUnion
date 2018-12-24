@@ -1,20 +1,20 @@
 package service;
 
 import dao.OwnerDAO;
+import bean.OwnerBean;
 import tools.StaticPara.LoginRegisterPara;
 import tools.SHA;
 
 public class OwnerService {
 
     /**
-     * @param id       id from servlet
-     * @param password password from servlet
+     * @param owner owner from servlet
      * @return whether login successful
      */
-    public static int loginCheck(String id, String password) {
-        if (id == null || password == null) return LoginRegisterPara.invalid;
-        String passwordHash = SHA.SHA256(password);
-        return OwnerDAO.login(id, passwordHash);
+    public static int loginCheck(OwnerBean owner) {
+        if (owner.getOwnerId() == null || owner.getOwnerPw() == null) return LoginRegisterPara.invalid;
+        owner.setOwnerPw(SHA.SHA256(owner.getOwnerPw())); 
+        return OwnerDAO.login(owner);
     }
 
     /**

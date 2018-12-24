@@ -2,7 +2,9 @@ package dao;
 
 import db.DBUtils;
 import tools.StaticPara;
+import bean.OwnerBean;
 
+import java.security.acl.Owner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,25 +15,28 @@ public class OwnerDAO {
     /**
      * check whether the user exists (can login)
      *
-     * @param id           user id
-     * @param passwordHash sha256 on password
+     * @param owner login owner
      * @return whether login successful
      */
-    public static int login(String id, String passwordHash) {
+    public static int login(OwnerBean owner) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
-        String sql = "SELECT userId, userpw FROM petsowner WHERE userId=?";
+        String ownerId = owner.getOwnerId();
+        String ownerPw = owner.getOwnerPw();
+
+        String sql = "SELECT * FROM petsowner WHERE userId=?";
         try {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, id);
+            pstmt.setString(1, ownerId);
             result = pstmt.executeQuery();
 
             if (result.next()) {
-                if (passwordHash.equals(result.getString("userpw"))) {
+                if (ownerPw.equals(result.getString("userpw"))) {
+                    owner.setOwnerName(result.getString("userName"));
                     return StaticPara.LoginRegisterPara.success;
                 }
             } else {

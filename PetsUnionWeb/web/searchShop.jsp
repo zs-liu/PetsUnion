@@ -362,6 +362,7 @@
 					success:function(data) {
 						console.log(data);
 						var resp=data.shop;
+						alert(resp[0].shopImgUrl)
 						
 						var $product=$("<div>").addClass("products-block");
 						for(var i = 0; i < resp.length; i ++) {

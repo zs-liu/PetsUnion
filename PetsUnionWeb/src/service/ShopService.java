@@ -7,6 +7,8 @@ import tools.SHA;
 import tools.StaticPara.LoginRegisterPara;
 import dao.ShopDAO;
 import bean.ServiceBean;
+import bean.OwnerBean;
+import bean.ShopBean;
 
 public class ShopService {
 
@@ -22,17 +24,18 @@ public class ShopService {
     }
 
     /**
-     * @param id       id from servlet
-     * @param name     name from servlet
-     * @param password password from servlet
-     * @param tel      telephone from servlet
+     * @param owner owner from servlet
+     * @param shop  shop from servlet
      * @return whether register successful
      */
-    public static int registerCheck(String id, String name, String password, String tel,
-                                    String shopName, String address) {
-        if (name == null || password == null) return LoginRegisterPara.invalid;
-        String passwordHash = SHA.SHA256(password);
-        return ShopDAO.register(id, name, passwordHash, tel, shopName, address);
+    public static int registerCheck(OwnerBean owner, ShopBean shop) {
+        if (owner.getOwnerName() == null || owner.getOwnerPw() == null) return LoginRegisterPara.invalid;
+        owner.setOwnerPw(SHA.SHA256(owner.getOwnerPw()));
+        if (shop.getShopImgUrl() == null) {
+            int number = (int) (1 + Math.random() * (9));
+            shop.setShopImgUrl("images/portrait/portrait" + number + ".png");
+        }
+        return ShopDAO.register(owner, shop);
     }
 
     /**
@@ -63,11 +66,11 @@ public class ShopService {
     }
 
     /**
-     * @param shopName the ID of shop
+     * @param shopName     the ID of shop
      * @param serviceIntro the introduction of service
-     * @param serviceType the type of service
-     * @param petsType the type of pet
-     * @param price the price of service
+     * @param serviceType  the type of service
+     * @param petsType     the type of pet
+     * @param price        the price of service
      * @return whether update seccessful
      */
     public static int updateServiceByShop(String shopName, String serviceIntro, String serviceType,
