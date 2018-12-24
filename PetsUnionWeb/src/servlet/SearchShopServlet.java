@@ -27,7 +27,10 @@ public class SearchShopServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String petsType = request.getParameter("petsType");
         String serviceType = request.getParameter("serviceType");
-        List<ShopBean> shopList = ShopService.getShop(petsType, serviceType);
+        int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+        int perPage = Integer.parseInt(request.getParameter("perPage"));
+
+        List<ShopBean> shopList = ShopService.getShop(petsType, serviceType, pageNumber, perPage);
         JSONObject json = new JSONObject();
         JSONArray shopJsonList = new JSONArray();
 

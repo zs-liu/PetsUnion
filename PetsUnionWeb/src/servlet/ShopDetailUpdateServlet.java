@@ -29,7 +29,7 @@ public class ShopDetailUpdateServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int flag = Integer.parseInt(request.getParameter("flag"));
-        if (flag == ShopDetailUpdateServletPara.price) {
+        if (flag == ShopDetailUpdateServletPara.priceInsert || flag == ShopDetailUpdateServletPara.priceDelete) {
             String returnPath = request.getParameter("returnPath");
             String shopName = request.getParameter("shopName");
             JSONArray serviceTable = new JSONArray(request.getParameter("serviceTable"));
@@ -40,7 +40,13 @@ public class ShopDetailUpdateServlet extends HttpServlet {
                 String petsType = service.getString("petsType");
                 String price = service.getString("price");
 
-                int result = ShopService.updateServiceByShop(shopName, serviceIntro, serviceType, petsType, price);
+                int result = -1;
+                if (flag == ShopDetailUpdateServletPara.priceInsert) {
+                    result = ShopService.updateServiceByShop(shopName, serviceIntro, serviceType, petsType, price);
+                } else {
+                    result = ShopService.deleteServiceByShop(shopName, serviceIntro, serviceType, petsType, price);
+                }
+
                 if (result == SqlPara.sqlError) {
                     request.setAttribute("errorMessage", "SqlError");
                     request.getRequestDispatcher("/404.jsp").forward(request, response);
@@ -49,8 +55,9 @@ public class ShopDetailUpdateServlet extends HttpServlet {
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);
             } else {
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                request.getRequestDispatcher("/shopDetailUpdate.jsp").forward(request, response);
             }
+
         } else if (flag == ShopDetailUpdateServletPara.basic) {
             String returnPath = request.getParameter("returnPath");
             String shopName = request.getParameter("shopName");
@@ -65,7 +72,7 @@ public class ShopDetailUpdateServlet extends HttpServlet {
                 if (returnPath != null) {
                     request.getRequestDispatcher(returnPath).forward(request, response);
                 } else {
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    request.getRequestDispatcher("/shopDetailUpdate.jsp").forward(request, response);
                 }
             } else if (result == SqlPara.sqlError) {
                 request.setAttribute("errorMessage", "SqlError");

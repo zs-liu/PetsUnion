@@ -18,26 +18,26 @@ public class ShopDAO {
     /**
      * check whether the shop exists (can login)
      *
-     * @param id           "shop id"
-     * @param passwordHash "sha256 on password"
+     * @param owner the owner
      * @return whether login successful
      */
-    public static int login(String id, String passwordHash) {
+    public static int login(OwnerBean owner) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql = "SELECT ownerid, ownerpw FROM shopowner WHERE ownerid=?";
 
         try {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, id);
+            pstmt.setString(1, owner.getOwnerId());
             result = pstmt.executeQuery();
 
             if (result.next()) {
-                if (passwordHash.equals(result.getString("ownerpw"))) {
+                if (owner.getOwnerPw().equals(result.getString("ownerpw"))) {
                     return StaticPara.LoginRegisterPara.success;
                 }
             } else {
@@ -65,6 +65,7 @@ public class ShopDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql1 = "INSERT INTO shopowner(ownerId,ownerPw,ownerName,ownerTel) VALUES(?,?,?,?);";
 
         try {
@@ -84,6 +85,7 @@ public class ShopDAO {
             DBUtils.closeAll(result, pstmt, conn);
         }
 
+        //language=MySQL
         String sql2 = "INSERT INTO petsshop(shopName, ownerId, address, shopImgUrl) VALUES(?,?,?,?);";
 
         try {
@@ -121,6 +123,7 @@ public class ShopDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql = "INSERT INTO shopservice(shopName,serviceIntro,serviceType,petsType,price) VALUES(?,?,?,?,?);";
 
         try {
@@ -143,6 +146,33 @@ public class ShopDAO {
         return StaticPara.SqlPara.success;
     }
 
+    public static int deleteServiceByShop(String shopName, String serviceIntro, String serviceType,
+                                          String petsType, String price) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet result = null;
+
+        //language=MySQL
+        String sql = "DELETE FROM shopservice WHERE shopName=? AND serviceType=? AND petsType=?;";
+
+        try {
+            conn = DBUtils.getConn();
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, shopName);
+            pstmt.setString(2, serviceType);
+            pstmt.setString(3, petsType);
+            pstmt.executeUpdate();
+
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.SqlPara.sqlError;
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
+        return StaticPara.SqlPara.success;
+    }
+
 
     public static int updateInfoByShop(String shopName, String instruction, String shopImgUrl,
                                        String address, String shopHours, String shopTel) {
@@ -150,6 +180,7 @@ public class ShopDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql = "UPDATE petsshop SET instruction=?,shopImgUrl=?,address=?,shopHours=?,shopTel=? WHERE shopName=?";
 
         try {
@@ -188,6 +219,7 @@ public class ShopDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql = "SELECT serviceIntro, price FROM shopservice " +
                 "WHERE shopName=? AND petsType = ? AND serviceType=?";
 
@@ -228,6 +260,7 @@ public class ShopDAO {
 
         ShopBean shopBean = null;
 
+        //language=MySQL
         String sql1 = "SELECT * FROM petshop WHERE shopName=?";
 
         try {
@@ -252,6 +285,7 @@ public class ShopDAO {
             DBUtils.closeAll(result, pstmt, conn);
         }
 
+        //language=MySQL
         String sql2 = "SELECT * FROM shopservice WHERE shopName=?";
 
         try {
@@ -285,15 +319,17 @@ public class ShopDAO {
      * @param serviceType the service type
      * @return the list of shop
      */
-    public static List<ShopBean> getShop(String petsType, String serviceType) {
+    public static List<ShopBean> getShop(String petsType, String serviceType, int pageNumber, int perPage) {
         List<ShopBean> shopList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql = "SELECT a.shopname,a.instruction, a.address,a.shopTel, a.shopImgUrl " +
                 "FROM petsshop a, shopservice b " +
-                "WHERE a.shopname = b.shopname AND b.petstype=? AND b.servicetype=?";
+                "WHERE a.shopname = b.shopname AND b.petstype=? AND b.servicetype=?" +
+                "LIMIT ?,?";
 
         try {
             conn = DBUtils.getConn();
@@ -301,6 +337,8 @@ public class ShopDAO {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, petsType);
             pstmt.setString(2, serviceType);
+            pstmt.setInt(3, (pageNumber - 1) * perPage);
+            pstmt.setInt(4, perPage);
             result = pstmt.executeQuery();
 
             while (result.next()) {

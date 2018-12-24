@@ -2,7 +2,6 @@ package service;
 
 import java.util.List;
 
-import bean.ShopBean;
 import tools.SHA;
 import tools.StaticPara.LoginRegisterPara;
 import dao.ShopDAO;
@@ -13,14 +12,13 @@ import bean.ShopBean;
 public class ShopService {
 
     /**
-     * @param id       id from servlet
-     * @param password password from servlet
+     * @param owner owner from servlet
      * @return whether login successful
      */
-    public static int loginCheck(String id, String password) {
-        if (id == null || password == null) return LoginRegisterPara.invalid;
-        String passwordHash = SHA.SHA256(password);
-        return ShopDAO.login(id, passwordHash);
+    public static int loginCheck(OwnerBean owner) {
+        if (owner.getOwnerId() == null || owner.getOwnerPw() == null) return LoginRegisterPara.invalid;
+        owner.setOwnerPw(SHA.SHA256(owner.getOwnerPw()));
+        return ShopDAO.login(owner);
     }
 
     /**
@@ -61,8 +59,8 @@ public class ShopService {
      * @param serviceType the typeof service
      * @return the list of service
      */
-    public static List<ShopBean> getShop(String petsType, String serviceType) {
-        return ShopDAO.getShop(petsType, serviceType);
+    public static List<ShopBean> getShop(String petsType, String serviceType, int pageNumber, int perPage) {
+        return ShopDAO.getShop(petsType, serviceType, pageNumber, perPage);
     }
 
     /**
@@ -76,6 +74,11 @@ public class ShopService {
     public static int updateServiceByShop(String shopName, String serviceIntro, String serviceType,
                                           String petsType, String price) {
         return ShopDAO.updateServiceByShop(shopName, serviceIntro, serviceType, petsType, price);
+    }
+
+    public static int deleteServiceByShop(String shopName, String serviceIntro, String serviceType,
+                                          String petsType, String price) {
+        return ShopDAO.deleteServiceByShop(shopName, serviceIntro, serviceType, petsType, price);
     }
 
     public static int updateInfoByShop(String shopName, String instruction, String shopImgUrl,

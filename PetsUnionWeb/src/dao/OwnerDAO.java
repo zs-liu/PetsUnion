@@ -4,7 +4,6 @@ import db.DBUtils;
 import tools.StaticPara;
 import bean.OwnerBean;
 
-import java.security.acl.Owner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +25,7 @@ public class OwnerDAO {
         String ownerId = owner.getOwnerId();
         String ownerPw = owner.getOwnerPw();
 
+        //language=MySQL
         String sql = "SELECT * FROM petsowner WHERE userId=?";
         try {
             conn = DBUtils.getConn();
@@ -66,6 +66,7 @@ public class OwnerDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sqlInsert = "INSERT INTO petsowner(userId,userPw,userName,userTel) VALUES(?,?,?,?);";
 
         try {
