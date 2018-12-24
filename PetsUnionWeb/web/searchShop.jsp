@@ -38,9 +38,10 @@
 		<!-- scroll to fixed--> 
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 		<script>
-		<!--  全局变量_pageNumber计数器 -->
+		<!-- @--@ pageNumber -->
+
 		var pageNumber=1;
-		<!-- @@ pageNumber计数器 -->
+		<!-- @--@ pageNumber -->
 		$(document).ready(function() {
 
 			// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
@@ -193,7 +194,7 @@
 				</div>
 			</div>
 			
-			<!-- @@ get the shop information -->
+			<!-- @--@ get the shop information -->
 			<script>
 			function getQuery(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

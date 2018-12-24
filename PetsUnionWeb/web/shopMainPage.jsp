@@ -254,13 +254,12 @@
 			<div class="col-md-6 single-top-right">
 				<br><br>	
 				<h3 id="myname"></h3>
-				<p id="address">地址：</p>
+				<p id="tel"></p>
+				<p id="address"></p>
 				<br>
 				<button type="button" id="history" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 查看历史订单</button>
 				<br><br>
 				<button type="button" id="data" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 门店信息管理</button>
-				<br><br>
-				<button type="button" id="schedule" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 日程管理</button>
 			</div>
 			<div class="clearfix"> </div> 
 			
@@ -340,7 +339,7 @@
 	</div> 
 	<!-- //shop --> 
 	
-	<!-- @@ get information -->
+	<!-- @--@ get information -->
 	<script>
 	function getQuery(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -350,10 +349,28 @@
 	</script>
 	<!-- get information -->
 
-	<!-- @@ load user information when enter-->
+	<!-- @**@ load user information when enter-->
 	<script type="text/javascript">
 	$(document).ready(function(){
-		alert("开始加载用户界面！");
+		alert("开始加载宠物店主界面！");
+		
+		$.ajax({
+			url:"ShopDetailServlet",
+			type:"post",
+			data:{
+				flag:1,
+				shopName:'<////%= session.getAttribute("Id")%>'
+			},
+			cache:false,
+			dataType:"json",
+			success:function(resp) {
+				console.log(resp);
+				$("#myname").text(resp.shopName);
+				$("#myimg").attr("src", resp.shopImgUrl);
+				$("#address").text("地址："+resp.address);
+				$("#tel").text("电话："+resp.shopTel);
+			}
+		});
 		
 		$.ajax({
 			url:"ShopReservationServlet",
@@ -367,9 +384,7 @@
 			success:function(resp) {
 				console.log(resp);
 				
-				// $("#myname").text(resp[0].name);//店主名
-				// $("#motto").append(resp[0].address);//地址
-				// $("#myimg").attr("src", resp[0].image);//头像
+				alert("开始加载未确认订单");
 				
 				var number=resp.length;
 				var iter=0;
@@ -409,6 +424,8 @@
 					
 					$tr.appendTo($(".hovertable#comfirm"));
 				}
+				
+				alert("未确认订单加载完成");
 			}
 		});
 		
@@ -416,7 +433,8 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:'<%= session.getAttribute("Id")%>',
+				useId:'<////%= session.getAttribute("Id")%>',
+
 				status: 1
 			},
 			cache:false,
@@ -424,10 +442,8 @@
 			success:function(resp) {
 				console.log(resp);
 				
-				// $("#myname").text(resp[0].name);//店主名
-				// $("#motto").append(resp[0].address);//地址
-				// $("#myimg").attr("src", resp[0].image);//头像
-				
+				alert("开始加载未完成订单");
+
 				var number=resp.length;
 				var iter=0;
 				while(iter<=number){
@@ -466,6 +482,8 @@
 					
 					$tr.appendTo($(".hovertable#complete"));
 				}
+				
+				alert("未完成订单加载完成");
 			}
 		});
 		
@@ -476,7 +494,7 @@
 	</script>
 	<!-- //load user information when enter-->
 	
-	<!-- @@ just for test -->
+	<!-- @$$@ just for test -->
 	<script type="text/javascript">
 	/*$(document).ready(function(){
 		alert("开始加载店主界面");
@@ -562,18 +580,6 @@
 		alert("你点击了门店信息管理");
 		
 		window.open("shopDetailUpdate.jsp");
-		
-		alert("新页面加载完成");
-	});
-	</script>
-	<!-- //jump-->
-
-	<!-- @@ jump -->
-	<script>
-	$("button#schedule").click(function (){
-		alert("你点击了日程管理");
-		
-		window.open("shopSchedule.jsp");
 		
 		alert("新页面加载完成");
 	});

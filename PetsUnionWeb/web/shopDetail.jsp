@@ -186,7 +186,7 @@
 			.validateTips { border: 1px solid transparent; padding: 0.3em; }
 		</style>
 		<script>
-		<!--  dialog -->
+
 		$(function() {
 			$( "#dialog-form" ).dialog({
 			  autoOpen: false,
@@ -195,31 +195,53 @@
 			  modal: true,
 			  buttons: {
 				"创建申请": function() {
-					var $petsType=encodeURI(encodeURI($("input#petsType").val()));
-					var $serviceType=encodeURI(encodeURI($("input#serviceType").val()));
-					var $serBeginTime=encodeURI(encodeURI($("input#serBeginTime").val()));
-					var $serEndTime=encodeURI(encodeURI($("input#serEndTime").val()));
-					var $petsOwnerTel=encodeURI(encodeURI($("input#petsOwnerTel").val()));
-					var $userId=encodeURI(encodeURI($("input#userId").val()));
-					var $shopName=encodeURI(encodeURI($("input#shopName").val()));						
-				    
-					window.open("reserveService.jsp?shopName="+$shopName+"&serviceType="+$serviceType+"&serBeginTime="+$serBeginTime
-						+"&serEndTime="+$serEndTime+"&userId="+$userId+"&petsType="+$petsType+"&petsOwnerTel="+$petsOwnerTel);
+					var judge=1;
+					var inputs=$("#dialog-form").find("input[type='text']");
+					inputs.each(function(n){
+						if($(this).val()==""){
+							judge=2;
+							$(this).attr("placeholder","此处不能为空");
+						}
+						else $(this).attr("placeholder","");
+					});
 					
-				    //allFields.removeClass( "ui-state-error" );
-					$( this ).dialog( "close" );
+					if((/^[1-9]\d*$|^0$/).test($("input#petsOwnerTel").val())==false){
+						judge=2;
+						$("input#petsOwnerTel").val("");
+						$("input#petsOwnerTel").attr("placeholder","此处请输入纯数字");
+					}
+					else{
+						$("input#petsOwnerTel").attr("placeholder","");
+					}
+					
+					if(judge==1){
+						var $petsType=encodeURI(encodeURI($("input#petsType").val()));
+						var $serviceType=encodeURI(encodeURI($("input#serviceType").val()));
+						var $serBeginTime=encodeURI(encodeURI($("input#serBeginTime").val()));
+						var $serEndTime=encodeURI(encodeURI($("input#serEndTime").val()));
+						var $petsOwnerTel=encodeURI(encodeURI($("input#petsOwnerTel").val()));
+						var $userId=encodeURI(encodeURI($("input#userId").val()));
+						var $shopName=encodeURI(encodeURI($("input#shopName").val()));	
+						
+						window.open("reserveService.jsp?shopName="+$shopName+"&serviceType="+$serviceType+"&serBeginTime="+$serBeginTime
+							+"&serEndTime="+$serEndTime+"&userId="+$userId+"&petsType="+$petsType+"&petsOwnerTel="+$petsOwnerTel);
+					
+						$( this ).dialog( "close" );
+					}
+				    else return;
 				},
 				"取消": function() {
 				    $( this ).dialog( "close" );
 				}
 			  },
 			  close: function() {
-				//allFields.val( "" ).removeClass( "ui-state-error" );
+				  $( this ).dialog( "close" );
 			  }
 			});
 		});
-		<!-- for dialog-form: style & js -->
+
 		</script>
+		<!-- for dialog-form: style & js -->
 		
 	</head>
 	
@@ -269,7 +291,7 @@
 			</div>		
 		</div><!-- //header-two -->
 		
-		<!-- @@ return to searchShop -->
+		<!-- @--@ return to searchShop -->
 		<script type="text/javascript">
 		$("button#submit").click(function (){
 			var $value=document.getElementById("search").value;
@@ -324,7 +346,7 @@
 				<h3 class="item_name">THU宠物护理</h3>
 				<div class="single-rating">
 					<ul>
-						<li><a href="#" id="user-review">添加您的评论</a></li>
+						<li>欢迎光临本店</li>
 					</ul> 
 				</div>
 				<p style="color:black;font-size:110%;" id="credit"></p>
@@ -363,7 +385,8 @@
 			</div>
 
 			<script type="text/javascript">
-			<!--  open_dialog -->
+			<!-- @--@ open_dialog -->
+
 			$("button#reserve").click(function(){
 				$( "#dialog-form" ).dialog( "open" );
 			});
@@ -426,7 +449,7 @@
 	</div> 
 	<!-- //shop --> 
 	
-	<!-- @@ get the shop information -->
+	<!-- @--@ get the shop information -->
 	<script>
 	function getQuery(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -468,9 +491,11 @@
 		$("#thirdthumb").attr("data-thumb", "images/s3.jpg");
 			
 	    $("input#shopName").attr("value",$shopName);
-		$("input#useId").attr("value","1");
-		<!-- @@从session获取用户ID -->
-		//$("input#useId").attr("value",<///////////////////%=Session["userId"]%>);
+
+		$("input#userId").attr("value","1");
+		<!-- @--@从session获取用户ID -->
+		// $("input#userId").val(<////////%=Session["userId"]%>);
+		// alert($("input#useId").val());
 
 		<!-- 从session获取用户ID -->
 		

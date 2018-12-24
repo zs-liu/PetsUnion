@@ -214,10 +214,14 @@
 		<!-- return to searchShop -->
 		<script type="text/javascript">
 		$("button#submit").click(function (){
-			alert("你点击了搜索");
-			
 			var $value=document.getElementById("search").value;
-			window.location.href = "searchShop.jsp?search="+$value;
+			alert("您的搜索请求："+$value);
+			if($value==""){
+				alert("您的输入不能为空");
+				return false;
+			}
+				
+			window.location.href = "searchShop.jsp?search="+encodeURI(encodeURI($value));
 			
 			alert("跳转页面完成");
 		});
@@ -299,7 +303,7 @@
 	</div> 
 	<!-- //shop --> 
 	
-	<!-- @@ get information -->
+	<!-- get information -->
 	<script>
 	function getQuery(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -309,7 +313,7 @@
 	</script>
 	<!-- get information -->
 
-	<!-- @@ load user information when enter-->
+	<!-- @**@ load user information when enter-->
 	<script type="text/javascript">
 	$(document).ready(function(){
 		alert("开始加载用户界面！");
@@ -326,8 +330,8 @@
 			success:function(resp) {
 				console.log(resp);
 				
-				// $("#myname").text(resp[0].name);//用户名
-				// $("#myimg").attr("src", resp[0].image);//头像
+				//$("#myname").text(resp[0].name);//用户名 此处应有进一步的修改****
+				$("#myimg").attr("src", "images/s1.jpg");//头像
 				
 				var number=resp.length;
 				var iter=0;
@@ -357,7 +361,7 @@
 	</script>
 	<!-- //load user information when enter-->
 	
-	<!-- @@ just for test -->
+	<!-- @$$@ just for test -->
 	<script type="text/javascript">
 	/*$(document).ready(function(){
 		alert("开始加载用户界面");
@@ -393,7 +397,7 @@
 	</script>
 	<!-- //just for test -->
 	
-	<!-- @@ jump -->
+	<!-- jump -->
 	<script>
 	$("button#history").click(function (){
 		alert("你点击了查看历史订单");

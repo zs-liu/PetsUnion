@@ -282,7 +282,7 @@
 	</script>
 	<!-- get the shop information -->
 
-	<!-- @@ load user information when enter-->
+	<!-- @**@ load user information when enter-->
 	<script type="text/javascript">
 	$(document).ready(function(){
 		alert("开始加载历史订单界面！");
@@ -291,7 +291,8 @@
 			url:"OwnerReservationServlet",
 			type:"post",
 			data:{
-				useId:'<%= session.getAttribute("Id")%>',
+				useId:'<////%= session.getAttribute("Id")%>',
+
 				status: 2
 			},
 			cache:false,
@@ -326,7 +327,7 @@
 	</script>
 	<!-- //load user information when enter-->
 	
-	<!-- @@ just for test -->
+	<!-- @$$@ just for test -->
 	<script type="text/javascript">
 	/*$(document).ready(function(){
 		alert("开始加载历史订单界面！");
