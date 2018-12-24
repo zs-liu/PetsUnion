@@ -186,6 +186,7 @@
 			.validateTips { border: 1px solid transparent; padding: 0.3em; }
 		</style>
 		<script>
+
 		$(function() {
 			$( "#dialog-form" ).dialog({
 			  autoOpen: false,
@@ -238,6 +239,7 @@
 			  }
 			});
 		});
+
 		</script>
 		<!-- for dialog-form: style & js -->
 		
@@ -384,6 +386,7 @@
 
 			<script type="text/javascript">
 			<!-- @--@ open_dialog -->
+
 			$("button#reserve").click(function(){
 				$( "#dialog-form" ).dialog( "open" );
 			});
@@ -488,10 +491,12 @@
 		$("#thirdthumb").attr("data-thumb", "images/s3.jpg");
 			
 	    $("input#shopName").attr("value",$shopName);
+
 		$("input#userId").attr("value","1");
 		<!-- @--@从session获取用户ID -->
 		// $("input#userId").val(<////////%=Session["loggedId"]%>);
 		// alert($("input#useId").val());
+
 		<!-- 从session获取用户ID -->
 		
 		$.ajax({

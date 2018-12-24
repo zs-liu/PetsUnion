@@ -39,6 +39,7 @@
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 		<script>
 		<!-- @--@ pageNumber -->
+
 		var pageNumber=1;
 		<!-- @--@ pageNumber -->
 		$(document).ready(function() {
