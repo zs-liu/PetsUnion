@@ -291,8 +291,8 @@
 			 url:"OwnerReservationServlet",
 			 type:"post",
 			 data:{
-				 userId:'<////%= session.getAttribute("Id")%>',
-				 status:2
+				 userId:encodeURI('<////%= session.getAttribute("Id")%>'),
+				 status:encodeURI(2)
 			 },
 			 cache:false,
 			 dataType:"json",
