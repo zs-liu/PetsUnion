@@ -322,15 +322,15 @@
 			url:"OwnerReservationServlet",
 			type:"post",
 			data:{
-				useId:'<////%=session.getAttribute("Id")%>',
-				status: 2
+				useId:encodeURI('<////%=session.getAttribute("loggedId")%>'),
+				status: encodeURI(2)
 			},
 			cache:false,
 			dataType:"json",
 			success:function(resp) {
 				console.log(resp);
 				
-				//$("#myname").text(resp[0].name);//用户名 此处应有进一步的修改****
+				//$("#myname").text(<////%=session.getAttribute("loggedName")%>);
 				$("#myimg").attr("src", "images/s1.jpg");//头像
 				
 				var number=resp.length;

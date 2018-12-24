@@ -218,8 +218,8 @@
 					type:"post",
 					data:{
 						page:1,
-						petsType: $search,
-						serviceType: $search
+						petsType: encodeURI($search),
+						serviceType: encodeURI($search)
 					},
 					cache:false,
 					dataType:"json",
@@ -251,7 +251,8 @@
 							$goodbox.append($link);
 							$goodbox.append($content);
 							$goodbox.append($move);
-							$goodbox.find("*").attr("style","border:0px;");
+							$goodbox.find("*").not("button").attr("style","border:0px;");
+							$goodbox.find("p").attr("style","border:0px;color:black;");
 							
 
 							$product.append($goodbox);
@@ -353,8 +354,8 @@
 					type:"post",
 					data:{
 						page:pageNumber,
-						petsType: $value,
-						serviceType: $value
+						petsType: encodeURI($value),
+						serviceType: encodeURI($value)
 					},
 					cache:false,
 					dataType:"json",
@@ -386,7 +387,8 @@
 							$goodbox.append($link);
 							$goodbox.append($content);
 							$goodbox.append($move);
-							$goodbox.find("*").attr("style","border:0px;");
+							$goodbox.find("*").not("button").attr("style","border:0px;");
+							$goodbox.find("p").attr("style","border:0px;color:black;");
 							
 							$product.append($goodbox);
 							$jump.click(function(){
@@ -486,8 +488,8 @@
 					type:"post",
 					data:{
 						page: pageNumber,
-						petsType: document.getElementById("search").value,
-						serviceType: document.getElementById("search").value
+						petsType: encodeURI($value),
+						serviceType: encodeURI($value)
 					},
 					cache:false,
 					dataType:"json",
@@ -526,7 +528,8 @@
 							$goodbox.append($link);
 							$goodbox.append($content);
 							$goodbox.append($move);
-							$goodbox.find("*").attr("style","border:0px;");
+							$goodbox.find("*").not("button").attr("style","border:0px;");
+							$goodbox.find("p").attr("style","border:0px;color:black;");
 							
 							$product.append($goodbox);
 							
@@ -563,8 +566,8 @@
 					type:"post",
 					data:{
 						page: pageNumber,
-						petsType: document.getElementById("search").value,
-						serviceType: document.getElementById("search").value
+						petsType: encodeURI($value),
+						serviceType: encodeURI($value)
 					},
 					cache:false,
 					dataType:"json",
@@ -605,7 +608,8 @@
 							$goodbox.append($link);
 							$goodbox.append($content);
 							$goodbox.append($move);
-							$goodbox.find("*").attr("style","border:0px;");
+							$goodbox.find("*").not("button").attr("style","border:0px;");
+							$goodbox.find("p").attr("style","border:0px;color:black;");
 							
 							$product.append($goodbox);
 							

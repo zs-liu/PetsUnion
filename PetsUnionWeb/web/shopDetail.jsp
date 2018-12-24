@@ -490,7 +490,7 @@
 	    $("input#shopName").attr("value",$shopName);
 		$("input#userId").attr("value","1");
 		<!-- @--@从session获取用户ID -->
-		// $("input#userId").val(<////////%=Session["userId"]%>);
+		// $("input#userId").val(<////////%=Session["loggedId"]%>);
 		// alert($("input#useId").val());
 		<!-- 从session获取用户ID -->
 		
@@ -498,8 +498,8 @@
 			url:"ShopDetailServlet",
 			type:"post",
 			data:{
-				flag:1,
-				shopName:$shopName
+				flag:encodeURI(1),
+				shopName:encodeURI($shopName)
 			},
 			cache:false,
 			dataType:"json",

@@ -358,8 +358,8 @@
 			url:"ShopDetailServlet",
 			type:"post",
 			data:{
-				flag:1,
-				shopName:'<////%= session.getAttribute("Id")%>'
+				flag:encodeURI(1),
+				shopName:encodeURI('<////%= session.getAttribute("Id")%>')
 			},
 			cache:false,
 			dataType:"json",
@@ -376,8 +376,8 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:'<////%= session.getAttribute("Id")%>',
-				status: 0
+				useId:encodeURI('<////%= session.getAttribute("Id")%>'),
+				status: encodeURI(0)
 			},
 			cache:false,
 			dataType:"json",
@@ -433,8 +433,8 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:'<////%= session.getAttribute("Id")%>',
-				status: 1
+				useId:encodeURI('<////%= session.getAttribute("Id")%>'),
+				status: encodeURI(1)
 			},
 			cache:false,
 			dataType:"json",
