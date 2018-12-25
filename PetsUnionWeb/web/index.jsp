@@ -141,7 +141,15 @@ response.setDateHeader("Expires",0);
 </head>
 
 <% 
-	String userID = (String)session.getAttribute("logged");
+	String userID = (String)session.getAttribute("loggedId");
+	String type = (String)session.getAttribute("loggedType");
+	String mainPage = "#";
+	if(type=="petsOwner"){
+		mainPage = "ownerMainPage.jsp";
+	}
+	else if(type=="shopOwner"){
+		mainPage="shopMainPage.jsp";
+	}
 %>
 
 <body data-spy="scroll" data-offset="100">
@@ -161,7 +169,7 @@ response.setDateHeader("Expires",0);
 							%>
 							<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="ownerMainPage.jsp">主页 </a></li> 
+								<li><a href= <%=mainPage%> >主页 </a></li> 
 								<li><a href="index.jsp">切换账号</a></li>  
 							</ul> 
 							<%}%>
