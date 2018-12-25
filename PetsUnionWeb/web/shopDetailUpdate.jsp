@@ -1,6 +1,12 @@
-
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
+<!doctype html>
+<html lang="">
+	<%
+response.setHeader("Cache-Control","no-store");
+response.setHeader("Pragrma","no-cache");
+response.setDateHeader("Expires",0);
+%>
 	<head>
 		<title>shop</title>
 		
@@ -10,7 +16,12 @@
 		
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 				function hideURLbar(){ window.scrollTo(0,1); } </script>
-				
+		<style type="text/css">
+			input.form-control {
+				margin: 5px;
+			}
+		</style>
+
 		<!-- Custom Theme files -->
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" /> 
@@ -37,7 +48,9 @@
 		
 		<!-- scroll to fixed--> 
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
-		<script>
+
+	<script>
+
 			$(document).ready(function() {
 
 				// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
@@ -103,20 +116,27 @@
 		</script>
 		<!-- //smooth-scrolling-of-move-up --> 
 		
-		<!-- the jScrollPane script -->
-		<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
-		<script type="text/javascript" id="sourcecode">
-			$(function()
-			{
-				$('.scroll-pane').jScrollPane();
+		<!-- smooth-scrolling-of-move-up -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+			
+				var defaults = {
+					containerID: 'toTop', // fading element id
+					containerHoverID: 'toTopHover', // fading element hover id
+					scrollSpeed: 1200,
+					easingType: 'linear' 
+				};
+				
+				$().UItoTop({ easingType: 'easeOutQuart' });
+				
 			});
 		</script>
-		<!-- //the jScrollPane script -->
-		
-		<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
-		<!-- the mousewheel plugin --> 
-				
-	</head>
+		<!-- //smooth-scrolling-of-move-up -->
+		</head>
+
+<% 
+String userID = (String)session.getAttribute("logged");
+%>
 	
 <body>
 	<!-- header -->
@@ -125,17 +145,27 @@
 			<div class="uniform-header-right">
 				<ul>
 					<li class="dropdown head-dpdn">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> 我的账号<span class="caret"></span></a>
+						<%
+						if(userID==null){
+						%>
+						<a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i>请登录<span class="caret"></span></a>
+						<%
+						}
+						else{
+						%>
+						<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="login.html">登录 </a></li> 
-							<li><a href="signup.html">注册</a></li> 
-							<li><a href="login.html">我的订单</a></li>  
+							<li><a href="ownerMainPage.jsp">主页 </a></li> 
+							<li><a href="index.jsp">切换账号</a></li>  
 						</ul> 
+						<%}%>
 					</li> 
 				</ul>
 			</div>
 			<div class="clearfix"> </div> 
 		</div>
+	</div>
+
 		
 		<div class="header-two"><!-- header-two -->
 			<div class="container">
@@ -165,25 +195,40 @@
 			</div>
 			<div class="row-fluid">
 				<form action="" id="shopDetailForm">
-					<input type="text" class="form-control" name="shopName" value="name" id="in1">
-					<input type="text" class="form-control" name="instruction" value="address" id="in2">
-					<input type="text" class="form-control" name="address" value="address" id="in3">
-					<input type="text" class="form-control" name="shopHours" value="address" id="in4">
-					<input type="text" class="form-control" name="shopTel" value="address" id="in4">
+					<input type="text" class="form-control" name="shopName"  id="shopName" value="shopName">
+					<input type="text" class="form-control" name="instruction" id="instruction"  value="instruction">
+					<input type="text" class="form-control" name="address" id="address"  value="address">
+					<input type="text" class="form-control" name="shopHours"  id="shopHours" value="shopHours">
+					<input type="text" class="form-control" name="shopTel"  id="shopTel" value="shopTel">
 				</form>
 				<a class="btn btn-primary" id="confirm1">确认修改</a>
 			</div>
 		</div>
 
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$("#confirm1").click(function(){
-					x=$("#shopDetailForm").serializeArray();
-					$.post("ShopDetailUpdateServlet",{flag:0});
-					$.post("ShopDetailUpdateServlet",x)
-				})
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.post("ShopDetailServlet",encodeURI({"flag":1,"shopname":"<%=userID%>"}),function(data){
+			$("#shopName").val(data.shopName);
+			$("instruction").val(data.instruction);
+			$("address").val(data.address);
+			$("shopHours").val(data.shopHours);
+			$("shopTel").val(data.shopTel);
+			alert("shopdetail got");
+		})
+	})
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#confirm1").click(function(){
+			x=$("#shopDetailForm").serializeArray();
+			$.post("ShopDetailUpdateServlet",encodeURI({"flag":1,"shopname":"<%=userID%>"}));
+			$.post("ShopDetailUpdateServlet",x,function(){
+				alert("shopdetail posted");
 			})
-		</script>
+		})
+	})
+</script>
 	
 		<div class="container">
 			<h2>Service</h2>
@@ -198,14 +243,16 @@
 					  </tr>
 				  </thead>
 				  <tbody>
-					<tr id="tr0">
+            
+					<tr class="tr0">
 						<td class="center">intro1</td>
 						<td class="center">type1</td>
 						<td class="center">petstype1</td>
 						<td class="center">price</td>
 					</tr>
 				
-					<tr id="tr1">
+					<!-- <tr class="tr1">
+
 					<form id="form1">
 						<td class="center">
 							<input type="text" class="form-control" name="serviceIntro" value="name">
@@ -220,7 +267,7 @@
 							<input type="text" class="form-control" name="price" value="name">
 						</td>
 					</form>
-					</tr>
+					</tr> -->
 				
 				  </tbody>
 			  </table>    
@@ -232,17 +279,39 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$("#new1").click(function(){
-			var newItem='<tr id="tr1">'
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" value="name"></td>'
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceType" value="name"></td>'
-			newItem+='<td class="center"><input type="text" class="form-control" name="petsType" value="name"></td>'
-			newItem+='<td class="center"><input type="text" class="form-control" name="price" value="name"></td></tr>'
+			var newItem='<tr class="tr1"><form id="form1">';
+			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="serviceType" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="petsType" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="price" value="name"></td></form></tr>';
 			$("tbody").append(newItem);
 			$("#confirm2").show();
+			$("#new1").hide();
 			alert("new finish");
+		})
+	})
+	</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#confirm2").hide();
+		$.post("shopDetailServlet",encodeURI({"flag":1,"shopname":"<%=userID%>"}),function(data){
+			console.log(data);
+			var i=0;
+			while(i<data.sevice.lenth){
+				var item = '<tr class="tr0">';
+				item+=('<td class="center">'+data[i].serviceIntro+'</td>');
+				item+=('<td class="center">'+data[i].serviceType+'</td>');
+				item+=('<td class="center">'+data[i].petsType+'</td>');
+				item+=('<td class="center">'+data[i].price+'</td>');
+				$('tbody').append(item);
+				i+=1;
+			}
+			alert("table got");
 		})
 	})
 	</script>
@@ -250,25 +319,26 @@
 	<script type="text/javascript">
 		$("#confirm2").click(function(){
 			x=$("#form1").serializeArray();
-			$.post("ShopDetailUpdateServlet",{"flag":1});
+			console.log(x);
+			$.post("ShopDetailUpdateServlet",encodeURIComponent({"flag":1,"shopname":"<%=userID%>"}));
 			$.post("ShopDetailUpdateServlet",x,function(){
-			alert("post finish");
+			alert("table posted");
 		})
-		$("#tr1").remove();
-		alert("finish");
+		$("tr").filter(".tr1").remove();
+		alert("confirmation finish");
 		$("#confirm2").hide();
+		$("#new1").show();
 		})
 	</script>
 
-		
-		<!-- return to searchShop -->
-		<script type="text/javascript">
-		$("button#submit").click(function (){
-			var $value=document.getElementById("search").value;
-			window.location.href = "searchShop.jsp?search="+$value;
-		});
-		</script>
-		<!-- return to searchShop -->
+	<!-- return to searchShop -->
+	<script type="text/javascript">
+	$("button#submit").click(function (){
+		var $value=document.getElementById("search").value;
+		window.location.href = "searchShop.jsp?search="+$value;
+	});
+	</script>
+	<!-- return to searchShop -->
 		
 	<!-- //cart-js -->  
 	
