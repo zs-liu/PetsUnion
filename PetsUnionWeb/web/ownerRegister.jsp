@@ -25,6 +25,7 @@ response.setDateHeader("Expires",0);
 <link rel="stylesheet" href="assets/css/style.css">								
 </head>
 
+
 <body data-spy="scroll" data-offset="100">
 	
 <!-- START HOME -->
@@ -34,12 +35,18 @@ response.setDateHeader("Expires",0);
 		  <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 text-center">
 			<div class="hero-text">
 				<h2><font color="black" face="Microsoft YaHei" size="+3">宠物主注册</font></h2>
-				<form action="ownerRegister.do" method ="post">
+				<form action="OwnerRegisterServlet" method ="post">
+						<div class="form-group col-lg-4 col-lg-offset-4">
+								<input type="text" placeholder="ID/userId" class="form-control" name="userId">
+						</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="text" placeholder="用户名/username" class="form-control" name="username">
+						<input type="text" placeholder="用户名/username" class="form-control" name="userName">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="password" placeholder="密码/password" class="form-control" name="password">
+						<input type="password" placeholder="密码/password" class="form-control" name="userPw">
+					</div>
+					<div class="form-group col-lg-4 col-lg-offset-4">
+						<input type="password" placeholder="电话/Tel" class="form-control" name="userTel">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
 						<div class="home_btn">
@@ -53,13 +60,12 @@ response.setDateHeader("Expires",0);
                     <div class="form-group col-lg-4 col-lg-offset-4">
                         <p><%=message%></p>
                     </div>
-                    <% } catch (Exception e){} finally { %>
+                    <% } catch (Exception e){}  %>
 					<div class="form-group col-lg-4 col-lg-offset-4">
 						<div class="home_btn">
 							<button type="submit" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">注册</font></button>
 						</div>
                     </div>
-                    <% } %>
 				</form>
 			</div> 
 		  </div><!--- END COL -->				  

@@ -8,9 +8,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="keywords" content="" />
 		
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	  <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+		
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 				function hideURLbar(){ window.scrollTo(0,1); } </script>
-				
+		
 		<!-- Custom Theme files -->
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" /> 
@@ -132,7 +138,111 @@
 		
 		<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
 		<!-- the mousewheel plugin --> 
-				
+		<style type="text/css">
+			table.hovertable {
+				font-family: verdana,arial,sans-serif;
+				color:#333333;
+				border-width: 1px;
+				border-color: #999999;
+				border-collapse: collapse;
+				width: 1100px;
+			}
+			table.hovertable th {
+				background-color:#c3dde0;
+				border-width: 1px;
+				font-size:15px;
+				padding: 8px;
+				border-style: solid;
+				border-color: #a9c6c9;
+				text-align:center;
+			}
+			table.hovertable tr {
+				background-color:#d4e3e5;
+				font-size:12px;
+			}
+			table.hovertable td {
+				border-width: 1px;
+				padding: 8px;
+				border-style: solid;
+				border-color: #a9c6c9;
+			}
+		</style>
+
+		<!-- for dialog-form: style & js -->
+		<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+		<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="jqueryui/style.css">
+		<style>
+			#dialog-form{ font-size: 80%; }
+			label, input { display:block; }
+			#dialog-form input.text { margin-bottom:12px; width:95%; padding: .4em; }
+			fieldset { padding:0; border:0; margin-top:25px; }
+			#dialogform h1 { font-size: 1.4em; margin: .3em 0; }
+			div#users-contain { width: 350px; margin: 20px 0; }
+			div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+			div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+			.ui-dialog .ui-state-error { padding: .3em; }
+			.validateTips { border: 1px solid transparent; padding: 0.3em; }
+		</style>
+		<script>
+
+		$(function() {
+			$( "#dialog-form" ).dialog({
+			  autoOpen: false,
+			  height: 400,
+			  width: 450,
+			  modal: true,
+			  buttons: {
+				"创建申请": function() {
+					var judge=1;
+					var inputs=$("#dialog-form").find("input[type='text']");
+					inputs.each(function(n){
+						if($(this).val()==""){
+							judge=2;
+							$(this).attr("placeholder","此处不能为空");
+						}
+						else $(this).attr("placeholder","");
+					});
+					
+					if((/^[1-9]\d*$|^0$/).test($("input#petsOwnerTel").val())==false){
+						judge=2;
+						$("input#petsOwnerTel").val("");
+						$("input#petsOwnerTel").attr("placeholder","此处请输入纯数字");
+					}
+					else{
+						$("input#petsOwnerTel").attr("placeholder","");
+					}
+					
+					if(judge==1){
+						var $petsType=encodeURI(encodeURI($("input#petsType").val()));
+						var $serviceType=encodeURI(encodeURI($("input#serviceType").val()));
+						var $serBeginTime=encodeURI(encodeURI($("input#serBeginTime").val()));
+						var $serEndTime=encodeURI(encodeURI($("input#serEndTime").val()));
+						var $petsOwnerTel=encodeURI(encodeURI($("input#petsOwnerTel").val()));
+						var $userId=encodeURI(encodeURI($("input#userId").val()));
+						var $shopName=encodeURI(encodeURI($("input#shopName").val()));	
+						
+						window.open("reserveService.jsp?shopName="+$shopName+"&serviceType="+$serviceType+"&serBeginTime="+$serBeginTime
+							+"&serEndTime="+$serEndTime+"&userId="+$userId+"&petsType="+$petsType+"&petsOwnerTel="+$petsOwnerTel);
+					
+						$( this ).dialog( "close" );
+					}
+				    else return;
+				},
+				"取消": function() {
+				    $( this ).dialog( "close" );
+				}
+			  },
+			  close: function() {
+				  $( this ).dialog( "close" );
+			  }
+			});
+		});
+
+		</script>
+		<!-- for dialog-form: style & js -->
+		
 	</head>
 	
 <body>
@@ -165,7 +275,7 @@
 				</div>	
 				<div class="header-search">
 					<form method="#">
-						<input type="search" id="search" placeholder="请输入您要搜索的关键词..." required="">
+						<input type="search" id="search" placeholder="请输入宠物类型或服务类型..." required="">
 						<button type="button" id="submit" class="btn btn-default" aria-label="Left Align" >
 							<i class="fa fa-search" aria-hidden="true"> </i>
 						</button>
@@ -181,13 +291,17 @@
 			</div>		
 		</div><!-- //header-two -->
 		
-		<!-- return to searchShop -->
+		<!-- @--@ return to searchShop -->
 		<script type="text/javascript">
 		$("button#submit").click(function (){
-			alert("你点击了搜索");
-			
 			var $value=document.getElementById("search").value;
-			window.location.href = "searchShop.jsp?search="+$value;
+			alert("您的搜索请求："+$value);
+			if($value==""){
+				alert("您的输入不能为空");
+				return false;
+			}
+				
+			window.location.href = "searchShop.jsp?search="+encodeURI(encodeURI($value));
 			
 			alert("跳转页面完成");
 		});
@@ -196,20 +310,8 @@
 		
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
-				<div class="menu">
-					<div class="cd-dropdown-wrapper">
-						<a class="cd-dropdown-trigger" href="#0">服务类别</a>
-						<nav class="cd-dropdown"> 
-							<a href="#0" class="cd-close">Close</a>
-							<ul class="cd-dropdown-content"> 
-								<li><a href="offers.html">宠物护理</a></li> 
-								<li><a href="sitemap.html">宠物寄养</a></li>  
-							</ul> <!-- .cd-dropdown-content -->
-						</nav> <!-- .cd-dropdown -->
-					</div> <!-- .cd-dropdown-wrapper -->	 
-				</div>
 				<div class="move-text">
-					<div class="marquee"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -240,49 +342,60 @@
 				</div>
 			</div>
 			<div class="col-md-6 single-top-right">
-				<h3 class="item_name">THU宠物护理中心</h3>
-				<p id="slogan"></p>
+			    <br><br>
+				<h3 class="item_name">THU宠物护理</h3>
 				<div class="single-rating">
 					<ul>
-						<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-						<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-						<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-						<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-						<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-						<li class="rating"> 评价</li>
-						<li><a href="#" id="user-review">添加您的评论</a></li>
+						<li>欢迎光临本店</li>
 					</ul> 
 				</div>
-				<p id="address"></p>
-				<p id="phone-number"></p>
-				<p id="service"></p>
+				<p style="color:black;font-size:110%;" id="credit"></p>
+				<p style="color:black;font-size:110%;" id="shopHours"></p>
+				<p style="color:black;font-size:110%;" id="address"></p>
+				<p style="color:black;font-size:110%;" id="phone-number"></p>
 				<form action="#" method="post">
 					<input type="hidden" name="cmd" value="_cart" />
 					<input type="hidden" name="add" value="1" /> 
 					<input type="hidden" name="w3ls_item" value="Snow Blower" /> 
 					<input type="hidden" name="amount" value="540.00" /> 
-					<button type="submit" class="w3ls-cart" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 预约</button>
+					<br>
+					<button type="button" style="font-size:110%;" class="w3ls-cart" id="reserve" >
+						<i class="fa fa-cart-plus" aria-hidden="true"></i> 预约</button>
 				</form>
 			</div>
 			<div class="clearfix"> </div> 
+						
+			<div id="dialog-form" title="预约申请">
+				<p class="validateTips">所有的表单字段都是必填的。</p>
+		 
+				<form action="" method="post"><fieldset><!--因为要进行中文转码，手动进行URL传参-->
+					<label for="petsType">宠物类型</label>
+					<input type="text" name="petsType" id="petsType" value="" class="text ui-widget-content ui-corner-all">
+					<label for="serviceType">服务类型</label>
+					<input type="text" name="serviceType" id="serviceType" value="" class="text ui-widget-content ui-corner-all">
+					<label for="serBeginTime">起始时间</label>
+					<input type="text" name="serBeginTime" id="serBeginTime" value="" class="text ui-widget-content ui-corner-all">
+					<label for="serEndTime">截止时间</label>
+					<input type="text" name="serEndTime" id="serEndTime" value="" class="text ui-widget-content ui-corner-all">
+					<label for="petsOwnerTel">您的常用手机号</label>
+					<input type="text" name="petsOwnerTel" id="petsOwnerTel" value="" class="text ui-widget-content ui-corner-all">
+					<input type="hidden" name="userId" id="userId" value="" class="text ui-widget-content ui-corner-all">
+					<input type="hidden" name="shopName" id="shopName" value="" class="text ui-widget-content ui-corner-all">
+				</fieldset></form>	
+			</div>
+
+			<script type="text/javascript">
+			<!-- @--@ open_dialog -->
+
+			$("button#reserve").click(function(){
+				$( "#dialog-form" ).dialog( "open" );
+			});
+			<!-- open dialog -->
+			</script>
 			
 			<!-- collapse-tabs -->
 			<div class="collpse tabs">
 				<div class="panel-group collpse" id="accordion" role="tablist" aria-multiselectable="true">
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
-							<h4 class="panel-title">
-								<a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-									<i class="fa fa-file-text-o fa-icon" aria-hidden="true"></i> 本店宗旨 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
-								</a>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-							<div class="panel-body">
-								<p></p>
-							</div>
-						</div>
-					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingTwo">
 							<h4 class="panel-title">
@@ -293,7 +406,11 @@
 						</div>
 						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 							<div class="panel-body">
-								<p></p>
+								<table class="hovertable" width=800px>
+								<tr>
+									<th>宠物类型</th><th>服务类型</th><th>花费</th><th>服务简介</th>
+								</tr>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -301,7 +418,7 @@
 						<div class="panel-heading" role="tab" id="headingThree">
 							<h4 class="panel-title">
 								<a class="collapsed pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-									<i class="fa fa-check-square-o fa-icon" aria-hidden="true"></i>用户评论<span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
+									<i class="fa fa-check-square-o fa-icon" aria-hidden="true"></i> 用户评论<span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
 								</a>
 							</h4>
 						</div>
@@ -332,7 +449,7 @@
 	</div> 
 	<!-- //shop --> 
 	
-	<!-- @@ get the shop information -->
+	<!-- @--@ get the shop information -->
 	<script>
 	function getQuery(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -342,72 +459,29 @@
 	</script>
 	<!-- get the shop information -->
 
-	<!-- @@ load the shop information when first enter-->
-	<script type="text/javascript">
-	// $(document).ready(function(){
-		// alert("开始加载商店界面！");
-		
-        // var $shopId=getQuery("id");
-		// alert("上一个页面请求的ID是："+$shopId);
-		
-		// $.ajax({
-			// url:"ShopDetailServlet",
-			// type:"post",
-			// data:{
-				// id: $shopId;
-			// },
-			// cache:false,
-			// dataType:"jsonp",
-			// success:function(resp) {
-				// console.log(resp);
-				 
-				// var $stars=resp[0].stars;
-				
-				// $(".item_name").text(resp[0].name);
-				// $("#slogan").text(resp[0].slogan);
-				// $("#address").text("地址："+resp[0].address);
-				// $("#phone-number").text("电话："+resp[0].phone-numer);
-				// $("#service").text("基本服务："+resp[0].service);
-				
-				// $("#collapseOne p").text(resp[0].intro);
-				// $("#collapseTwo p").text(resp[0].seviceDetails);
-				// $("#collapseThree p").text(resp[0].comments);
-				// $("#collapseFour p").text(resp[0].claim);
-				// $("#headingThree p").append("("+resp[0].commentsAmount+")");
-				
-				// $("#firstimg").attr("src", resp[i].img1);
-				// $("#secondimg").attr("src", resp[i].img2);
-				// $("#thirdimg").attr("src", resp[i].img3);
-				// $("#firstthumb").attr("data-thumb", resp[i].img1);
-				// $("#secondthumb").attr("data-thumb", resp[i].img2);
-				// $("#thirdthumb").attr("data-thumb", resp[i].img3);
-			// }
-		// });
-		
-		// alert("商店界面加载完成！");
-	// });
-	// </script>
-	<!-- //load the shop information when first enter-->
-	
-	<!-- @@ just for test -->
+	<!-- @**@ load the shop information when first enter-->
 	<script type="text/javascript">
 	$(document).ready(function(){
 		alert("开始加载商店界面！");
 		
-        var $shopId=getQuery("id");
-		alert("上一个页面请求的ID是："+$shopId);
-	
-		$(".item_name").text("dddd");
-		$("#slogan").text("sdsd");
-		$("#address").text("地址："+"ds");
-		$("#phone-number").text("电话：");
-		$("#service").text("基本服务：");
+		var $search=decodeURI(getQuery("search"));
+        var $shopName=decodeURI(getQuery("shopName"));
+		alert("上一个页面请求的宠物店是："+$shopName);
+	    var $credit=decodeURI(getQuery("credit"));
+		var $address=decodeURI(getQuery("address"));
+		var $shopImgUrl=getQuery("img");
+		var $shopTel=getQuery("shopTel");
 		
-		$("#collapseOne p").text("sdssssssssssssssssssssssssssssssssssssssssssssdsd");
-		$("#collapseTwo p").text("cadvadfc");
-		$("#collapseThree p").text("csdc");
-		$("#collapseFour p").text("cdscasd");
-		$("#headingThree a").append("("+3+")");
+		$(".item_name").text($shopName);
+		$("#credit").text("评分："+$credit);
+		$("#address").text("地址："+$address);
+		$("#phone-number").text("电话："+$shopTel);
+		
+		$("#collapseOne p").text("这里是 本店宗旨");
+		$("#collapseTwo p").text("这里是 业务介绍");
+		$("#collapseThree p").text("这里是 用户评论");
+		$("#collapseFour p").text("这里是 权责说明");
+		$("#headingThree a").append("("+0+")");
 		
 		$("#firstimg").attr("src", "images/s1.jpg");
 		$("#secondimg").attr("src", "images/s2.jpg");
@@ -415,9 +489,103 @@
 		$("#firstthumb").attr("data-thumb", "images/s1.jpg");
 		$("#secondthumb").attr("data-thumb", "images/s2.jpg");
 		$("#thirdthumb").attr("data-thumb", "images/s3.jpg");
+			
+	    $("input#shopName").attr("value",$shopName);
+
+		$("input#userId").attr("value","1");
+		<!-- @--@从session获取用户ID -->
+		// $("input#userId").val(<////////%=Session["loggedId"]%>);
+		// alert($("input#useId").val());
+
+		<!-- 从session获取用户ID -->
+		
+		$.ajax({
+			url:"ShopDetailServlet",
+			type:"post",
+			data:{
+				flag:encodeURI(1),
+				shopName:encodeURI($shopName)
+			},
+			cache:false,
+			dataType:"json",
+			success:function(resp) {
+				console.log(resp);
+				$("#shopHours").text("营业时间："+resp.shopHours);
+				$("#credit").text("评分："+resp.grades);
 				
+				var iter=0;
+				while(iter<=resp.service.length-1){
+					var $tr = $("<tr></tr>");
+					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+					$tr.append("<td>"+ resp.service[iter].petsType +"</td>");
+					$tr.append("<td>"+ resp.service[iter].serviceType +"</td>");
+					$tr.append("<td>"+ resp.service[iter].price +"</td>");
+					$tr.append("<td>"+ resp.service[iter].serviceIntro +"</td>");
+
+					$tr.appendTo($(".hovertable"));
+					
+					iter=iter+1;
+				}
+			}
+		});
+		
+		$(".shop-page").find("*").not("p").not("button").attr("style","border:0px;");
 		alert("商店界面加载完成！");
 	});
+	</script>
+	<!-- //load the shop information when first enter-->
+	
+	<!-- @$$@ just for test -->
+	<script type="text/javascript">
+	/*$(document).ready(function(){
+		alert("开始加载商店界面！");
+		
+        var $shopName=decodeURI(getQuery("shopName"));
+		alert("上一个页面请求的宠物店是："+$shopName);
+	    var $credit=decodeURI(getQuery("credit"));
+		var $address=decodeURI(getQuery("address"));
+		var $shopImgUrl=getQuery("img");
+		var $shopTel=getQuery("shopTel");
+		
+		$(".item_name").text($shopName);
+		$("#credit").text("评分："+$credit);
+		$("#shopHours").text("营业时间：");
+		$("#address").text("地址："+$address);
+		$("#phone-number").text("电话："+$shopTel);
+		$("#service").text("所查服务：");
+		
+		$("#collapseTwo p").text("这里是 业务介绍");
+		$("#collapseThree p").text("这里是 用户评论");
+		$("#collapseFour p").text("这里是 权责说明");
+		$("#headingThree a").append("("+0+")");
+		
+		$("#firstimg").attr("src", "images/s1.jpg");
+		$("#secondimg").attr("src", "images/s2.jpg");
+		$("#thirdimg").attr("src", "images/s3.jpg");
+		$("#firstthumb").attr("data-thumb", "images/s1.jpg");
+		$("#secondthumb").attr("data-thumb", "images/s2.jpg");
+		$("#thirdthumb").attr("data-thumb", "images/s3.jpg");
+			
+	    $("input#shopName").attr("value",$shopName);
+		$("input#useId").attr("value","1");
+		
+		var iter=0;
+		while(iter<=5){
+			iter=iter+1;
+		    var $tr = $("<tr></tr>");
+			$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+			$tr.append("<td>"+ "item1" +"</td>");
+			$tr.append("<td>"+ "item2" +"</td>");
+			$tr.append("<td>"+ "item3" +"</td>");
+			$tr.append("<td>"+ "item4" +"</td>");
+
+			$tr.appendTo($(".hovertable"));
+		}
+		
+		$(".shop-page").find("*").not("p").not("button").attr("style","border:0px;");
+		
+		alert("商店界面加载完成！");
+	});*/
 	</script>
 	<!-- //just for test -->
 	

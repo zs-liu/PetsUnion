@@ -195,7 +195,7 @@
 				</div>	
 				<div class="header-search">
 					<form method="#">
-						<input type="search" id="search" placeholder="请输入您要搜索的关键词..." required="">
+						<input type="search" id="search" placeholder="请输入宠物类型或服务类型..." required="">
 						<button type="button" id="submit" class="btn btn-default" aria-label="Left Align" >
 							<i class="fa fa-search" aria-hidden="true"> </i>
 						</button>
@@ -214,10 +214,14 @@
 		<!-- return to searchShop -->
 		<script type="text/javascript">
 		$("button#submit").click(function (){
-			alert("你点击了搜索");
-			
 			var $value=document.getElementById("search").value;
-			window.location.href = "searchShop.jsp?search="+$value;
+			alert("您的搜索请求："+$value);
+			if($value==""){
+				alert("您的输入不能为空");
+				return false;
+			}
+				
+			window.location.href = "searchShop.jsp?search="+encodeURI(encodeURI($value));
 			
 			alert("跳转页面完成");
 		});
@@ -226,20 +230,8 @@
 		
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
-				<div class="menu">
-					<div class="cd-dropdown-wrapper">
-						<a class="cd-dropdown-trigger" href="#0">服务类别</a>
-						<nav class="cd-dropdown"> 
-							<a href="#0" class="cd-close">Close</a>
-							<ul class="cd-dropdown-content"> 
-								<li><a href="offers.html">宠物护理</a></li> 
-								<li><a href="sitemap.html">宠物寄养</a></li>  
-							</ul> <!-- .cd-dropdown-content -->
-						</nav> <!-- .cd-dropdown -->
-					</div> <!-- .cd-dropdown-wrapper -->	 
-				</div>
 				<div class="move-text">
-					<div class="marquee"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -262,13 +254,12 @@
 			<div class="col-md-6 single-top-right">
 				<br><br>	
 				<h3 id="myname"></h3>
-				<p id="address">地址：</p>
+				<p id="tel"></p>
+				<p id="address"></p>
 				<br>
 				<button type="button" id="history" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 查看历史订单</button>
 				<br><br>
 				<button type="button" id="data" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 门店信息管理</button>
-				<br><br>
-				<button type="button" id="schedule" ><i class="fa fa-cart-plus" aria-hidden="true"></i> 日程管理</button>
 			</div>
 			<div class="clearfix"> </div> 
 			
@@ -279,15 +270,48 @@
 						<div class="panel-heading" role="tab" id="headingOne">
 							<h4 class="panel-title">
 								<a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-									<i class="fa fa-file-text-o fa-icon" aria-hidden="true"></i> 进行中订单 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
+									<i class="fa fa-file-text-o fa-icon" aria-hidden="true"></i> 未确认订单 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
 								</a>
 							</h4>
 						</div>
 						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 							<div class="panel-body">
-								<table class="hovertable" width=1000px>
+								<table class="hovertable" id="comfirm" width=1000px>
 									<tr>
-										<th>订单号</th><th>订单状态</th><th>顾客名</th><th>发起时间</th><th>订单详情</th><th>执行操作</th>
+										<th>订单号</th><th>订单状态</th><th>顾客名</th><th>预约时间</th><th>服务类型</th><th>宠物类型</th><th>执行操作</th>
+									</tr>
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 3A</td><td>Item 3B</td><td>Item 3C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 4A</td><td>Item 4B</td><td>Item 4C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 5A</td><td>Item 5B</td><td>Item 5C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingTwo">
+							<h4 class="panel-title">
+								<a class="collapsed pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+									<i class="fa fa-info-circle fa-icon" aria-hidden="true"></i> 未完成订单 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
+								</a> 
+							</h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+							<div class="panel-body">
+								<table class="hovertable" id="complete" width=1000px>
+									<tr>
+										<th>订单号</th><th>订单状态</th><th>顾客名</th><th>预约时间</th><th>服务类型</th><th>宠物类型</th><th>执行操作</th>
 									</tr>
 									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
 										<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td> -->
@@ -315,7 +339,7 @@
 	</div> 
 	<!-- //shop --> 
 	
-	<!-- @@ get information -->
+	<!-- @--@ get information -->
 	<script>
 	function getQuery(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -325,102 +349,153 @@
 	</script>
 	<!-- get information -->
 
-	<!-- @@ load user information when enter-->
+	<!-- @**@ load user information when enter-->
 	<script type="text/javascript">
-	// $(document).ready(function(){
-		// alert("开始加载用户界面！");
+	$(document).ready(function(){
+		alert("开始加载宠物店主界面！");
 		
-		// $.ajax({
-			// url:"ShopReservationServlet",
-			// type:"post",
-			// data:{
-				// source："shopOwner";
-			// },
-			// cache:false,
-			// dataType:"jsonp",
-			// success:function(resp) {
-				// console.log(resp);
+		$.ajax({
+			url:"ShopDetailServlet",
+			type:"post",
+			data:{
+				flag:encodeURI(1),
+				shopName:encodeURI('<////%= session.getAttribute("Id")%>')
+			},
+			cache:false,
+			dataType:"json",
+			success:function(resp) {
+				console.log(resp);
+				$("#myname").text(resp.shopName);
+				$("#myimg").attr("src", resp.shopImgUrl);
+				$("#address").text("地址："+resp.address);
+				$("#tel").text("电话："+resp.shopTel);
+			}
+		});
+		
+		$.ajax({
+			url:"ShopReservationServlet",
+			type:"post",
+			data:{
+				useId:encodeURI('<////%= session.getAttribute("Id")%>'),
+				status: encodeURI(0)
+			},
+			cache:false,
+			dataType:"json",
+			success:function(resp) {
+				console.log(resp);
 				
-				// $("#myname").text(resp[0].name);//店主名
-				// $("#motto").append(resp[0].address);//地址
-				// $("#myimg").attr("src", resp[0].image);//头像
+				alert("开始加载未确认订单");
 				
-				// var number=resp.number;
-				// var iter=0;
-				// while(iter<=number){
-					// iter=iter+1;
+				var number=resp.length;
+				var iter=0;
+				while(iter<=number){
+					iter=iter+1;
 					
-					// var $tr = $("<tr></tr>");
-					// $tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
-					// $tr.append("<td>"+ resp[iter].orderNumber +"</td>");
-					// $tr.append("<td>"+ resp[iter].orderStatus +"</td>");
-					// $tr.append("<td>"+ resp[iter].guestName +"</td>");
-					// $tr.append("<td>"+ resp[iter].requeryTime +"</td>");
-					// $tr.append("<td>"+ resp[iter].orderDetail +"</td>");
+					var $tr = $("<tr></tr>");
+					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+					$tr.append("<td>"+ resp[iter].orderId +"</td>");
+					$tr.append("<td>"+ resp[iter].Status +"</td>");
+					$tr.append("<td>"+ resp[iter].shopName +"</td>");
+					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
+					$tr.append("<td>"+ resp[iter].serviceType+"</td>");
+					$tr.append("<td>"+ resp[iter].petsType+"</td>");
 					
-					// if(resp[iter].orderStatus=="未确认"){
-						// var $button=$("<button>").attr("value",resp[iter].orderNumber).attr("id","confirm").append($("<P>").text("确认"));
-						// $td=$("<td>").append($button);
-						// $tr.append($td);
-					// }
-					// else if(resp[iter].orderStatus=="进行中"){
-						// var $button=$("<button>").attr("value",resp[iter].orderNumber).attr("id","finish").append($("<P>").text("服务完成"));
-						// $td=$("<td>").append($button);
-						// $tr.append($td);
-					// }
-					// else;
+					var $button=$("<button>").attr("value",resp[iter].orderId).attr("id","confirm").append($("<P>").text("确认"));
+					$td=$("<td>").append($button);
+					$tr.append($td);
+					
+					$button.click(function(){
+						var $value=$(this).val();
+						alert("您点击了确认按钮，订单号是"+$value);
+						
+						$.ajax({
+							url:"ReservationUpdateServlet",
+							type:"post",
+							data:{
+								orderId: $value
+							},
+							cache:false,
+							dataType:"json",
+							success:function(resp) {
+								reload();
+							}
+						});
+					});
+					
+					$tr.appendTo($(".hovertable#comfirm"));
+				}
+				
+				alert("未确认订单加载完成");
+			}
+		});
+		
+		$.ajax({
+			url:"ShopReservationServlet",
+			type:"post",
+			data:{
+				useId:encodeURI('<////%= session.getAttribute("loggedId")%>'),
+				status: encodeURI(1)
+			},
+			cache:false,
+			dataType:"json",
+			success:function(resp) {
+				console.log(resp);
+				
+				alert("开始加载未完成订单");
 
-					// $tr.appendTo($(".hovertable"));
-				// }
-			// }
-		// });
+				var number=resp.length;
+				var iter=0;
+				while(iter<=number){
+					iter=iter+1;
+					
+					var $tr = $("<tr></tr>");
+					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+					$tr.append("<td>"+ resp[iter].orderId +"</td>");
+					$tr.append("<td>"+ resp[iter].Status +"</td>");
+					$tr.append("<td>"+ resp[iter].shopName +"</td>");
+					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
+					$tr.append("<td>"+ resp[iter].serviceType+"</td>");
+					$tr.append("<td>"+ resp[iter].petsType+"</td>");
+					
+					var $button=$("<button>").attr("value",resp[iter].orderId).attr("id","confirm").append($("<P>").text("服务完成"));
+					$td=$("<td>").append($button);
+					$tr.append($td);
+					
+					$button.click(function(){
+						var $value=$(this).val();
+						alert("您点击了完成按钮，订单号是"+$value);
+						
+						$.ajax({
+							url:"ReservationUpdateServlet",
+							type:"post",
+							data:{
+								orderId: $value
+							},
+							cache:false,
+							dataType:"jsonp",
+							success:function(resp) {
+								reload();
+							}
+						});
+					});
+					
+					$tr.appendTo($(".hovertable#complete"));
+				}
+				
+				alert("未完成订单加载完成");
+			}
+		});
 		
-		// $("button#confirm").click(function(){
-			// var $value=$(this).val();
-			// alert("您点击了确认按钮，订单号是"+$value);
-			
-			// $.ajax({
-				// url:"ReservationUpdateServlet",
-				// type:"post",
-				// data:{
-					// source："comfirmation";
-					// id: $value;
-				// },
-				// cache:false,
-				// dataType:"jsonp",
-				// success:function(resp) {
-					// reload();
-				// }
-			// });
-		// });
+		$(".shop-page").find("*").not("button").attr("style","border:0px;");
 		
-		// $("button#finish").click(function(){
-			// var $value=$(this).val();
-			// alert("您点击了完成按钮，订单号是"+$value);
-			
-			// $.ajax({
-				// url:"ReservationUpdateServlet",
-				// type:"post",
-				// data:{
-					// source："finish";
-					// id: $value;
-				// },
-				// cache:false,
-				// dataType:"jsonp",
-				// success:function(resp) {
-					// reload();
-				// }
-			// });
-		// });
-		
-		// alert("店主界面加载完成");
-	// });
+		alert("店主界面加载完成");
+	});
 	</script>
 	<!-- //load user information when enter-->
 	
-	<!-- @@ just for test -->
+	<!-- @$$@ just for test -->
 	<script type="text/javascript">
-	$(document).ready(function(){
+	/*$(document).ready(function(){
 		alert("开始加载店主界面");
 	
 		$("#myname").text("代达罗斯");
@@ -438,38 +513,51 @@
 			$tr.append("<td>"+ "item3" +"</td>");
 			$tr.append("<td>"+ "item4" +"</td>");
 			$tr.append("<td>"+ "item5" +"</td>");
+			$tr.append("<td>"+ "item6" +"</td>");
 			
-			if(iter==2){
-				var $button=$("<button>").attr("value",123).attr("id","confirm").append($("<P>").text("确认"));
-				$td=$("<td>").append($button);
-				$tr.append($td);
-			}
-			else if(iter==3){
-				var $button=$("<button>").attr("value",12).attr("id","finish").append($("<P>").text("服务完成"));
-				$td=$("<td>").append($button);
-				$tr.append($td);
-			}
-			else{
-				$td=$("<td>");
-				$tr.append($td);
-			}
-				
-			$tr.appendTo($(".hovertable"));
+			var $button=$("<button>").attr("value",123).attr("id","confirm").append($("<P>").text("确认"));
+			$td=$("<td>").append($button);
+			$tr.append($td);
+			
+			$button.click(function(){
+				var $value=$(this).val();
+				alert("您点击了确认按钮"+$value);
+				reload();
+			});	
+			
+			$tr.appendTo($(".hovertable#comfirm"));
 		}
 		
-		$("button#confirm").click(function(){
-			var $value=$(this).val();
-			alert("您点击了确认按钮"+$value);
-			reload();
-		});
+		iter=0;
+		while(iter<=5){
+			iter=iter+1;
+			
+		    var $tr = $("<tr></tr>");
+			$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+			$tr.append("<td>"+ "item1" +"</td>");
+			$tr.append("<td>"+ "item2" +"</td>");
+			$tr.append("<td>"+ "item3" +"</td>");
+			$tr.append("<td>"+ "item4" +"</td>");
+			$tr.append("<td>"+ "item5" +"</td>");
+			$tr.append("<td>"+ "item6" +"</td>");
+			
+			var $button=$("<button>").attr("value",123).attr("id","complete").append($("<P>").text("服务完成"));
+			$td=$("<td>").append($button);
+			$tr.append($td);
+			
+			$button.click(function(){
+				var $value=$(this).val();
+				alert("您点击了完成按钮"+$value);
+				reload();
+			});	
+			
+			$tr.appendTo($(".hovertable#complete"));
+		}
 		
-		$("button#finish").click(function(){
-			var $value=$(this).val();
-			alert("您点击了完成按钮"+$value);
-		});
+		$(".shop-page").find("*").not("button").attr("style","border:0px;");
 		
 		alert("店主界面加载完成");
-	});
+	});*/
 	</script>
 	<!-- //just for test -->
 	
@@ -491,18 +579,6 @@
 		alert("你点击了门店信息管理");
 		
 		window.open("shopDetailUpdate.jsp");
-		
-		alert("新页面加载完成");
-	});
-	</script>
-	<!-- //jump-->
-
-	<!-- @@ jump -->
-	<script>
-	$("button#schedule").click(function (){
-		alert("你点击了日程管理");
-		
-		window.open("shopSchedule.jsp");
 		
 		alert("新页面加载完成");
 	});

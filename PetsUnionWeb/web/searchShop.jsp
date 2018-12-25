@@ -38,24 +38,28 @@
 		<!-- scroll to fixed--> 
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 		<script>
-			$(document).ready(function() {
+		<!-- @--@ pageNumber -->
 
-				// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
+		var pageNumber=1;
+		<!-- @--@ pageNumber -->
+		$(document).ready(function() {
 
-				$('.header-two').scrollToFixed();   
-				// previous summary up the page.
+			// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
 
-				var summaries = $('.summary');
-				summaries.each(function(i) {
-					var summary = $(summaries[i]);
-					var next = summaries[i + 1];
+			$('.header-two').scrollToFixed();   
+			// previous summary up the page.
 
-					summary.scrolltofixed({
-						margintop: $('.header-two').outerheight(true) + 10, 
-						zindex: 999
-					});
+			var summaries = $('.summary');
+			summaries.each(function(i) {
+				var summary = $(summaries[i]);
+				var next = summaries[i + 1];
+
+				summary.scrolltofixed({
+					margintop: $('.header-two').outerheight(true) + 10, 
+					zindex: 999
 				});
 			});
+		});
 		</script>
 		<!-- //scroll to fixed--> 
 		
@@ -176,7 +180,7 @@
 				<div class="clearfix"> </div>
 				
 				<div class="product-top" >
-					<p>搜索结果</p>
+					<p>搜索结果: 第1页</p>
 					<div class="clearfix"> </div>
 				</div>
 				
@@ -190,7 +194,7 @@
 				</div>
 			</div>
 			
-			<!-- @@ get the shop information -->
+			<!-- @--@ get the shop information -->
 			<script>
 			function getQuery(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -200,12 +204,12 @@
 			</script>
 			<!-- get the shop information -->
 
-			<!-- @@ load the shop information when first enter -->
+			<!-- @**@ load the shop information when first enter -->
 		    <script type="text/javascript">
-			/* $(document).ready(function(){
+			$(document).ready(function(){
 				alert("开始加载搜索界面！");
 				
-				var $search=getQuery("search");
+				var $search=decodeURI(getQuery("search"));
 				alert("上一个页面请求的search是："+$search);
 				
 				$("input#search").attr("value",$search);
@@ -214,14 +218,16 @@
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page:"firstpage";
-						petsType: $search;
-						serviceType: $search;
+						page:1,
+						petsType: encodeURI($search),
+						serviceType: encodeURI($search)
 					},
 					cache:false,
-					dataType:"jsonp",
-					success:function(resp) {
-						console.log(resp);
+					dataType:"json",
+					success:function(data) {
+						console.log(data);
+						var resp=data.shop;
+						
 						var $product=$("<div>").addClass("products-block");
 						for(var i = 0; i < resp.length; i ++) {
 							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
@@ -246,8 +252,10 @@
 							$goodbox.append($link);
 							$goodbox.append($content);
 							$goodbox.append($move);
-							$goodbox.find("*").attr("style","border:0px;");
+							$goodbox.find("*").not("button").attr("style","border:0px;");
+							$goodbox.find("p").attr("style","border:0px;color:black;");
 							
+
 							$product.append($goodbox);
 							
 							$jump.click(function(){
@@ -268,16 +276,16 @@
 				});
 						
 				alert("搜索界面加载完成！");
-			}); */
+			});
 			</script>
 			<!-- //load the shop information when first enter -->
 			
-			<!-- @@ just for test of last section-->
+			<!-- @$$@ just for test of last section-->
 			<script type="text/javascript">
-			$(document).ready(function(){
+			/* $(document).ready(function(){
 				alert("开始加载搜索界面！");
 				
-				var $search=getQuery("search");
+				var $search=decodeURI(getQuery("search"));
 				alert("上一个页面的搜索请求是："+$search);
 				$("input#search").attr("value",$search);
 			
@@ -324,13 +332,13 @@
 				$(".col-md-9").append($product);
 						
 				alert("搜索界面加载完成！");
-			});
+			});*/
 			</script>
 			<!-- //just for test of last section-->
 			
-			<!-- @@ load the shop information when click search button-->
+			<!-- @**@ load the shop information when click search button-->
 			<script>
-			/* $("button#submit").click(function(){
+			$("button#submit").click(function(){
 				var $value=document.getElementById("search").value;
 				
 				alert("您的搜索请求："+$value);
@@ -339,19 +347,24 @@
 				    return false;
 				}
 				
+				$("div.product-top").find("p").text("搜索结果: 第1页");
+				pageNumber=1;
 				$(".products-block").remove();
 				$.ajax({
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page:"firstpage";
-						petsType: $value;
-						serviceType: $value;
+						page:pageNumber,
+						petsType: encodeURI($value),
+						serviceType: encodeURI($value)
 					},
 					cache:false,
-					dataType:"jsonp",
-					success:function(resp) {
-						console.log(resp);
+					dataType:"json",
+					success:function(data) {
+						console.log(data);
+						var resp=data.shop;
+						alert(resp[0].shopImgUrl)
+						
 						var $product=$("<div>").addClass("products-block");
 						for(var i = 0; i < resp.length; i ++) {
 							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
@@ -376,10 +389,10 @@
 							$goodbox.append($link);
 							$goodbox.append($content);
 							$goodbox.append($move);
-							$goodbox.find("*").attr("style","border:0px;");
+							$goodbox.find("*").not("button").attr("style","border:0px;");
+							$goodbox.find("p").attr("style","border:0px;color:black;");
 							
 							$product.append($goodbox);
-							
 							$jump.click(function(){
 								var $shopImg=$(this).val();
 								var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
@@ -398,20 +411,22 @@
 				});
 				
 				alert("加载完成！");
-			}); */
+			});
 			</script>
 			<!-- load the shop information when click search button-->
 			
-			<!-- @@ just for test of last section-->
+			<!-- @$$@ just for test of last section-->
 			<script>
-			$("button#submit").click(function (){
+			/*$("button#submit").click(function (){
 				var $value=document.getElementById("search").value;
 				alert("您的搜索请求："+$value);
 				if($value==""){
 					alert("您的输入不能为空");
 				    return false;
 				}
-
+				
+				$("div.product-top").find("p").text("搜索结果: 第1页");
+				pageNumber=1;
 				$(".products-block").remove();
 				for(var i = 0; i < 1; i ++) {
 					var $shopTel=$("<p>").attr("value","110").text("电话:").addClass("tel").append(" 110");
@@ -455,33 +470,42 @@
 				$(".col-md-9").append($product);
 				
 				alert("搜索界面再次加载完成");
-			});
+			});*/
 		    </script>
 			<!-- //just for test of last section-->
 			
-			<!-- @@ turn to last page-->
+			<!-- @||@ turn to last page-->
 			<script>
 			$("button#lastpage").click(function(){
 				alert("您点击了前一页按钮");
+				pageNumber=pageNumber-1;
+				if(pageNumber==0){
+					alert("这已经是最前一页了");
+					pageNumber=1;
+					return false;
+				}
 				
 				$.ajax({
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page: "lastpage";
-						petsType: document.getElementById("search").value;
-						serviceType: document.getElementById("search").value;
+						page: pageNumber,
+						petsType: encodeURI($value),
+						serviceType: encodeURI($value)
 					},
 					cache:false,
-					dataType:"jsonp",
-					success:function(resp) {
-						console.log(resp);
+					dataType:"json",
+					success:function(data) {
+						console.log(data);
+						var resp=data.shop;
+						
 						var $product=$("<div>").addClass("products-block");
 						if(resp.length==0){
-							alert("这已经是最前一页了");
+							alert("接受List的长度为零");
 							return false;
 						}
 						
+						$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
 						$(".products-block").remove();
 						for(var i = 0; i < resp.length; i ++) {
 							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
@@ -506,7 +530,8 @@
 							$goodbox.append($link);
 							$goodbox.append($content);
 							$goodbox.append($move);
-							$goodbox.find("*").attr("style","border:0px;");
+							$goodbox.find("*").not("button").attr("style","border:0px;");
+							$goodbox.find("p").attr("style","border:0px;color:black;");
 							
 							$product.append($goodbox);
 							
@@ -525,36 +550,42 @@
 						}
 						$(".col-md-9").append($product);
 					}
-				};
+				});
 				
 				alert("前一页加载完成");
 			});
 			</script>
 			<!-- //turn to last page-->
 			
-			<!-- @@ turn to next page-->
+			<!-- @||@ turn to next page-->
 			<script>
 			$("button#nextpage").click(function(){
 				alert("您点击了后一页按钮");
+				pageNumer=pageNumber+1;
 				
 				$.ajax({
 					url:"SearchShopServlet",
 					type:"post",
 					data:{
-						page: "nextpage";
-						petsType: document.getElementById("search").value;
-						serviceType: document.getElementById("search").value;
+						page: pageNumber,
+						petsType: encodeURI($value),
+						serviceType: encodeURI($value)
 					},
 					cache:false,
-					dataType:"jsonp",
-					success:function(resp) {
-						console.log(resp);
+					dataType:"json",
+
+					success:function(data) {
+						console.log(data);
+						var resp=data.shop;
+						
 						var $product=$("<div>").addClass("products-block");
 						if(resp.length==0){
 							alert("这已经是最后一页了");
+							pageNumber=pageNumber-1;
 							return false;
 						}
 						
+						$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
 						$(".products-block").remove();
 						for(var i = 0; i < resp.length; i ++) {
 							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
@@ -579,7 +610,8 @@
 							$goodbox.append($link);
 							$goodbox.append($content);
 							$goodbox.append($move);
-							$goodbox.find("*").attr("style","border:0px;");
+							$goodbox.find("*").not("button").attr("style","border:0px;");
+							$goodbox.find("p").attr("style","border:0px;color:black;");
 							
 							$product.append($goodbox);
 							
@@ -598,7 +630,7 @@
 						}
 						$(".col-md-9").append($product);
 					}
-				};
+				});
 				
 				alert("后一页加载完成");
 			});

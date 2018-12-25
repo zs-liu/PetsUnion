@@ -34,10 +34,10 @@ response.setDateHeader("Expires",0);
                         <h2><font color="black" face="Microsoft YaHei" size="+3">宠物主登录</font></h2>
                         <form action="OwnerLoginServlet" method ="post">
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="text" placeholder="用户名/username" class="form-control" name="name">
+                                <input type="text" placeholder="用户名/username" class="form-control" name="userId">
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="password" placeholder="密码/password" class="form-control" name="password">
+                                <input type="password" placeholder="密码/password" class="form-control" name="userPw">
                             </div>
                             <%
                                 try{
@@ -46,14 +46,13 @@ response.setDateHeader("Expires",0);
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <p><%=message%></p>
                             </div>
-                            <% } catch (Exception e){} finally { %>
+                            <% } catch (Exception e){} %>
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <div class="home_btn">
                                     <button type="submit" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">登录</font></button>
-                                    <a href="ownerregister.html" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
+                                    <a href="ownerRegister.jsp" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
                                 </div>
                             </div>
-                            <% } %>
                         </form>
                     </div>
                 </div><!--- END COL -->
