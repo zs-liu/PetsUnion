@@ -163,7 +163,7 @@ response.setDateHeader("Expires",0);
 								%>
 								<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href= <% = mainPage %> >主页 </a></li> 
+									<li><a href= <%=mainPage%> >主页 </a></li>
 									<li><a href="index.jsp">切换账号</a></li>  
 								</ul> 
 								<%}%>
@@ -214,7 +214,7 @@ response.setDateHeader("Expires",0);
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$.post("ShopDetailServlet",encodeURI({"flag":1,"shopname":"<%=userID%>"}),function(data){
+		$.post("ShopDetailServlet",encodeURI({flag:1,shopName:"<%=userID%>"}),function(data){
 			$("instruction").val(data.instruction);
 			$("address").val(data.address);
 			$("shopHours").val(data.shopHours);
@@ -228,7 +228,7 @@ response.setDateHeader("Expires",0);
 	$(document).ready(function(){
 		$("#confirm1").click(function(){
 			x=$("#shopDetailForm").serializeArray();
-			$.post("ShopDetailUpdateServlet",encodeURI({"flag":2,"shopname":"<%=userID%>"}));
+			$.post("ShopDetailUpdateServlet",encodeURI({flag:2,shopName:"<%=userID%>"}));
 			$.post("ShopDetailUpdateServlet",x,function(){
 				alert("shopdetail posted");
 			})
@@ -305,7 +305,7 @@ response.setDateHeader("Expires",0);
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#confirm2").hide();
-		$.post("shopDetailServlet",encodeURI({"flag":1,"shopname":"<%=userID%>"}),function(data){
+		$.post("ShopDetailServlet",encodeURI({flag:1,shopName:"<%=userID%>"}),function(data){
 			console.log(data);
 			var i=0;
 			while(i<data.sevice.lenth){
@@ -326,7 +326,7 @@ response.setDateHeader("Expires",0);
 		$("#confirm2").click(function(){
 			x=$("#form1").serializeArray();
 			console.log(x);
-			$.post("ShopDetailUpdateServlet",encodeURIComponent({"flag":0,"shopname":"<%=userID%>"}));
+			$.post("ShopDetailUpdateServlet",encodeURIComponent({"flag":0,"shopName":"<%=userID%>"}));
 			$.post("ShopDetailUpdateServlet",x,function(){
 			alert("table posted");
 		})

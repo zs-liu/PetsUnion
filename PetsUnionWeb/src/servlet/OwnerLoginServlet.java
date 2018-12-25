@@ -42,6 +42,7 @@ public class OwnerLoginServlet extends HttpServlet {
             session.setAttribute("loggedId", owner.getOwnerId());
             session.setAttribute("loggedName", owner.getOwnerName());
             session.setAttribute("loggedTel", owner.getOwnerTel());
+            session.setAttribute("loggedType", "petsOwner");
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);

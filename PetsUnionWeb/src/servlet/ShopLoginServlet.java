@@ -45,6 +45,7 @@ public class ShopLoginServlet extends HttpServlet {
             session.setAttribute("loggedId", owner.getOwnerId());
             session.setAttribute("loggedName", owner.getOwnerName());
             session.setAttribute("loggedTel", owner.getOwnerTel());
+            session.setAttribute("loggedType", "shopOwner");
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);
