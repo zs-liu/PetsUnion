@@ -34,7 +34,7 @@ response.setDateHeader("Expires",0);
                         <h2><font color="black" face="Microsoft YaHei" size="+3">宠物店登录</font></h2>
                         <form action="ShopLoginServlet" method ="post">
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="text" placeholder="用户名/username" class="form-control" name="ownerId">
+                                <input type="text" placeholder="用户Id/userId" class="form-control" name="ownerId">
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <input type="password" placeholder="密码/password" class="form-control" name="ownerPw">
@@ -53,7 +53,6 @@ response.setDateHeader("Expires",0);
                                     <a href="shopRegister.jsp" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
                                 </div>
                             </div>
-                            <% } %>
                         </form>
                     </div>
                 </div><!--- END COL -->

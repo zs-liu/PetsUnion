@@ -134,37 +134,45 @@ response.setDateHeader("Expires",0);
 		<!-- //smooth-scrolling-of-move-up -->
 		</head>
 
-<% 
-String userID = (String)session.getAttribute("logged");
-%>
+		<% 
+		String userID = (String)session.getAttribute("loggedId");
+		String type = (String)session.getAttribute("loggedType");
+		String mainPage = "#";
+		if(type=="petsOwner"){
+			mainPage = "ownerMainPage.jsp";
+		}
+		else if(type=="shopOwner"){
+			mainPage="shopMainPage.jsp";
+		}
+	%>
 	
-<body>
-	<!-- header -->
-	<div class="header">
-		<div class="uniform-header"><!--header-one--> 
-			<div class="uniform-header-right">
-				<ul>
-					<li class="dropdown head-dpdn">
-						<%
-						if(userID==null){
-						%>
-						<a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i>请登录<span class="caret"></span></a>
-						<%
-						}
-						else{
-						%>
-						<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="ownerMainPage.jsp">主页 </a></li> 
-							<li><a href="index.jsp">切换账号</a></li>  
-						</ul> 
-						<%}%>
-					</li> 
-				</ul>
+	<body data-spy="scroll" data-offset="100">
+			<!-- header -->
+			<div class="header">
+				<div class="uniform-header"><!--header-one--> 
+					<div class="uniform-header-right">
+						<ul>
+							<li class="dropdown head-dpdn">
+								<%
+								if(userID==null){
+								%>
+								<a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i>请登录<span class="caret"></span></a>
+								<%
+								}
+								else{
+								%>
+								<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href= <% = mainPage %> >主页 </a></li> 
+									<li><a href="index.jsp">切换账号</a></li>  
+								</ul> 
+								<%}%>
+							</li> 
+						</ul>
+					</div>
+					<div class="clearfix"> </div> 
+				</div>
 			</div>
-			<div class="clearfix"> </div> 
-		</div>
-	</div>
 
 		
 		<div class="header-two"><!-- header-two -->
@@ -195,7 +203,6 @@ String userID = (String)session.getAttribute("logged");
 			</div>
 			<div class="row-fluid">
 				<form action="" id="shopDetailForm">
-					<input type="text" class="form-control" name="shopName"  id="shopName" value="shopName">
 					<input type="text" class="form-control" name="instruction" id="instruction"  value="instruction">
 					<input type="text" class="form-control" name="address" id="address"  value="address">
 					<input type="text" class="form-control" name="shopHours"  id="shopHours" value="shopHours">
@@ -208,7 +215,6 @@ String userID = (String)session.getAttribute("logged");
 <script type="text/javascript">
 	$(document).ready(function(){
 		$.post("ShopDetailServlet",encodeURI({"flag":1,"shopname":"<%=userID%>"}),function(data){
-			$("#shopName").val(data.shopName);
 			$("instruction").val(data.instruction);
 			$("address").val(data.address);
 			$("shopHours").val(data.shopHours);
@@ -222,7 +228,7 @@ String userID = (String)session.getAttribute("logged");
 	$(document).ready(function(){
 		$("#confirm1").click(function(){
 			x=$("#shopDetailForm").serializeArray();
-			$.post("ShopDetailUpdateServlet",encodeURI({"flag":1,"shopname":"<%=userID%>"}));
+			$.post("ShopDetailUpdateServlet",encodeURI({"flag":2,"shopname":"<%=userID%>"}));
 			$.post("ShopDetailUpdateServlet",x,function(){
 				alert("shopdetail posted");
 			})
@@ -320,7 +326,7 @@ String userID = (String)session.getAttribute("logged");
 		$("#confirm2").click(function(){
 			x=$("#form1").serializeArray();
 			console.log(x);
-			$.post("ShopDetailUpdateServlet",encodeURIComponent({"flag":1,"shopname":"<%=userID%>"}));
+			$.post("ShopDetailUpdateServlet",encodeURIComponent({"flag":0,"shopname":"<%=userID%>"}));
 			$.post("ShopDetailUpdateServlet",x,function(){
 			alert("table posted");
 		})
