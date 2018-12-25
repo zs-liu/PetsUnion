@@ -18,15 +18,12 @@ public class OwnerService {
     }
 
     /**
-     * @param id       id from servlet
-     * @param name     name from servlet
-     * @param password password from servlet
-     * @param tel      telephone from servlet
+     * @param owner owner from servlet
      * @return whether register successful
      */
-    public static int registerCheck(String id, String name, String password, String tel) {
-        if (name == null || password == null) return LoginRegisterPara.invalid;
-        String passwordHash = SHA.SHA256(password);
-        return OwnerDAO.register(id, name, passwordHash, tel);
+    public static int registerCheck(OwnerBean owner) {
+        if (owner.getOwnerName() == null || owner.getOwnerPw() == null) return LoginRegisterPara.invalid;
+        owner.setOwnerPw(SHA.SHA256(owner.getOwnerPw()));
+        return OwnerDAO.register(owner);
     }
 }

@@ -35,7 +35,7 @@ public class OwnerDAO {
             result = pstmt.executeQuery();
 
             if (result.next()) {
-                if (ownerPw.equals(result.getString("userpw"))) {
+                if (ownerPw.equals(result.getString("userPw"))) {
                     owner.setOwnerName(result.getString("userName"));
                     return StaticPara.LoginRegisterPara.success;
                 }
@@ -55,28 +55,45 @@ public class OwnerDAO {
     /**
      * register a given owner
      *
-     * @param id           user id
-     * @param name         user name
-     * @param passwordHash sha256 on password
-     * @param tel          user telephone
+     * @param owner register user
      * @return whether register successful
      */
-    public static int register(String id, String name, String passwordHash, String tel) {
+    public static int register(OwnerBean owner) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
         //language=MySQL
-        String sqlInsert = "INSERT INTO petsowner(userId,userPw,userName,userTel) VALUES(?,?,?,?);";
+        String sqlSelect = "SELECT * FROM petsowner WHERE userId=?;";
+        try {
+            conn = DBUtils.getConn();
 
+            pstmt = conn.prepareStatement(sqlSelect);
+            pstmt.setString(1, owner.getOwnerId());
+            result = pstmt.executeQuery();
+
+            if (result.next()) {
+                return StaticPara.LoginRegisterPara.registerExistsName;
+            }
+
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.LoginRegisterPara.sqlError;
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
+
+
+        //language=MySQL
+        String sqlInsert = "INSERT INTO petsowner(userId,userPw,userName,userTel) VALUES(?,?,?,?);";
         try {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sqlInsert);
-            pstmt.setString(1, id);
-            pstmt.setString(2, passwordHash);
-            pstmt.setString(3, name);
-            pstmt.setString(4, tel);
+            pstmt.setString(1, owner.getOwnerId());
+            pstmt.setString(2, owner.getOwnerPw());
+            pstmt.setString(3, owner.getOwnerName());
+            pstmt.setString(4, owner.getOwnerTel());
             pstmt.executeUpdate();
 
         } catch (SQLException sqlE) {

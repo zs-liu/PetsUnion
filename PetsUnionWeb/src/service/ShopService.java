@@ -27,7 +27,8 @@ public class ShopService {
      * @return whether register successful
      */
     public static int registerCheck(OwnerBean owner, ShopBean shop) {
-        if (owner.getOwnerName() == null || owner.getOwnerPw() == null) return LoginRegisterPara.invalid;
+        if (owner.getOwnerName() == null || owner.getOwnerPw() == null
+                || shop.getShopName() == null || shop.getAddress() == null) return LoginRegisterPara.invalid;
         owner.setOwnerPw(SHA.SHA256(owner.getOwnerPw()));
         if (shop.getShopImgUrl() == null) {
             int number = (int) (1 + Math.random() * (9));

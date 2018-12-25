@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import bean.OwnerBean;
 import service.OwnerService;
 import tools.StaticPara.LoginRegisterPara;
 
@@ -32,7 +33,12 @@ public class OwnerRegisterServlet extends HttpServlet {
         String userTel = request.getParameter("userTel");
         String returnPath = request.getParameter("returnPath");
 
-        int result = OwnerService.registerCheck(userId, userName, userPw, userTel);
+        OwnerBean owner = new OwnerBean(userId);
+        owner.setOwnerName(userName);
+        owner.setOwnerPw(userPw);
+        owner.setOwnerTel(userTel);
+
+        int result = OwnerService.registerCheck(owner);
 
         if (result == LoginRegisterPara.success) {
 

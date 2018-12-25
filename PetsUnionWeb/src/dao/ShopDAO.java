@@ -66,7 +66,49 @@ public class ShopDAO {
         ResultSet result = null;
 
         //language=MySQL
+        String sqlSelect1 = "SELECT * FROM shopowner WHERE ownerId=?";
+
+        try {
+            conn = DBUtils.getConn();
+
+            pstmt = conn.prepareStatement(sqlSelect1);
+            pstmt.setString(1, owner.getOwnerId());
+            result = pstmt.executeQuery();
+            if (result.next()) {
+                return StaticPara.LoginRegisterPara.registerExistsName;
+            }
+
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.LoginRegisterPara.sqlError;
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
+
+        //language=MySQL
+        String sqlSelect2 = "SELECT * FROM petsshop WHERE shopName=?";
+
+        try {
+            conn = DBUtils.getConn();
+
+            pstmt = conn.prepareStatement(sqlSelect2);
+            pstmt.setString(1, shop.getShopName());
+            result = pstmt.executeQuery();
+            if (result.next()) {
+                return StaticPara.LoginRegisterPara.registerExistsShop;
+            }
+
+        } catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+            return StaticPara.LoginRegisterPara.sqlError;
+        } finally {
+            DBUtils.closeAll(result, pstmt, conn);
+        }
+
+        //language=MySQL
         String sql1 = "INSERT INTO shopowner(ownerId,ownerPw,ownerName,ownerTel) VALUES(?,?,?,?);";
+        //language=MySQL
+        String sql2 = "INSERT INTO petsshop(shopName, ownerId, address, shopImgUrl) VALUES(?,?,?,?);";
 
         try {
             conn = DBUtils.getConn();
@@ -77,19 +119,6 @@ public class ShopDAO {
             pstmt.setString(3, owner.getOwnerName());
             pstmt.setString(4, owner.getOwnerTel());
             pstmt.executeUpdate();
-
-        } catch (SQLException sqlE) {
-            sqlE.printStackTrace();
-            return StaticPara.LoginRegisterPara.sqlError;
-        } finally {
-            DBUtils.closeAll(result, pstmt, conn);
-        }
-
-        //language=MySQL
-        String sql2 = "INSERT INTO petsshop(shopName, ownerId, address, shopImgUrl) VALUES(?,?,?,?);";
-
-        try {
-            conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sql2);
             pstmt.setString(1, shop.getShopName());
