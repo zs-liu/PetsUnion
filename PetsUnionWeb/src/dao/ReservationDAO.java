@@ -26,6 +26,7 @@ public class ReservationDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql = "SELECT * FROM orderform WHERE shopName=? AND status=?";
         try {
             conn = DBUtils.getConn();
@@ -63,6 +64,7 @@ public class ReservationDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql = "SELECT * FROM orderform WHERE userId=? AND status=?";
         try {
             conn = DBUtils.getConn();
@@ -107,6 +109,7 @@ public class ReservationDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql = "INSERT INTO orderform(shopName,userId,petsOwnerTel,petsType,serviceType," +
                 "status,serBeginTime,serEndTime,comment) VALUES(?,?,?,?,?,?,?,?,?);";
 
@@ -147,6 +150,7 @@ public class ReservationDAO {
         PreparedStatement pstmt = null;
         ResultSet result = null;
 
+        //language=MySQL
         String sql = "UPDATE orderform SET status=? WHERE orderId=?";
 
         try {

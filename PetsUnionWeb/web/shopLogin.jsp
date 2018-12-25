@@ -53,6 +53,7 @@ response.setDateHeader("Expires",0);
                                     <a href="shopRegister.jsp" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
                                 </div>
                             </div>
+                            <% } %>
                         </form>
                     </div>
                 </div><!--- END COL -->

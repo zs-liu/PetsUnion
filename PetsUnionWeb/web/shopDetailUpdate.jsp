@@ -21,6 +21,7 @@ response.setDateHeader("Expires",0);
 				margin: 5px;
 			}
 		</style>
+
 		<!-- Custom Theme files -->
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" /> 
@@ -49,6 +50,7 @@ response.setDateHeader("Expires",0);
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 
 	<script>
+
 			$(document).ready(function() {
 
 				// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
@@ -163,6 +165,7 @@ String userID = (String)session.getAttribute("logged");
 			<div class="clearfix"> </div> 
 		</div>
 	</div>
+
 		
 		<div class="header-two"><!-- header-two -->
 			<div class="container">
@@ -240,6 +243,7 @@ String userID = (String)session.getAttribute("logged");
 					  </tr>
 				  </thead>
 				  <tbody>
+            
 					<tr class="tr0">
 						<td class="center">intro1</td>
 						<td class="center">type1</td>
@@ -248,6 +252,7 @@ String userID = (String)session.getAttribute("logged");
 					</tr>
 				
 					<!-- <tr class="tr1">
+
 					<form id="form1">
 						<td class="center">
 							<input type="text" class="form-control" name="serviceIntro" value="name">
@@ -326,7 +331,6 @@ String userID = (String)session.getAttribute("logged");
 		})
 	</script>
 
-		
 	<!-- return to searchShop -->
 	<script type="text/javascript">
 	$("button#submit").click(function (){

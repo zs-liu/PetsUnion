@@ -23,8 +23,9 @@ public class StaticPara {
     }
 
     public class ShopDetailUpdateServletPara {
-        public static final int price = 0;
-        public static final int basic = 1;
+        public static final int priceInsert = 0;
+        public static final int priceDelete = 1;
+        public static final int basic = 2;
     }
 
     public class SqlPara {
