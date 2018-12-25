@@ -261,7 +261,7 @@ public class ShopDAO {
         ShopBean shopBean = null;
 
         //language=MySQL
-        String sql1 = "SELECT * FROM petshop WHERE shopName=?";
+        String sql1 = "SELECT * FROM petsshop WHERE shopName=?";
 
         try {
             conn = DBUtils.getConn();
@@ -270,14 +270,16 @@ public class ShopDAO {
             pstmt.setString(1, shopName);
             result = pstmt.executeQuery();
 
-            shopBean = new ShopBean(result.getString("shopName"));
-            shopBean.setOwnerId(result.getString("ownerId"));
-            shopBean.setInstruction(result.getString("instruction"));
-            shopBean.setShopImgUrl(result.getString("shopImgUrl"));
-            shopBean.setAddress(result.getString("address"));
-            shopBean.setShopHours(result.getString("shopHours"));
-            shopBean.setShopTel(result.getString("shopTel"));
-            shopBean.setGrades(result.getInt("grades"));
+            if (result.next()) {
+                shopBean = new ShopBean(result.getString("shopName"));
+                shopBean.setOwnerId(result.getString("ownerId"));
+                shopBean.setInstruction(result.getString("instruction"));
+                shopBean.setShopImgUrl(result.getString("shopImgUrl"));
+                shopBean.setAddress(result.getString("address"));
+                shopBean.setShopHours(result.getString("shopHours"));
+                shopBean.setShopTel(result.getString("shopTel"));
+                shopBean.setGrades(result.getInt("grades"));
+            }
 
         } catch (SQLException sqlE) {
             sqlE.printStackTrace();

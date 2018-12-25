@@ -33,4 +33,8 @@ public class StaticPara {
         public static final int sqlError = 1;
         public static final int invalid = 2;
     }
+
+    public class ShowPara {
+        public static final int perPage = 10;
+    }
 }
