@@ -25,7 +25,6 @@ response.setDateHeader("Expires",0);
 <link rel="stylesheet" href="assets/css/style.css">								
 </head>
 
-
 <body data-spy="scroll" data-offset="100">
 	
 <!-- START HOME -->
@@ -56,11 +55,13 @@ response.setDateHeader("Expires",0);
                         <p><%=message%></p>
                     </div>
                     <% } catch (Exception e){}  %>
+
 					<div class="form-group col-lg-4 col-lg-offset-4">
 						<div class="home_btn">
 							<button type="submit" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">注册</font></button>
 						</div>
                     </div>
+
 				</form>
 			</div> 
 		  </div><!--- END COL -->				  
