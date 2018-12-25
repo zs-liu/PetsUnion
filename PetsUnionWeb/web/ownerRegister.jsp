@@ -45,13 +45,7 @@ response.setDateHeader("Expires",0);
 						<input type="password" placeholder="密码/password" class="form-control" name="userPw">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="password" placeholder="电话/Tel" class="form-control" name="userTel">
-
-					</div>
-					<div class="form-group col-lg-4 col-lg-offset-4">
-						<div class="home_btn">
-							<button type="submit" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">注册</font></button>
-						</div>
+						<input type="text" placeholder="电话/Tel" class="form-control" name="userTel">
 					</div>
                     <%
                     try{
