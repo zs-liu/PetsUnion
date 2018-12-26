@@ -212,17 +212,7 @@ response.setDateHeader("Expires",0);
 			</div>
 		</div>
 
-<%-- <script type="text/javascript">
-	$(document).ready(function(){
-		$.post("ShopDetailServlet",encodeURI({flag:1,shopName:"<%=userID%>"}),function(data){
-			$("instruction").val(data.instruction);
-			$("address").val(data.address);
-			$("shopHours").val(data.shopHours);
-			$("shopTel").val(data.shopTel);
-			alert("shopdetail got");
-		})
-	})
-</script> --%>
+<%-- get shop detail --%>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -247,17 +237,7 @@ response.setDateHeader("Expires",0);
 	})
 </script>
 
-<%-- <script type="text/javascript">
-	$(document).ready(function(){
-		$("#confirm1").click(function(){
-			x=$("#shopDetailForm").serializeArray();
-			$.post("ShopDetailUpdateServlet",encodeURI({flag:2,shopName:"<%=userID%>"}));
-			$.post("ShopDetailUpdateServlet",x,function(){
-				alert("shopdetail posted");
-			})
-		})
-	})
-</script> --%>
+<%-- post shop detail --%>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -334,42 +314,8 @@ response.setDateHeader("Expires",0);
 		</div>
 	</div>
 
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$("#new1").click(function(){
-			var newItem='<tr class="tr1"><form id="form1">';
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" value="name"></td>';
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceType" value="name"></td>';
-			newItem+='<td class="center"><input type="text" class="form-control" name="petsType" value="name"></td>';
-			newItem+='<td class="center"><input type="text" class="form-control" name="price" value="name"></td></form></tr>';
-			$("tbody").append(newItem);
-			$("#confirm2").show();
-			$("#new1").hide();
-			alert("new finish");
-		})
-	})
-	</script>
-
-<%-- <script type="text/javascript">
-	$(document).ready(function(){
-		$("#confirm2").hide();
-		$.post("ShopDetailServlet",encodeURI({flag:1,shopName:"<%=userID%>"}),function(data){
-			console.log(data);
-			var i=0;
-			while(i<data.sevice.lenth){
-				var item = '<tr class="tr0">';
-				item+=('<td class="center">'+data[i].serviceIntro+'</td>');
-				item+=('<td class="center">'+data[i].serviceType+'</td>');
-				item+=('<td class="center">'+data[i].petsType+'</td>');
-				item+=('<td class="center">'+data[i].price+'</td>');
-				$('tbody').append(item);
-				i+=1;
-			}
-			alert("table got");
-		})
-	})
-	</script> --%>
-
+<%-- get existed items --%>
+	
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$.ajax({
@@ -384,12 +330,12 @@ response.setDateHeader("Expires",0);
 			success:function(data){
 			console.log(data);
 			var i=0;
-			while(i<data.sevice.lenth){
+			while(i<data.service.length){
 				var item = '<tr class="tr0">';
-				item+=('<td class="center">'+data[i].serviceIntro+'</td>');
-				item+=('<td class="center">'+data[i].serviceType+'</td>');
-				item+=('<td class="center">'+data[i].petsType+'</td>');
-				item+=('<td class="center">'+data[i].price+'</td>');
+				item+=('<td class="center">'+data.service[i].serviceIntro+'</td>');
+				item+=('<td class="center">'+data.service[i].serviceType+'</td>');
+				item+=('<td class="center">'+data.service[i].petsType+'</td>');
+				item+=('<td class="center">'+data.service[i].price+'</td>');
 				$('tbody').append(item);
 				i+=1;
 			}
@@ -399,16 +345,52 @@ response.setDateHeader("Expires",0);
 	})
 </script>
 
+<%-- new an item --%>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#new1").click(function(){
+			var newItem='<tr class="tr1"><form id="form1">';
+			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" id="serviceIntro" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="serviceType" id="serviceType" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="petsType"  id="petsType" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="price" id="price" value="name"></td></form></tr>';
+			$("tbody").append(newItem);
+			$("#confirm2").show();
+			$("#new1").hide();
+			alert("new finish");
+		})
+	})
+	</script>
+
+<%-- post new item --%>
+
 	<script type="text/javascript">
 		$("#confirm2").click(function(){
-			x=$("#form1").serializeArray();
+			var x=[];
+			var data={
+				serviceIntro:$("#serviceIntro").val(),
+				serviceType:$("#serviceType").val(),
+				petsType:$("#petsType").val(),
+				price:$("#price").val()
+			}
+			x.push(data);
+			x=JSON.stringify(x);
 			console.log(x);
-			$.post("ShopDetailUpdateServlet",encodeURIComponent({"flag":0,"shopName":"<%=userID%>"}));
-			$.post("ShopDetailUpdateServlet",x,function(){
-			alert("table posted");
+			$.ajax({
+			url:"ShopDetailUpdateServlet",
+			type:"post",
+			data:{
+				flag:0,
+				shopName:<%=userID%>,
+				serviceTable:encodeURI(x)
+			},
+			cache:false,
+			success:function(){
+				alert("table posted");
+			}
 		})
 		$("tr").filter(".tr1").remove();
-		alert("confirmation finish");
 		$("#confirm2").hide();
 		$("#new1").show();
 		})
