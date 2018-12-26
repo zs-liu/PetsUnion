@@ -222,12 +222,12 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:1,
-				shopName:<%=shopname%>
+				shopName:"<%=shopname%>"
 			},
 			cache:false,
 			dataType:"json",
 			success:function(data){
-				console.log(data)
+				console.log(data);
 				$("#instruction").val(data.instruction);
 				$("#address").val(data.address);
 				$("#shopHours").val(data.shopHours);
@@ -250,7 +250,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:2,
-				shopName:<%=shopname%>,
+				shopName:"<%=shopname%>",
 				instruction:$("#instruction").val(),
 				address:$("#address").val(),
 				shopHours:$("#shopHours").val(),
@@ -324,7 +324,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:1,
-				shopName:<%=shopname%>
+				shopName:"<%=shopname%>"
 			},
 			cache:false,
 			dataType:"json",
@@ -342,7 +342,8 @@ response.setDateHeader("Expires",0);
 			}
 			alert("table got");
 			}
-		})
+		});
+		$("#confirm2").hide();
 	})
 </script>
 
@@ -382,7 +383,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:0,
-				shopName:<%=shopname%>,
+				shopName:"<%=shopname%>",
 				serviceTable:encodeURI(x)
 			},
 			cache:false,

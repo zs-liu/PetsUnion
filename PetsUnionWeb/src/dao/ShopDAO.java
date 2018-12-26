@@ -27,21 +27,36 @@ public class ShopDAO {
         ResultSet result = null;
 
         //language=MySQL
-        String sql = "SELECT ownerid, ownerpw FROM shopowner WHERE ownerid=?";
+        String sql1 = "SELECT ownerid, ownerpw FROM shopowner WHERE ownerid=?";
+        //language=MySQL
+        String sql2 = "SELECT shopName FROM petsshop WHERE ownerid=?";
 
         try {
             conn = DBUtils.getConn();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql1);
             pstmt.setString(1, owner.getOwnerId());
             result = pstmt.executeQuery();
 
             if (result.next()) {
                 if (owner.getOwnerPw().equals(result.getString("ownerpw"))) {
+
+                    pstmt = conn.prepareStatement(sql2);
+                    pstmt.setString(1, owner.getOwnerId());
+                    result = pstmt.executeQuery();
+
+                    if (result.next()) {
+                        owner.setShopName(result.getString("shopName"));
+                    }
+
                     return StaticPara.LoginRegisterPara.success;
                 }
             } else {
                 return StaticPara.LoginRegisterPara.loginWrongPassword;
+            }
+
+            if (result.next()) {
+                owner.setShopName(result.getString("shopName"));
             }
 
         } catch (SQLException sqlE) {

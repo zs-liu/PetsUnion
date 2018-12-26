@@ -3,6 +3,7 @@ package servlet;
 import service.ShopService;
 import tools.StaticPara.ShopDetailUpdateServletPara;
 import tools.StaticPara.SqlPara;
+import tools.URICoder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -32,7 +33,7 @@ public class ShopDetailUpdateServlet extends HttpServlet {
         if (flag == ShopDetailUpdateServletPara.priceInsert || flag == ShopDetailUpdateServletPara.priceDelete) {
             String returnPath = request.getParameter("returnPath");
             String shopName = request.getParameter("shopName");
-            JSONArray serviceTable = new JSONArray(request.getParameter("serviceTable"));
+            JSONArray serviceTable = new JSONArray(URICoder.getURLDecoderString(request.getParameter("serviceTable")));
             for (int i = 0; i < serviceTable.length(); i++) {
                 JSONObject service = serviceTable.getJSONObject(i);
                 String serviceIntro = service.getString("serviceIntro");
