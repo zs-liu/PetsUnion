@@ -136,6 +136,7 @@ response.setDateHeader("Expires",0);
 
 		<% 
 		String userID = (String)session.getAttribute("loggedId");
+		String shopname = (String)session.getAttribute("shopName");
 		String type = (String)session.getAttribute("loggedType");
 		String mainPage = "#";
 		if(type=="petsOwner"){
@@ -221,7 +222,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:1,
-				shopName:<%=userID%>
+				shopName:<%=shopname%>
 			},
 			cache:false,
 			dataType:"json",
@@ -249,7 +250,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:2,
-				shopName:<%=userID%>,
+				shopName:<%=shopname%>,
 				instruction:$("#instruction").val(),
 				address:$("#address").val(),
 				shopHours:$("#shopHours").val(),
@@ -323,7 +324,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:1,
-				shopName:<%=userID%>
+				shopName:<%=shopname%>
 			},
 			cache:false,
 			dataType:"json",
@@ -358,7 +359,6 @@ response.setDateHeader("Expires",0);
 			$("tbody").append(newItem);
 			$("#confirm2").show();
 			$("#new1").hide();
-			alert("new finish");
 		})
 	})
 	</script>
@@ -382,7 +382,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:0,
-				shopName:<%=userID%>,
+				shopName:<%=shopname%>,
 				serviceTable:encodeURI(x)
 			},
 			cache:false,
