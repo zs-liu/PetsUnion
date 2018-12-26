@@ -48,6 +48,9 @@ response.setDateHeader("Expires",0);
 						<input type="text" placeholder="宠物店名/shopname" class="form-control" name="shopName">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
+						<input type="text" placeholder="地址/address" class="form-control" name="address">
+					</div>
+					<div class="form-group col-lg-4 col-lg-offset-4">
 						<input type="text" placeholder="电话/Tel" class="form-control" name="ownerTel">
                     </div>
                     <%

@@ -39,11 +39,11 @@ response.setDateHeader("Expires",0);
 		<script src="js/owl.carousel.js"></script>
 		<!-- //js --> 
 		
-		<!-- web-fonts -->
+		<%-- <!-- web-fonts -->
 		<link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.useso.com/css?family=Lovers+Quarrel' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.useso.com/css?family=Offside' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.useso.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.useso.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'> --%>
 		<!-- web-fonts --> 
 		
 		<!-- scroll to fixed--> 
@@ -203,35 +203,63 @@ response.setDateHeader("Expires",0);
 			</div>
 			<div class="row-fluid">
 				<form action="" id="shopDetailForm">
-					<input type="text" class="form-control" name="instruction" id="instruction"  value="instruction">
-					<input type="text" class="form-control" name="address" id="address"  value="address">
-					<input type="text" class="form-control" name="shopHours"  id="shopHours" value="shopHours">
-					<input type="text" class="form-control" name="shopTel"  id="shopTel" value="shopTel">
+					<input type="text" class="form-control" name="instruction" id="instruction" placeholder="instruction">
+					<input type="text" class="form-control" name="address" id="address" placeholder="address">
+					<input type="text" class="form-control" name="shopHours"  id="shopHours" placeholder="shopHours">
+					<input type="text" class="form-control" name="shopTel"  id="shopTel" placeholder="shopTel">
 				</form>
 				<a class="btn btn-primary" id="confirm1">确认修改</a>
 			</div>
 		</div>
 
+<%-- get shop detail --%>
+
 <script type="text/javascript">
 	$(document).ready(function(){
-		$.post("ShopDetailServlet",encodeURI({flag:1,shopName:"<%=userID%>"}),function(data){
-			$("instruction").val(data.instruction);
-			$("address").val(data.address);
-			$("shopHours").val(data.shopHours);
-			$("shopTel").val(data.shopTel);
-			alert("shopdetail got");
+		$.ajax({
+			url:"ShopDetailServlet",
+			type:"post",
+			data:{
+				flag:1,
+				shopName:<%=userID%>
+			},
+			cache:false,
+			dataType:"json",
+			success:function(data){
+				console.log(data)
+				$("#instruction").val(data.instruction);
+				$("#address").val(data.address);
+				$("#shopHours").val(data.shopHours);
+				$("#shopTel").val(data.shopTel);
+				alert("shopdetail got");
+			}
 		})
 	})
 </script>
+
+<%-- post shop detail --%>
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#confirm1").click(function(){
 			x=$("#shopDetailForm").serializeArray();
-			$.post("ShopDetailUpdateServlet",encodeURI({flag:2,shopName:"<%=userID%>"}));
-			$.post("ShopDetailUpdateServlet",x,function(){
+			console.log(x);
+			$.ajax({
+			url:"ShopDetailUpdateServlet",
+			type:"post",
+			data:{
+				flag:2,
+				shopName:<%=userID%>,
+				instruction:$("#instruction").val(),
+				address:$("#address").val(),
+				shopHours:$("#shopHours").val(),
+				shopTel:$("#shopTel").val(),
+			},
+			cache:false,
+			success:function(){
 				alert("shopdetail posted");
-			})
+			}
+		})
 		})
 	})
 </script>
@@ -286,14 +314,47 @@ response.setDateHeader("Expires",0);
 		</div>
 	</div>
 
+<%-- get existed items --%>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url:"ShopDetailServlet",
+			type:"post",
+			data:{
+				flag:1,
+				shopName:<%=userID%>
+			},
+			cache:false,
+			dataType:"json",
+			success:function(data){
+			console.log(data);
+			var i=0;
+			while(i<data.service.length){
+				var item = '<tr class="tr0">';
+				item+=('<td class="center">'+data.service[i].serviceIntro+'</td>');
+				item+=('<td class="center">'+data.service[i].serviceType+'</td>');
+				item+=('<td class="center">'+data.service[i].petsType+'</td>');
+				item+=('<td class="center">'+data.service[i].price+'</td>');
+				$('tbody').append(item);
+				i+=1;
+			}
+			alert("table got");
+			}
+		})
+	})
+</script>
+
+<%-- new an item --%>
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$("#new1").click(function(){
 			var newItem='<tr class="tr1"><form id="form1">';
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" value="name"></td>';
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceType" value="name"></td>';
-			newItem+='<td class="center"><input type="text" class="form-control" name="petsType" value="name"></td>';
-			newItem+='<td class="center"><input type="text" class="form-control" name="price" value="name"></td></form></tr>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" id="serviceIntro" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="serviceType" id="serviceType" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="petsType"  id="petsType" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="price" id="price" value="name"></td></form></tr>';
 			$("tbody").append(newItem);
 			$("#confirm2").show();
 			$("#new1").hide();
@@ -302,36 +363,34 @@ response.setDateHeader("Expires",0);
 	})
 	</script>
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#confirm2").hide();
-		$.post("ShopDetailServlet",encodeURI({flag:1,shopName:"<%=userID%>"}),function(data){
-			console.log(data);
-			var i=0;
-			while(i<data.sevice.lenth){
-				var item = '<tr class="tr0">';
-				item+=('<td class="center">'+data[i].serviceIntro+'</td>');
-				item+=('<td class="center">'+data[i].serviceType+'</td>');
-				item+=('<td class="center">'+data[i].petsType+'</td>');
-				item+=('<td class="center">'+data[i].price+'</td>');
-				$('tbody').append(item);
-				i+=1;
-			}
-			alert("table got");
-		})
-	})
-	</script>
+<%-- post new item --%>
 
 	<script type="text/javascript">
 		$("#confirm2").click(function(){
-			x=$("#form1").serializeArray();
+			var x=[];
+			var data={
+				serviceIntro:$("#serviceIntro").val(),
+				serviceType:$("#serviceType").val(),
+				petsType:$("#petsType").val(),
+				price:$("#price").val()
+			}
+			x.push(data);
+			x=JSON.stringify(x);
 			console.log(x);
-			$.post("ShopDetailUpdateServlet",encodeURIComponent({"flag":0,"shopName":"<%=userID%>"}));
-			$.post("ShopDetailUpdateServlet",x,function(){
-			alert("table posted");
+			$.ajax({
+			url:"ShopDetailUpdateServlet",
+			type:"post",
+			data:{
+				flag:0,
+				shopName:<%=userID%>,
+				serviceTable:encodeURI(x)
+			},
+			cache:false,
+			success:function(){
+				alert("table posted");
+			}
 		})
 		$("tr").filter(".tr1").remove();
-		alert("confirmation finish");
 		$("#confirm2").hide();
 		$("#new1").show();
 		})
