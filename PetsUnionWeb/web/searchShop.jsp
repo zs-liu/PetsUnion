@@ -117,9 +117,7 @@
 					<li class="dropdown head-dpdn">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> 我的账号<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="login.html">登录 </a></li> 
-							<li><a href="signup.html">注册</a></li> 
-							<li><a href="login.html">我的订单</a></li>  
+							<li><a id="login" href="index.jsp">登录/注册 </a></li> 
 						</ul> 
 					</li> 
 					<li class="dropdown head-dpdn">
@@ -214,6 +212,14 @@
 				
 				$("input#search").attr("value",$search);
 			
+			    if(<%=session.getAttribute("loggedId")%>!=null){
+					alert("用户ID："+"<%=session.getAttribute("myName")%>");
+					if("<%=session.getAttribute("loggedType")%>"=="owner")
+						$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
+					else 
+						$("#login").attr("herf", "shopMainPage.jsp").attr("id","mainPage").text("个人界面");
+				}
+				
 				$.ajax({
 					url:"SearchShopServlet",
 					type:"post",
@@ -254,7 +260,6 @@
 							$goodbox.append($move);
 							$goodbox.find("*").not("button").attr("style","border:0px;");
 							$goodbox.find("p").attr("style","border:0px;color:black;");
-							
 
 							$product.append($goodbox);
 							
