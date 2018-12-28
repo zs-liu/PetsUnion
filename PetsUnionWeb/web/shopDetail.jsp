@@ -220,7 +220,7 @@
 						var $serBeginTime=encodeURI(encodeURI($("input#serBeginTime").val()));
 						var $serEndTime=encodeURI(encodeURI($("input#serEndTime").val()));
 						var $petsOwnerTel=encodeURI(encodeURI($("input#petsOwnerTel").val()));
-						var $userId=encodeURI(encodeURI($("input#userId").val()));
+						var $userId=encodeURI(encodeURI("<%=session.getAttribute("loggedId")%>"));
 						var $shopName=encodeURI(encodeURI($("input#shopName").val()));	
 						
 						window.open("reserveService.jsp?shopName="+$shopName+"&serviceType="+$serviceType+"&serBeginTime="+$serBeginTime
@@ -254,9 +254,7 @@
 					<li class="dropdown head-dpdn">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> 我的账号<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="login.html">登录 </a></li> 
-							<li><a href="signup.html">注册</a></li> 
-							<li><a href="login.html">我的订单</a></li>  
+							<li><a href="login.html">登录/注册 </a></li> 
 						</ul> 
 					</li> 
 					<li class="dropdown head-dpdn">
@@ -379,7 +377,6 @@
 					<input type="text" name="serEndTime" id="serEndTime" value="" class="text ui-widget-content ui-corner-all">
 					<label for="petsOwnerTel">您的常用手机号</label>
 					<input type="text" name="petsOwnerTel" id="petsOwnerTel" value="" class="text ui-widget-content ui-corner-all">
-					<input type="hidden" name="userId" id="userId" value="" class="text ui-widget-content ui-corner-all">
 					<input type="hidden" name="shopName" id="shopName" value="" class="text ui-widget-content ui-corner-all">
 				</fieldset></form>	
 			</div>
@@ -388,7 +385,11 @@
 			<!-- @--@ open_dialog -->
 
 			$("button#reserve").click(function(){
-				$( "#dialog-form" ).dialog( "open" );
+				if("<%=session.getAttribute("loggedType")%>"!="petsOwner"){
+					alert("预约前，请以用户身份登录");
+				}
+				else
+					$( "#dialog-form" ).dialog( "open" );
 			});
 			<!-- open dialog -->
 			</script>
@@ -471,6 +472,14 @@
 		var $address=decodeURI(getQuery("address"));
 		var $shopImgUrl=getQuery("img");
 		var $shopTel=getQuery("shopTel");
+
+		if(<%=session.getAttribute("loggedId")%>!=null){
+			alert("用户ID："+"<%=session.getAttribute("loggedId")%>");
+			if("<%=session.getAttribute("loggedType")%>"=="petsOwner")
+				$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
+			else 
+				$("#login").attr("herf", "shopMainPage.jsp").attr("id","mainPage").text("个人界面");
+		}
 		
 		$(".item_name").text($shopName);
 		$("#credit").text("评分："+$credit);
@@ -491,13 +500,6 @@
 		$("#thirdthumb").attr("data-thumb", "images/s3.jpg");
 			
 	    $("input#shopName").attr("value",$shopName);
-
-		$("input#userId").attr("value","1");
-		<!-- @--@从session获取用户ID -->
-		// $("input#userId").val(<////////%=Session["loggedId"]%>);
-		// alert($("input#useId").val());
-
-		<!-- 从session获取用户ID -->
 		
 		$.ajax({
 			url:"ShopDetailServlet",

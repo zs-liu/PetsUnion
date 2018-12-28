@@ -172,12 +172,6 @@
 			<div class="uniform-header-right">
 				<ul>
 					<li class="dropdown head-dpdn">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> 我的账号<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="login.html">登录 </a></li> 
-							<li><a href="signup.html">注册</a></li> 
-							<li><a href="login.html">我的订单</a></li>  
-						</ul> 
 					</li> 
 					<li class="dropdown head-dpdn">
 						<a href="help.html" class="dropdown-toggle"><i class="fa fa-question-circle" aria-hidden="true"></i> 帮助</a>
@@ -291,7 +285,7 @@
 			 url:"OwnerReservationServlet",
 			 type:"post",
 			 data:{
-				 userId:encodeURI('<////%= session.getAttribute("Id")%>'),
+				 userId:encodeURI("<%= session.getAttribute("loggedId")%>"),
 				 status:encodeURI(2)
 			 },
 			 cache:false,
