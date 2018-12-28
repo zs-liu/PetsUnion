@@ -213,11 +213,26 @@
 				$("input#search").attr("value",$search);
 			
 			    if(<%=session.getAttribute("loggedId")%>!=null){
-					alert("用户ID："+"<%=session.getAttribute("myName")%>");
-					if("<%=session.getAttribute("loggedType")%>"=="owner")
+					alert("用户ID："+"<%=session.getAttribute("loggedId")%>");
+					if("<%=session.getAttribute("loggedType")%>"=="petsOwner")
 						$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
 					else 
 						$("#login").attr("herf", "shopMainPage.jsp").attr("id","mainPage").text("个人界面");
+					
+					var $exitA=$("<a>").text("退出登录").attr("herf","*");
+					var $exit=$("<li>").append($exitA);
+					
+					$exitA.click(function(){
+						$.session.remove("loggedId");
+						$.session.remove("loggedName");
+						$.session.remove("loggedType");
+						$.session.remove("loggedTel");
+						window.location.reload();
+					})
+					
+					$("ul.dropdown-menu").append($exit);
+					$("ul.dropdown-menu").find("*").not("button").attr("style","border:0px;");
+					$("ul.dropdown-menu").find("p").attr("style","border:0px;color:black;");
 				}
 				
 				$.ajax({

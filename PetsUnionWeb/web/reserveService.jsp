@@ -281,7 +281,6 @@
 			dataType:"json",
 			success:function() {
 				alert("success");
-				//window.location.href = "shopDetail.jsp?id="+getQuery("id");
 			},
 			error:function(){
 				alert("error");

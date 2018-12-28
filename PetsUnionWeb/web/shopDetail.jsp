@@ -254,8 +254,7 @@
 					<li class="dropdown head-dpdn">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> 我的账号<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="login.html">登录 </a></li> 
-							<li><a href="signup.html">注册</a></li>  
+							<li><a href="login.html">登录/注册 </a></li> 
 						</ul> 
 					</li> 
 					<li class="dropdown head-dpdn">
@@ -386,9 +385,8 @@
 			<!-- @--@ open_dialog -->
 
 			$("button#reserve").click(function(){
-				if("<%=session.getAttribute("loggedType")%>"!="owner"){
+				if("<%=session.getAttribute("loggedType")%>"!="petsOwner"){
 					alert("预约前，请以用户身份登录");
-					window.open("ownerLogin.jsp");
 				}
 				else
 					$( "#dialog-form" ).dialog( "open" );
@@ -477,7 +475,7 @@
 
 		if(<%=session.getAttribute("loggedId")%>!=null){
 			alert("用户ID："+"<%=session.getAttribute("loggedId")%>");
-			if("<%=session.getAttribute("loggedType")%>"=="owner")
+			if("<%=session.getAttribute("loggedType")%>"=="petsOwner")
 				$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
 			else 
 				$("#login").attr("herf", "shopMainPage.jsp").attr("id","mainPage").text("个人界面");
