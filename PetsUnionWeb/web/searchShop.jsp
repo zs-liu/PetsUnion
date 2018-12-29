@@ -395,7 +395,6 @@
 						success:function(data) {
 							console.log(data);
 							var resp=data.shop;
-							
 							var $product=$("<div>").addClass("products-block");
 							for(var i = 0; i < resp.length; i ++) {
 								var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);

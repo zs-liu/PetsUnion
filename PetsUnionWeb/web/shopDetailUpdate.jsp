@@ -1,6 +1,12 @@
-
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
+<!doctype html>
+<html lang="">
+	<%
+response.setHeader("Cache-Control","no-store");
+response.setHeader("Pragrma","no-cache");
+response.setDateHeader("Expires",0);
+%>
 	<head>
 		<title>shop</title>
 		
@@ -10,7 +16,12 @@
 		
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 				function hideURLbar(){ window.scrollTo(0,1); } </script>
-				
+		<style type="text/css">
+			input.form-control {
+				margin: 5px;
+			}
+		</style>
+
 		<!-- Custom Theme files -->
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" /> 
@@ -28,16 +39,18 @@
 		<script src="js/owl.carousel.js"></script>
 		<!-- //js --> 
 		
-		<!-- web-fonts -->
+		<%-- <!-- web-fonts -->
 		<link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.useso.com/css?family=Lovers+Quarrel' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.useso.com/css?family=Offside' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.useso.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.useso.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'> --%>
 		<!-- web-fonts --> 
 		
 		<!-- scroll to fixed--> 
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
-		<script>
+
+	<script>
+
 			$(document).ready(function() {
 
 				// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
@@ -103,39 +116,65 @@
 		</script>
 		<!-- //smooth-scrolling-of-move-up --> 
 		
-		<!-- the jScrollPane script -->
-		<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
-		<script type="text/javascript" id="sourcecode">
-			$(function()
-			{
-				$('.scroll-pane').jScrollPane();
+		<!-- smooth-scrolling-of-move-up -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+			
+				var defaults = {
+					containerID: 'toTop', // fading element id
+					containerHoverID: 'toTopHover', // fading element hover id
+					scrollSpeed: 1200,
+					easingType: 'linear' 
+				};
+				
+				$().UItoTop({ easingType: 'easeOutQuart' });
+				
 			});
 		</script>
-		<!-- //the jScrollPane script -->
-		
-		<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
-		<!-- the mousewheel plugin --> 
-				
-	</head>
+		<!-- //smooth-scrolling-of-move-up -->
+		</head>
+
+		<% 
+		String userID = (String)session.getAttribute("loggedId");
+		String shopname = (String)session.getAttribute("shopName");
+		String type = (String)session.getAttribute("loggedType");
+		String mainPage = "#";
+		if(type=="petsOwner"){
+			mainPage = "ownerMainPage.jsp";
+		}
+		else if(type=="shopOwner"){
+			mainPage="shopMainPage.jsp";
+		}
+	%>
 	
-<body>
-	<!-- header -->
-	<div class="header">
-		<div class="uniform-header"><!--header-one--> 
-			<div class="uniform-header-right">
-				<ul>
-					<li class="dropdown head-dpdn">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> 我的账号<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="login.html">登录 </a></li> 
-							<li><a href="signup.html">注册</a></li> 
-							<li><a href="login.html">我的订单</a></li>  
-						</ul> 
-					</li> 
-				</ul>
+	<body data-spy="scroll" data-offset="100">
+			<!-- header -->
+			<div class="header">
+				<div class="uniform-header"><!--header-one--> 
+					<div class="uniform-header-right">
+						<ul>
+							<li class="dropdown head-dpdn">
+								<%
+								if(userID==null){
+								%>
+								<a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i>请登录<span class="caret"></span></a>
+								<%
+								}
+								else{
+								%>
+								<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href= <%=mainPage%> >主页 </a></li>
+									<li><a href="index.jsp">切换账号</a></li>  
+								</ul> 
+								<%}%>
+							</li> 
+						</ul>
+					</div>
+					<div class="clearfix"> </div> 
+				</div>
 			</div>
-			<div class="clearfix"> </div> 
-		</div>
+
 		
 		<div class="header-two"><!-- header-two -->
 			<div class="container">
@@ -165,25 +204,66 @@
 			</div>
 			<div class="row-fluid">
 				<form action="" id="shopDetailForm">
-					<input type="text" class="form-control" name="shopName" value="name" id="in1">
-					<input type="text" class="form-control" name="instruction" value="address" id="in2">
-					<input type="text" class="form-control" name="address" value="address" id="in3">
-					<input type="text" class="form-control" name="shopHours" value="address" id="in4">
-					<input type="text" class="form-control" name="shopTel" value="address" id="in4">
+					<input type="text" class="form-control" name="instruction" id="instruction" placeholder="instruction">
+					<input type="text" class="form-control" name="address" id="address" placeholder="address">
+					<input type="text" class="form-control" name="shopHours"  id="shopHours" placeholder="shopHours">
+					<input type="text" class="form-control" name="shopTel"  id="shopTel" placeholder="shopTel">
 				</form>
 				<a class="btn btn-primary" id="confirm1">确认修改</a>
 			</div>
 		</div>
 
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$("#confirm1").click(function(){
-					x=$("#shopDetailForm").serializeArray();
-					$.post("ShopDetailUpdateServlet",{flag:0});
-					$.post("ShopDetailUpdateServlet",x)
-				})
-			})
-		</script>
+<%-- get shop detail --%>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url:"ShopDetailServlet",
+			type:"post",
+			data:{
+				flag:1,
+				shopName:"<%=shopname%>"
+			},
+			cache:false,
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				$("#instruction").val(data.instruction);
+				$("#address").val(data.address);
+				$("#shopHours").val(data.shopHours);
+				$("#shopTel").val(data.shopTel);
+				alert("shopdetail got");
+			}
+		})
+	})
+</script>
+
+<%-- post shop detail --%>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#confirm1").click(function(){
+			x=$("#shopDetailForm").serializeArray();
+			console.log(x);
+			$.ajax({
+			url:"ShopDetailUpdateServlet",
+			type:"post",
+			data:{
+				flag:2,
+				shopName:"<%=shopname%>",
+				instruction:$("#instruction").val(),
+				address:$("#address").val(),
+				shopHours:$("#shopHours").val(),
+				shopTel:$("#shopTel").val(),
+			},
+			cache:false,
+			success:function(){
+				alert("shopdetail posted");
+			}
+		})
+		})
+	})
+</script>
 	
 		<div class="container">
 			<h2>Service</h2>
@@ -198,14 +278,16 @@
 					  </tr>
 				  </thead>
 				  <tbody>
-					<tr id="tr0">
+            
+					<tr class="tr0">
 						<td class="center">intro1</td>
 						<td class="center">type1</td>
 						<td class="center">petstype1</td>
 						<td class="center">price</td>
 					</tr>
 				
-					<tr id="tr1">
+					<!-- <tr class="tr1">
+
 					<form id="form1">
 						<td class="center">
 							<input type="text" class="form-control" name="serviceIntro" value="name">
@@ -220,7 +302,7 @@
 							<input type="text" class="form-control" name="price" value="name">
 						</td>
 					</form>
-					</tr>
+					</tr> -->
 				
 				  </tbody>
 			  </table>    
@@ -232,43 +314,97 @@
 			</div>
 		</div>
 	</div>
+
+<%-- get existed items --%>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url:"ShopDetailServlet",
+			type:"post",
+			data:{
+				flag:1,
+				shopName:"<%=shopname%>"
+			},
+			cache:false,
+			dataType:"json",
+			success:function(data){
+			console.log(data);
+			var i=0;
+			while(i<data.service.length){
+				var item = '<tr class="tr0">';
+				item+=('<td class="center">'+data.service[i].serviceIntro+'</td>');
+				item+=('<td class="center">'+data.service[i].serviceType+'</td>');
+				item+=('<td class="center">'+data.service[i].petsType+'</td>');
+				item+=('<td class="center">'+data.service[i].price+'</td>');
+				$('tbody').append(item);
+				i+=1;
+			}
+			alert("table got");
+			}
+		});
+		$("#confirm2").hide();
+	})
+</script>
+
+<%-- new an item --%>
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$("#new1").click(function(){
-			var newItem='<tr id="tr1">'
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" value="name"></td>'
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceType" value="name"></td>'
-			newItem+='<td class="center"><input type="text" class="form-control" name="petsType" value="name"></td>'
-			newItem+='<td class="center"><input type="text" class="form-control" name="price" value="name"></td></tr>'
+			var newItem='<tr class="tr1"><form id="form1">';
+			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" id="serviceIntro" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="serviceType" id="serviceType" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="petsType"  id="petsType" value="name"></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="price" id="price" value="name"></td></form></tr>';
 			$("tbody").append(newItem);
 			$("#confirm2").show();
-			alert("new finish");
+			$("#new1").hide();
 		})
 	})
 	</script>
 
+<%-- post new item --%>
+
 	<script type="text/javascript">
 		$("#confirm2").click(function(){
-			x=$("#form1").serializeArray();
-			$.post("ShopDetailUpdateServlet",{"flag":1});
-			$.post("ShopDetailUpdateServlet",x,function(){
-			alert("post finish");
+			var x=[];
+			var data={
+				serviceIntro:$("#serviceIntro").val(),
+				serviceType:$("#serviceType").val(),
+				petsType:$("#petsType").val(),
+				price:$("#price").val()
+			}
+			x.push(data);
+			x=JSON.stringify(x);
+			console.log(x);
+			$.ajax({
+			url:"ShopDetailUpdateServlet",
+			type:"post",
+			data:{
+				flag:0,
+				shopName:"<%=shopname%>",
+				serviceTable:encodeURI(x)
+			},
+			cache:false,
+			success:function(){
+				alert("table posted");
+			}
 		})
-		$("#tr1").remove();
-		alert("finish");
+		$("tr").filter(".tr1").remove();
 		$("#confirm2").hide();
+		$("#new1").show();
 		})
 	</script>
 
-		
-		<!-- return to searchShop -->
-		<script type="text/javascript">
-		$("button#submit").click(function (){
-			var $value=document.getElementById("search").value;
-			window.location.href = "searchShop.jsp?search="+$value;
-		});
-		</script>
-		<!-- return to searchShop -->
+	<!-- return to searchShop -->
+	<script type="text/javascript">
+	$("button#submit").click(function (){
+		var $value=document.getElementById("search").value;
+		window.location.href = "searchShop.jsp?search="+$value;
+	});
+	</script>
+	<!-- return to searchShop -->
 		
 	<!-- //cart-js -->  
 	

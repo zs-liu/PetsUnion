@@ -4,6 +4,7 @@ import bean.ShopBean;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import service.ShopService;
+import tools.StaticPara.ShowPara;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,14 @@ public class SearchShopServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String petsType = request.getParameter("petsType");
         String serviceType = request.getParameter("serviceType");
-        List<ShopBean> shopList = ShopService.getShop(petsType, serviceType);
+        int pageNumber = Integer.parseInt(request.getParameter("page"));
+
+        int perPage = ShowPara.perPage;
+        if (request.getParameter("perPage") != null) {
+            perPage = Integer.parseInt(request.getParameter("perPage"));
+        }
+
+        List<ShopBean> shopList = ShopService.getShop(petsType, serviceType, pageNumber, perPage);
         JSONObject json = new JSONObject();
         JSONArray shopJsonList = new JSONArray();
 

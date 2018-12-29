@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.acl.Owner;
 
 import service.ShopService;
+import bean.OwnerBean;
+import bean.ShopBean;
 import tools.StaticPara.LoginRegisterPara;
 
 @WebServlet(name = "ShopRegisterServlet")
@@ -34,14 +37,24 @@ public class ShopRegisterServlet extends HttpServlet {
         String ownerPw = request.getParameter("ownerPw");
         String ownerTel = request.getParameter("ownerTel");
         String shopName = request.getParameter("shopName");
-        String returnPath = request.getParameter("returnPath");
         String address = request.getParameter("address");
-        int result = ShopService.registerCheck(ownerId, ownerName, ownerPw, ownerTel, shopName, address);
+        String returnPath = request.getParameter("returnPath");
+
+        OwnerBean owner = new OwnerBean(ownerId);
+        owner.setOwnerName(ownerName);
+        owner.setOwnerPw(ownerPw);
+        owner.setOwnerTel(ownerTel);
+
+        ShopBean shop = new ShopBean(shopName);
+        shop.setOwnerId(ownerId);
+        shop.setAddress(address);
+
+        int result = ShopService.registerCheck(owner, shop);
 
         if (result == LoginRegisterPara.success) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("registered", ownerName);
+            session.setAttribute("registered", owner.getOwnerName());
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);

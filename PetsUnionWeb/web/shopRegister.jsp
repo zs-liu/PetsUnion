@@ -34,18 +34,24 @@ response.setDateHeader("Expires",0);
 		  <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 text-center">
 			<div class="hero-text">
 				<h2><font color="black" face="Microsoft YaHei" size="+3">宠物店注册</font></h2>
-				<form action="shopRegister.do" method ="post">
+				<form action="ShopRegisterServlet" method ="post">
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="text" placeholder="用户名/username" class="form-control" name="username">
+							<input type="text" placeholder="ID/userId" class="form-control" name="ownerId">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="password" placeholder="密码/password" class="form-control" name="password">
+						<input type="text" placeholder="用户名/username" class="form-control" name="ownerName">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="text" placeholder="宠物店名/shopname" class="form-control" name="shopname">
+						<input type="password" placeholder="密码/password" class="form-control" name="ownerPw">
+					</div>
+					<div class="form-group col-lg-4 col-lg-offset-4">
+						<input type="text" placeholder="宠物店名/shopname" class="form-control" name="shopName">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
 						<input type="text" placeholder="地址/address" class="form-control" name="address">
+					</div>
+					<div class="form-group col-lg-4 col-lg-offset-4">
+						<input type="text" placeholder="电话/Tel" class="form-control" name="ownerTel">
                     </div>
                     <%
                     try{
@@ -54,13 +60,12 @@ response.setDateHeader("Expires",0);
                     <div class="form-group col-lg-4 col-lg-offset-4">
                         <p><%=message%></p>
                     </div>
-                    <% } catch (Exception e){} finally { %>
+                    <% } catch (Exception e){} %>
 					<div class="form-group col-lg-4 col-lg-offset-4">
 						<div class="home_btn">
 							<button type="submit" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">注册</font></button>
 						</div>
                     </div>
-                    <% } %>
 				</form>
 			</div> 
 		  </div><!--- END COL -->				  

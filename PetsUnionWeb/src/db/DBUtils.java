@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DBUtils {
 
     public static Connection getConn() {
-        String url = "jdbc:mysql://localhost:3306/demo?characterEncoding=utf8";
+
+        String url = "jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+
         String username = "root";
         String password = "LzscsL"; // use your configuration
 

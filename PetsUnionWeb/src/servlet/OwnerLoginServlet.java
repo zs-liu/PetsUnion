@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import service.OwnerService;
+import bean.OwnerBean;
 import tools.StaticPara.LoginRegisterPara;
 
 @WebServlet(name = "OwnerLoginServlet")
@@ -29,12 +30,19 @@ public class OwnerLoginServlet extends HttpServlet {
         String userId = request.getParameter("userId");
         String userPw = request.getParameter("userPw");
         String returnPath = request.getParameter("returnPath");
-        int result = OwnerService.loginCheck(userId, userPw);
+
+        OwnerBean owner = new OwnerBean(userId);
+        owner.setOwnerPw(userPw);
+
+        int result = OwnerService.loginCheck(owner);
 
         if (result == LoginRegisterPara.success) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("logged", userId);
+            session.setAttribute("loggedId", owner.getOwnerId());
+            session.setAttribute("loggedName", owner.getOwnerName());
+            session.setAttribute("loggedTel", owner.getOwnerTel());
+            session.setAttribute("loggedType", "petsOwner");
 
             if (returnPath != null) {
                 request.getRequestDispatcher(returnPath).forward(request, response);

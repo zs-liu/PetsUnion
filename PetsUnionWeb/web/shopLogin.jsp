@@ -8,22 +8,22 @@ response.setHeader("Pragrma","no-cache");
 response.setDateHeader("Expires",0);
 %>
 
-    <head>
-        <!-- Meta -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-        <!-- SITE TITLE -->
-        <title>shopLogin</title>
-        <!-- Latest Bootstrap min CSS -->
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <!-- Style CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
-    </head>
+    <!-- SITE TITLE -->
+    <title>shopLogin</title>
+    <!-- Latest Bootstrap min CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
 
-    <body data-spy="scroll" data-offset="100">
+<body data-spy="scroll" data-offset="100">
 
     <!-- START HOME -->
     <section data-stellar-background-ratio="0.8" id="OwnerLogin" class="home_bg" style="background-image: url(assets/img/bg/petsit.jpg);  background-size: cover; background-position: center center;">
@@ -34,10 +34,10 @@ response.setDateHeader("Expires",0);
                         <h2><font color="black" face="Microsoft YaHei" size="+3">宠物店登录</font></h2>
                         <form action="ShopLoginServlet" method ="post">
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="text" placeholder="用户名/username" class="form-control" name="name">
+                                <input type="text" placeholder="用户Id/userId" class="form-control" name="ownerId">
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="password" placeholder="密码/password" class="form-control" name="password">
+                                <input type="password" placeholder="密码/password" class="form-control" name="ownerPw">
                             </div>
                             <%
                                 try{
@@ -46,14 +46,13 @@ response.setDateHeader("Expires",0);
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <p><%=message%></p>
                             </div>
-                            <% } catch (Exception e){} finally { %>
+                            <% } catch (Exception e){}%>
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <div class="home_btn">
                                     <button type="submit" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">登录</font></button>
-                                    <a href="shopregister.html" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
+                                    <a href="shopRegister.jsp" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
                                 </div>
                             </div>
-                            <% } %>
                         </form>
                     </div>
                 </div><!--- END COL -->
