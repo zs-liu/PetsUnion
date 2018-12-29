@@ -173,9 +173,6 @@
 				<ul>
 					<li class="dropdown head-dpdn">
 					</li> 
-					<li class="dropdown head-dpdn">
-						<a href="help.html" class="dropdown-toggle"><i class="fa fa-question-circle" aria-hidden="true"></i> 帮助</a>
-					</li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div> 
@@ -188,19 +185,25 @@
 					<h2>Your stores. Your friends.</h2> 
 				</div>	
 				<div class="header-search">
-					<form action="#" method="post">
-						<input type="search" id="search" name="Search" placeholder="请输入宠物类型或服务类型..." required="">
-						<button type="button" id="submit" class="btn btn-default" aria-label="Left Align" >
-							<i class="fa fa-search" aria-hidden="true"> </i>
-						</button>
-					</form>
+					<label for="petsType_select" style="font-size:1.4em;font-weight:400;">宠物类型：</label>
+					<select id="petsType" name="petsType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 45px;">
+						<option value='-1' style='display: none'></option>
+						<option value="狗狗" style="">狗  狗</option> 
+						<option value="猫猫">猫  猫</option> 
+						<option value="仓鼠">仓  鼠</option>
+						<option value="蜘蛛">蜘  蛛</option>
+					</select>
+					<label for="serviceType_select" style="padding-left:80px;font-size:1.4em;font-weight:400;">服务类型：</label>
+					<select id="serviceType" name="serviceType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 30px;">
+						<option value='-1' style='display: none'></option>
+						<option value="宠物护理">宠物护理</option> 
+						<option value="宠物寄养">宠物寄养</option> 
+						<option value="宠物美容">宠物美容</option>
+					</select>
+					<button type="button" id="submit" style="margin-left:50px;width: 50px;height: 45px;background: #FF5809;" >
+						<i class="fa fa-search" aria-hidden="true"> </i>
+					</button>
 				</div>
-				<div class="header-cart"> 
-					<div class="my-account">
-						<a href="contact.html"><i class="fa fa-map-marker" aria-hidden="true"></i> 联系我们</a>						
-					</div>
-					<div class="clearfix"> </div> 
-				</div> 
 				<div class="clearfix"> </div>
 			</div>		
 		</div><!-- //header-two -->
@@ -222,18 +225,25 @@
 	
 	<!-- return to searchShop -->
 	<script type="text/javascript">
-	$("button#submit").click(function (){
-		var $value=document.getElementById("search").value;
-		alert("您的搜索请求："+$value);
-		if($value==""){
-			alert("您的输入不能为空");
-			return false;
-		}
+		$("button#submit").click(function (){
+			var $petsType=document.getElementById("petsType").value;
+			var $serviceType=document.getElementById("serviceType").value;
 			
-		window.location.href = "searchShop.jsp?search="+encodeURI(encodeURI($value));
-		
-		alert("跳转页面完成");
-	});
+			alert("您的搜索请求：宠物类型："+$petsType);
+			if($petsType==-1){
+				alert("宠物类型的输入不能为空");
+				return false;
+			}
+			alert("您的搜索请求：服务类型："+$serviceType);
+			if($serviceType==-1){
+				alert("服务类型的输入不能为空");
+				return false;
+			}
+				
+			window.location.href = "searchShop.jsp?petsType="+encodeURI(encodeURI($petsType))+"&serviceType="+encodeURI(encodeURI($serviceType));
+			
+			alert("跳转页面完成");
+		});
 	</script>
 	<!-- return to searchShop -->
 		

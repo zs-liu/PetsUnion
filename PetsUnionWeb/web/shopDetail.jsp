@@ -185,61 +185,60 @@
 			.ui-dialog .ui-state-error { padding: .3em; }
 			.validateTips { border: 1px solid transparent; padding: 0.3em; }
 		</style>
+		
 		<script>
-
-		$(function() {
-			$( "#dialog-form" ).dialog({
-			  autoOpen: false,
-			  height: 400,
-			  width: 450,
-			  modal: true,
-			  buttons: {
-				"创建申请": function() {
-					var judge=1;
-					var inputs=$("#dialog-form").find("input[type='text']");
-					inputs.each(function(n){
-						if($(this).val()==""){
-							judge=2;
-							$(this).attr("placeholder","此处不能为空");
-						}
-						else $(this).attr("placeholder","");
-					});
-					
-					if((/^[1-9]\d*$|^0$/).test($("input#petsOwnerTel").val())==false){
-						judge=2;
-						$("input#petsOwnerTel").val("");
-						$("input#petsOwnerTel").attr("placeholder","此处请输入纯数字");
-					}
-					else{
-						$("input#petsOwnerTel").attr("placeholder","");
-					}
-					
-					if(judge==1){
-						var $petsType=encodeURI(encodeURI($("input#petsType").val()));
-						var $serviceType=encodeURI(encodeURI($("input#serviceType").val()));
-						var $serBeginTime=encodeURI(encodeURI($("input#serBeginTime").val()));
-						var $serEndTime=encodeURI(encodeURI($("input#serEndTime").val()));
-						var $petsOwnerTel=encodeURI(encodeURI($("input#petsOwnerTel").val()));
-						var $userId=encodeURI(encodeURI("<%=session.getAttribute("loggedId")%>"));
-						var $shopName=encodeURI(encodeURI($("input#shopName").val()));	
+			$(function() {
+				$( "#dialog-form" ).dialog({
+				  autoOpen: false,
+				  height: 400,
+				  width: 450,
+				  modal: true,
+				  buttons: {
+					"创建申请": function() {
+						var judge=1;
+						var inputs=$("#dialog-form").find("input[type='text']");
+						inputs.each(function(n){
+							if($(this).val()==""){
+								judge=2;
+								$(this).attr("placeholder","此处不能为空");
+							}
+							else $(this).attr("placeholder","");
+						});
 						
-						window.open("reserveService.jsp?shopName="+$shopName+"&serviceType="+$serviceType+"&serBeginTime="+$serBeginTime
-							+"&serEndTime="+$serEndTime+"&userId="+$userId+"&petsType="+$petsType+"&petsOwnerTel="+$petsOwnerTel);
-					
+						if((/^[1-9]\d*$|^0$/).test($("input#petsOwnerTel").val())==false){
+							judge=2;
+							$("input#petsOwnerTel").val("");
+							$("input#petsOwnerTel").attr("placeholder","此处请输入纯数字");
+						}
+						else{
+							$("input#petsOwnerTel").attr("placeholder","");
+						}
+						
+						if(judge==1){
+							var $petsType=encodeURI(encodeURI($("input#petsType").val()));
+							var $serviceType=encodeURI(encodeURI($("input#serviceType").val()));
+							var $serBeginTime=encodeURI(encodeURI($("input#serBeginTime").val()));
+							var $serEndTime=encodeURI(encodeURI($("input#serEndTime").val()));
+							var $petsOwnerTel=encodeURI(encodeURI($("input#petsOwnerTel").val()));
+							//var $userId=encodeURI(encodeURI("<%=session.getAttribute("loggedId")%>"));
+							var $shopName=encodeURI(encodeURI($("input#shopName").val()));	
+							
+							window.open("reserveService.jsp?shopName="+$shopName+"&serviceType="+$serviceType+"&serBeginTime="+$serBeginTime
+								+"&serEndTime="+$serEndTime+"&petsType="+$petsType+"&petsOwnerTel="+$petsOwnerTel);
+						
+							$( this ).dialog( "close" );
+						}
+						else return;
+					},
+					"取消": function() {
 						$( this ).dialog( "close" );
 					}
-				    else return;
-				},
-				"取消": function() {
-				    $( this ).dialog( "close" );
-				}
-			  },
-			  close: function() {
-				  $( this ).dialog( "close" );
-			  }
+				  },
+				  close: function() {
+					  $( this ).dialog( "close" );
+				  }
+				});
 			});
-		});
-
 		</script>
 		<!-- for dialog-form: style & js -->
 		
@@ -257,9 +256,6 @@
 							<li><a href="login.html">登录/注册 </a></li> 
 						</ul> 
 					</li> 
-					<li class="dropdown head-dpdn">
-						<a href="help.html" class="dropdown-toggle"><i class="fa fa-question-circle" aria-hidden="true"></i> 帮助</a>
-					</li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div> 
@@ -272,37 +268,50 @@
 					<h2>Your stores. Your friends.</h2> 
 				</div>	
 				<div class="header-search">
-					<form method="#">
-						<input type="search" id="search" placeholder="请输入宠物类型或服务类型..." required="">
-						<button type="button" id="submit" class="btn btn-default" aria-label="Left Align" >
-							<i class="fa fa-search" aria-hidden="true"> </i>
-						</button>
-					</form>
+					<label for="petsType_select" style="font-size:1.4em;font-weight:400;">宠物类型：</label>
+					<select id="petsType" name="petsType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 45px;">
+						<option value='-1' style='display: none'></option>
+						<option value="狗狗" style="">狗  狗</option> 
+						<option value="猫猫">猫  猫</option> 
+						<option value="仓鼠">仓  鼠</option>
+						<option value="蜘蛛">蜘  蛛</option>
+					</select>
+					<label for="serviceType_select" style="padding-left:80px;font-size:1.4em;font-weight:400;">服务类型：</label>
+					<select id="serviceType" name="serviceType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 30px;">
+						<option value='-1' style='display: none'></option>
+						<option value="宠物护理">宠物护理</option> 
+						<option value="宠物寄养">宠物寄养</option> 
+						<option value="宠物美容">宠物美容</option>
+					</select>
+					<button type="button" id="submit" style="margin-left:50px;width: 50px;height: 45px;background: #FF5809;" >
+						<i class="fa fa-search" aria-hidden="true"> </i>
+					</button>
 				</div>
-				<div class="header-cart"> 
-					<div class="my-account">
-						<a href="contact.html"><i class="fa fa-map-marker" aria-hidden="true"></i> 联系我们</a>						
-					</div>
-					<div class="clearfix"> </div> 
-				</div> 
 				<div class="clearfix"> </div>
 			</div>		
 		</div><!-- //header-two -->
 		
 		<!-- @--@ return to searchShop -->
 		<script type="text/javascript">
-		$("button#submit").click(function (){
-			var $value=document.getElementById("search").value;
-			alert("您的搜索请求："+$value);
-			if($value==""){
-				alert("您的输入不能为空");
-				return false;
-			}
+			$("button#submit").click(function (){
+				var $petsType=document.getElementById("petsType").value;
+				var $serviceType=document.getElementById("serviceType").value;
 				
-			window.location.href = "searchShop.jsp?search="+encodeURI(encodeURI($value));
-			
-			alert("跳转页面完成");
-		});
+				alert("您的搜索请求：宠物类型："+$petsType);
+				if($petsType==-1){
+					alert("宠物类型的输入不能为空");
+					return false;
+				}
+				alert("您的搜索请求：服务类型："+$serviceType);
+				if($serviceType==-1){
+					alert("服务类型的输入不能为空");
+					return false;
+				}
+					
+				window.location.href = "searchShop.jsp?petsType="+encodeURI(encodeURI($petsType))+"&serviceType="+encodeURI(encodeURI($serviceType));
+				
+				alert("跳转页面完成");
+			});
 		</script>
 		<!-- return to searchShop -->
 		
@@ -380,19 +389,18 @@
 					<input type="hidden" name="shopName" id="shopName" value="" class="text ui-widget-content ui-corner-all">
 				</fieldset></form>	
 			</div>
-
-			<script type="text/javascript">
+			
 			<!-- @--@ open_dialog -->
-
-			$("button#reserve").click(function(){
-				if("<%=session.getAttribute("loggedType")%>"!="petsOwner"){
-					alert("预约前，请以用户身份登录");
-				}
-				else
-					$( "#dialog-form" ).dialog( "open" );
-			});
-			<!-- open dialog -->
+			<script type="text/javascript">
+				$("button#reserve").click(function(){
+					if("<%=session.getAttribute("loggedType")%>"!="petsOwner"){
+						alert("预约前，请以用户身份登录");
+					}
+					else
+						$( "#dialog-form" ).dialog( "open" );
+				});
 			</script>
+			<!-- open dialog -->
 			
 			<!-- collapse-tabs -->
 			<div class="collpse tabs">
@@ -452,88 +460,88 @@
 	
 	<!-- @--@ get the shop information -->
 	<script>
-	function getQuery(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]); return null;
-    }
+		function getQuery(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+			var r = window.location.search.substr(1).match(reg);
+			if (r != null) return unescape(r[2]); return null;
+		}
 	</script>
 	<!-- get the shop information -->
 
 	<!-- @**@ load the shop information when first enter-->
 	<script type="text/javascript">
-	$(document).ready(function(){
-		alert("开始加载商店界面！");
-		
-		var $search=decodeURI(getQuery("search"));
-        var $shopName=decodeURI(getQuery("shopName"));
-		alert("上一个页面请求的宠物店是："+$shopName);
-	    var $credit=decodeURI(getQuery("credit"));
-		var $address=decodeURI(getQuery("address"));
-		var $shopImgUrl=getQuery("img");
-		var $shopTel=getQuery("shopTel");
-
-		if(<%=session.getAttribute("loggedId")%>!=null){
-			alert("用户ID："+"<%=session.getAttribute("loggedId")%>");
-			if("<%=session.getAttribute("loggedType")%>"=="petsOwner")
-				$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
-			else 
-				$("#login").attr("herf", "shopMainPage.jsp").attr("id","mainPage").text("个人界面");
-		}
-		
-		$(".item_name").text($shopName);
-		$("#credit").text("评分："+$credit);
-		$("#address").text("地址："+$address);
-		$("#phone-number").text("电话："+$shopTel);
-		
-		$("#collapseOne p").text("这里是 本店宗旨");
-		$("#collapseTwo p").text("这里是 业务介绍");
-		$("#collapseThree p").text("这里是 用户评论");
-		$("#collapseFour p").text("这里是 权责说明");
-		$("#headingThree a").append("("+0+")");
-		
-		$("#firstimg").attr("src", "images/s1.jpg");
-		$("#secondimg").attr("src", "images/s2.jpg");
-		$("#thirdimg").attr("src", "images/s3.jpg");
-		$("#firstthumb").attr("data-thumb", "images/s1.jpg");
-		$("#secondthumb").attr("data-thumb", "images/s2.jpg");
-		$("#thirdthumb").attr("data-thumb", "images/s3.jpg");
+		$(document).ready(function(){
+			alert("开始加载商店界面！");
 			
-	    $("input#shopName").attr("value",$shopName);
-		
-		$.ajax({
-			url:"ShopDetailServlet",
-			type:"post",
-			data:{
-				flag:encodeURI(1),
-				shopName:encodeURI($shopName)
-			},
-			cache:false,
-			dataType:"json",
-			success:function(resp) {
-				console.log(resp);
-				$("#shopHours").text("营业时间："+resp.shopHours);
-				$("#credit").text("评分："+resp.grades);
-				
-				var iter=0;
-				while(iter<=resp.service.length-1){
-					var $tr = $("<tr></tr>");
-					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
-					$tr.append("<td>"+ resp.service[iter].petsType +"</td>");
-					$tr.append("<td>"+ resp.service[iter].serviceType +"</td>");
-					$tr.append("<td>"+ resp.service[iter].price +"</td>");
-					$tr.append("<td>"+ resp.service[iter].serviceIntro +"</td>");
+			var $search=decodeURI(getQuery("search"));
+			var $shopName=decodeURI(getQuery("shopName"));
+			alert("上一个页面请求的宠物店是："+$shopName);
+			var $credit=decodeURI(getQuery("credit"));
+			var $address=decodeURI(getQuery("address"));
+			var $shopImgUrl=getQuery("img");
+			var $shopTel=getQuery("shopTel");
 
-					$tr.appendTo($(".hovertable"));
-					
-					iter=iter+1;
-				}
+			if(<%=session.getAttribute("loggedId")%>!=null){
+				alert("用户ID："+"<%=session.getAttribute("loggedId")%>");
+				if("<%=session.getAttribute("loggedType")%>"=="petsOwner")
+					$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
+				else 
+					$("#login").attr("herf", "shopMainPage.jsp").attr("id","mainPage").text("个人界面");
 			}
+			
+			$(".item_name").text($shopName);
+			$("#credit").text("评分："+$credit);
+			$("#address").text("地址："+$address);
+			$("#phone-number").text("电话："+$shopTel);
+			
+			$("#collapseOne p").text("这里是 本店宗旨");
+			$("#collapseTwo p").text("这里是 业务介绍");
+			$("#collapseThree p").text("这里是 用户评论");
+			$("#collapseFour p").text("这里是 权责说明");
+			$("#headingThree a").append("("+0+")");
+			
+			$("#firstimg").attr("src", "images/s1.jpg");
+			$("#secondimg").attr("src", "images/s2.jpg");
+			$("#thirdimg").attr("src", "images/s3.jpg");
+			$("#firstthumb").attr("data-thumb", "images/s1.jpg");
+			$("#secondthumb").attr("data-thumb", "images/s2.jpg");
+			$("#thirdthumb").attr("data-thumb", "images/s3.jpg");
+				
+			$("input#shopName").attr("value",$shopName);
+			
+			$.ajax({
+				url:"ShopDetailServlet",
+				type:"post",
+				data:{
+					flag:encodeURI(1),
+					shopName:encodeURI($shopName)
+				},
+				cache:false,
+				dataType:"json",
+				success:function(resp) {
+					console.log(resp);
+					$("#shopHours").text("营业时间："+resp.shopHours);
+					$("#credit").text("评分："+resp.grades);
+					
+					var iter=0;
+					while(iter<=resp.service.length-1){
+						var $tr = $("<tr></tr>");
+						$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+						$tr.append("<td>"+ resp.service[iter].petsType +"</td>");
+						$tr.append("<td>"+ resp.service[iter].serviceType +"</td>");
+						$tr.append("<td>"+ resp.service[iter].price +"</td>");
+						$tr.append("<td>"+ resp.service[iter].serviceIntro +"</td>");
+
+						$tr.appendTo($(".hovertable"));
+						
+						iter=iter+1;
+					}
+				}
+			});
+			
+			$(".shop-page").find("*").not("p").not("button").attr("style","border:0px;");
+			alert("商店界面加载完成！");
 		});
-		
-		$(".shop-page").find("*").not("p").not("button").attr("style","border:0px;");
-		alert("商店界面加载完成！");
-	});
 	</script>
 	<!-- //load the shop information when first enter-->
 	

@@ -38,28 +38,27 @@
 		<!-- scroll to fixed--> 
 		<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 		<script>
-		<!-- @--@ pageNumber -->
+			<!-- @--@ pageNumber -->
+			var pageNumber=1;
+			<!-- @--@ pageNumber -->
+			$(document).ready(function() {
 
-		var pageNumber=1;
-		<!-- @--@ pageNumber -->
-		$(document).ready(function() {
+				// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
 
-			// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
+				$('.header-two').scrollToFixed();   
+				// previous summary up the page.
 
-			$('.header-two').scrollToFixed();   
-			// previous summary up the page.
+				var summaries = $('.summary');
+				summaries.each(function(i) {
+					var summary = $(summaries[i]);
+					var next = summaries[i + 1];
 
-			var summaries = $('.summary');
-			summaries.each(function(i) {
-				var summary = $(summaries[i]);
-				var next = summaries[i + 1];
-
-				summary.scrolltofixed({
-					margintop: $('.header-two').outerheight(true) + 10, 
-					zindex: 999
+					summary.scrolltofixed({
+						margintop: $('.header-two').outerheight(true) + 10, 
+						zindex: 999
+					});
 				});
 			});
-		});
 		</script>
 		<!-- //scroll to fixed--> 
 		
@@ -120,9 +119,6 @@
 							<li><a id="login" href="index.jsp">登录/注册 </a></li> 
 						</ul> 
 					</li> 
-					<li class="dropdown head-dpdn">
-						<a href="help.html" class="dropdown-toggle"><i class="fa fa-question-circle" aria-hidden="true"></i> 帮助</a>
-					</li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div> 
@@ -135,19 +131,25 @@
 					<h2>Your stores. Your friends.</h2> 
 				</div>	
 				<div class="header-search">
-					<form method="#" action="#">
-						<input type="search" id="search" name="Search" placeholder="请输入宠物类型或服务类型..." required="">
-						<button type="button" id="submit" class="btn btn-default" aria-label="Left Align" >
-							<i class="fa fa-search" aria-hidden="true"> </i>
-						</button>
-					</form>
+					<label for="petsType_select" style="font-size:1.4em;font-weight:400;">宠物类型：</label>
+					<select id="petsType" name="petsType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 45px;">
+						<option value='-1' style='display: none'></option>
+						<option value="狗狗" style="">狗  狗</option> 
+						<option value="猫猫">猫  猫</option> 
+						<option value="仓鼠">仓  鼠</option>
+						<option value="蜘蛛">蜘  蛛</option>
+					</select>
+					<label for="serviceType_select" style="padding-left:80px;font-size:1.4em;font-weight:400;">服务类型：</label>
+					<select id="serviceType" name="serviceType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 30px;">
+						<option value='-1' style='display: none'></option>
+						<option value="宠物护理">宠物护理</option> 
+						<option value="宠物寄养">宠物寄养</option> 
+						<option value="宠物美容">宠物美容</option>
+					</select>
+					<button type="button" id="submit" style="margin-left:50px;width: 50px;height: 45px;background: #FF5809;" >
+						<i class="fa fa-search" aria-hidden="true"> </i>
+					</button>
 				</div>
-				<div class="header-cart"> 
-					<div class="my-account">
-						<a href="contact.html"><i class="fa fa-map-marker" aria-hidden="true"></i> 联系我们</a>						
-					</div>
-					<div class="clearfix"> </div> 
-				</div> 
 				<div class="clearfix"> </div>
 			</div>		
 		</div><!-- //header-two -->
@@ -194,109 +196,113 @@
 			
 			<!-- @--@ get the shop information -->
 			<script>
-			function getQuery(name) {
-				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-				var r = window.location.search.substr(1).match(reg);
-				if (r != null) return unescape(r[2]); return null;
-			}
+				function getQuery(name) {
+					var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+					var r = window.location.search.substr(1).match(reg);
+					if (r != null) return unescape(r[2]); return null;
+				}
 			</script>
 			<!-- get the shop information -->
 
 			<!-- @**@ load the shop information when first enter -->
 		    <script type="text/javascript">
-			$(document).ready(function(){
-				alert("开始加载搜索界面！");
-				
-				var $search=decodeURI(getQuery("search"));
-				alert("上一个页面请求的search是："+$search);
-				
-				$("input#search").attr("value",$search);
-			
-			    if(<%=session.getAttribute("loggedId")%>!=null){
-					alert("用户ID："+"<%=session.getAttribute("loggedId")%>");
-					if("<%=session.getAttribute("loggedType")%>"=="petsOwner")
-						$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
-					else 
-						$("#login").attr("herf", "shopMainPage.jsp").attr("id","mainPage").text("个人界面");
+				$(document).ready(function(){
+					alert("开始加载搜索界面！");
 					
-					var $exitA=$("<a>").text("退出登录").attr("herf","*");
-					var $exit=$("<li>").append($exitA);
+					var $petsType=decodeURI(getQuery("petsType"));
+					alert("上一个页面请求的宠物类型是："+$petsType);
 					
-					$exitA.click(function(){
-						$.session.remove("loggedId");
-						$.session.remove("loggedName");
-						$.session.remove("loggedType");
-						$.session.remove("loggedTel");
-						window.location.reload();
-					})
+					var $serviceType=decodeURI(getQuery("serviceType"));
+					alert("上一个页面请求的服务类型是："+$serviceType);
 					
-					$("ul.dropdown-menu").append($exit);
-					$("ul.dropdown-menu").find("*").not("button").attr("style","border:0px;");
-					$("ul.dropdown-menu").find("p").attr("style","border:0px;color:black;");
-				}
+					$("#petsType")..val($petsType);
+					$("#serviceType").val($serviceType);
 				
-				$.ajax({
-					url:"SearchShopServlet",
-					type:"post",
-					data:{
-						page:1,
-						petsType: encodeURI($search),
-						serviceType: encodeURI($search)
-					},
-					cache:false,
-					dataType:"json",
-					success:function(data) {
-						console.log(data);
-						var resp=data.shop;
+					if(<%=session.getAttribute("loggedId")%>!=null){
+						alert("用户ID："+"<%=session.getAttribute("loggedId")%>");
+						if("<%=session.getAttribute("loggedType")%>"=="petsOwner")
+							$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
+						else 
+							$("#login").attr("herf", "shopMainPage.jsp").attr("id","mainPage").text("个人界面");
 						
-						var $product=$("<div>").addClass("products-block");
-						for(var i = 0; i < resp.length; i ++) {
-							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
-							var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
-							var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
-							var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
-							var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
-							var $content=$("<article>");
-							var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
-								+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
-							var $move=$("<div>").addClass("clearfix");
-							var $goodbox=$("<div>").addClass("products-row");
-							var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
-							
-							$link.append($picture);
-							$content.append($name);
-							$content.append($credit);
-							$content.append($shopTel);
-							$content.append($address);
-							$content.append($jump);
-							
-							$goodbox.append($link);
-							$goodbox.append($content);
-							$goodbox.append($move);
-							$goodbox.find("*").not("button").attr("style","border:0px;");
-							$goodbox.find("p").attr("style","border:0px;color:black;");
-
-							$product.append($goodbox);
-							
-							$jump.click(function(){
-								var $shopImg=$(this).val();
-								var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
-								var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
-								var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-								var $search=encodeURI(encodeURI(document.getElementById("search").value));
-								var $tel=$(this).parent().find(".tel").attr("value");
-								
-								alert("您点击了"+$Name);
-								window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
-								alert("已经打开了新窗口");
-							});
-						}
-						$(".col-md-9").append($product);
+						var $exitA=$("<a>").text("退出登录").attr("herf","*");
+						var $exit=$("<li>").append($exitA);
+						
+						$exitA.click(function(){
+							$.session.remove("loggedId");
+							$.session.remove("loggedName");
+							$.session.remove("loggedType");
+							$.session.remove("loggedTel");
+							window.location.reload();
+						})
+						
+						$("ul.dropdown-menu").append($exit);
+						$("ul.dropdown-menu").find("*").not("button").attr("style","border:0px;");
+						$("ul.dropdown-menu").find("p").attr("style","border:0px;color:black;");
 					}
+					
+					$.ajax({
+						url:"SearchShopServlet",
+						type:"post",
+						data:{
+							page:1,
+							petsType: encodeURI($petsType),
+							serviceType: encodeURI($serviceType)
+						},
+						cache:false,
+						dataType:"json",
+						success:function(data) {
+							console.log(data);
+							var resp=data.shop;
+							
+							var $product=$("<div>").addClass("products-block");
+							for(var i = 0; i < resp.length; i ++) {
+								var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
+								var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
+								var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
+								var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
+								var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
+								var $content=$("<article>");
+								var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
+									+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
+								var $move=$("<div>").addClass("clearfix");
+								var $goodbox=$("<div>").addClass("products-row");
+								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
+								
+								$link.append($picture);
+								$content.append($name);
+								$content.append($credit);
+								$content.append($shopTel);
+								$content.append($address);
+								$content.append($jump);
+								
+								$goodbox.append($link);
+								$goodbox.append($content);
+								$goodbox.append($move);
+								$goodbox.find("*").not("button").attr("style","border:0px;");
+								$goodbox.find("p").attr("style","border:0px;color:black;");
+
+								$product.append($goodbox);
+								
+								$jump.click(function(){
+									var $shopImg=$(this).val();
+									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
+									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
+									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
+									var $search=encodeURI(encodeURI(document.getElementById("search").value));
+									var $tel=$(this).parent().find(".tel").attr("value");
+									
+									alert("您点击了"+$Name);
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
+									alert("已经打开了新窗口");
+								});
+							}
+							$(".col-md-9").append($product);
+						}
+					});
+							
+					alert("搜索界面加载完成！");
 				});
-						
-				alert("搜索界面加载完成！");
-			});
 			</script>
 			<!-- //load the shop information when first enter -->
 			
@@ -358,80 +364,84 @@
 			
 			<!-- @**@ load the shop information when click search button-->
 			<script>
-			$("button#submit").click(function(){
-				var $value=document.getElementById("search").value;
-				
-				alert("您的搜索请求："+$value);
-				if($value==""){
-					alert("您的输入不能为空");
-				    return false;
-				}
-				
-				$("div.product-top").find("p").text("搜索结果: 第1页");
-				pageNumber=1;
-				$(".products-block").remove();
-				$.ajax({
-					url:"SearchShopServlet",
-					type:"post",
-					data:{
-						page:pageNumber,
-						petsType: encodeURI($value),
-						serviceType: encodeURI($value)
-					},
-					cache:false,
-					dataType:"json",
-					success:function(data) {
-						console.log(data);
-						var resp=data.shop;
-						alert(resp[0].shopImgUrl)
-						
-						var $product=$("<div>").addClass("products-block");
-						for(var i = 0; i < resp.length; i ++) {
-							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
-							var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
-							var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
-							var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
-							var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
-							var $content=$("<article>");
-							var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
-								+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
-							var $move=$("<div>").addClass("clearfix");
-							var $goodbox=$("<div>").addClass("products-row");
-							var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
-							
-							$link.append($picture);
-							$content.append($name);
-							$content.append($credit);
-							$content.append($shopTel);
-							$content.append($address);
-							$content.append($jump);
-							
-							$goodbox.append($link);
-							$goodbox.append($content);
-							$goodbox.append($move);
-							$goodbox.find("*").not("button").attr("style","border:0px;");
-							$goodbox.find("p").attr("style","border:0px;color:black;");
-							
-							$product.append($goodbox);
-							$jump.click(function(){
-								var $shopImg=$(this).val();
-								var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
-								var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
-								var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-								var $search=encodeURI(encodeURI(document.getElementById("search").value));
-								var $tel=$(this).parent().find(".tel").attr("value");
-								
-								alert("您点击了"+$Name);
-								window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
-								alert("已经打开了新窗口");
-							});
-						}
-						$(".col-md-9").append($product);
+				$("button#submit").click(function(){
+					var $petsType=document.getElementById("petsType").value;
+					var $serviceType=document.getElementById("serviceType").value;
+					
+					alert("您的搜索请求：宠物类型："+$petsType);
+					if($petsType==-1){
+						alert("宠物类型的输入不能为空");
+						return false;
 					}
+					alert("您的搜索请求：服务类型："+$serviceType);
+					if($serviceType==-1){
+						alert("服务类型的输入不能为空");
+						return false;
+					}
+					
+					$("div.product-top").find("p").text("搜索结果: 第1页");
+					pageNumber=1;
+					$(".products-block").remove();
+					$.ajax({
+						url:"SearchShopServlet",
+						type:"post",
+						data:{
+							page:pageNumber,
+							petsType: encodeURI($petsType),
+							serviceType: encodeURI($serviceType)
+						},
+						cache:false,
+						dataType:"json",
+						success:function(data) {
+							console.log(data);
+							var resp=data.shop;
+							var $product=$("<div>").addClass("products-block");
+							for(var i = 0; i < resp.length; i ++) {
+								var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
+								var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
+								var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
+								var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
+								var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
+								var $content=$("<article>");
+								var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
+									+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
+								var $move=$("<div>").addClass("clearfix");
+								var $goodbox=$("<div>").addClass("products-row");
+								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
+								
+								$link.append($picture);
+								$content.append($name);
+								$content.append($credit);
+								$content.append($shopTel);
+								$content.append($address);
+								$content.append($jump);
+								
+								$goodbox.append($link);
+								$goodbox.append($content);
+								$goodbox.append($move);
+								$goodbox.find("*").not("button").attr("style","border:0px;");
+								$goodbox.find("p").attr("style","border:0px;color:black;");
+								
+								$product.append($goodbox);
+								$jump.click(function(){
+									var $shopImg=$(this).val();
+									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
+									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
+									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
+									var $search=encodeURI(encodeURI(document.getElementById("search").value));
+									var $tel=$(this).parent().find(".tel").attr("value");
+									
+									alert("您点击了"+$Name);
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
+									alert("已经打开了新窗口");
+								});
+							}
+							$(".col-md-9").append($product);
+						}
+					});
+					
+					alert("加载完成！");
 				});
-				
-				alert("加载完成！");
-			});
 			</script>
 			<!-- load the shop information when click search button-->
 			
@@ -496,164 +506,192 @@
 			
 			<!-- @||@ turn to last page-->
 			<script>
-			$("button#lastpage").click(function(){
-				alert("您点击了前一页按钮");
-				pageNumber=pageNumber-1;
-				if(pageNumber==0){
-					alert("这已经是最前一页了");
-					pageNumber=1;
-					return false;
-				}
-				
-				$.ajax({
-					url:"SearchShopServlet",
-					type:"post",
-					data:{
-						page: pageNumber,
-						petsType: encodeURI($value),
-						serviceType: encodeURI($value)
-					},
-					cache:false,
-					dataType:"json",
-					success:function(data) {
-						console.log(data);
-						var resp=data.shop;
-						
-						var $product=$("<div>").addClass("products-block");
-						if(resp.length==0){
-							alert("接受List的长度为零");
-							return false;
-						}
-						
-						$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
-						$(".products-block").remove();
-						for(var i = 0; i < resp.length; i ++) {
-							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
-							var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
-							var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
-							var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
-							var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
-							var $content=$("<article>");
-							var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
-								+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
-							var $move=$("<div>").addClass("clearfix");
-							var $goodbox=$("<div>").addClass("products-row");
-							var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
-							
-							$link.append($picture);
-							$content.append($name);
-							$content.append($credit);
-							$content.append($shopTel);
-							$content.append($address);
-							$content.append($jump);
-							
-							$goodbox.append($link);
-							$goodbox.append($content);
-							$goodbox.append($move);
-							$goodbox.find("*").not("button").attr("style","border:0px;");
-							$goodbox.find("p").attr("style","border:0px;color:black;");
-							
-							$product.append($goodbox);
-							
-							$jump.click(function(){
-								var $shopImg=$(this).val();
-								var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
-								var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
-								var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-								var $search=encodeURI(encodeURI(document.getElementById("search").value));
-								var $tel=$(this).parent().find(".tel").attr("value");
-								
-								alert("您点击了"+$Name);
-								window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
-								alert("已经打开了新窗口");
-							});
-						}
-						$(".col-md-9").append($product);
+				$("button#lastpage").click(function(){
+					var $petsType=document.getElementById("petsType").value;
+					var $serviceType=document.getElementById("serviceType").value;
+					
+					alert("您的搜索请求：宠物类型："+$petsType);
+					if($petsType==-1){
+						alert("宠物类型的输入不能为空");
+						return false;
 					}
+					alert("您的搜索请求：服务类型："+$serviceType);
+					if($serviceType==-1){
+						alert("服务类型的输入不能为空");
+						return false;
+					}
+					
+					alert("您点击了前一页按钮");
+					pageNumber=pageNumber-1;
+					if(pageNumber==0){
+						alert("这已经是最前一页了");
+						pageNumber=1;
+						return false;
+					}
+					
+					$.ajax({
+						url:"SearchShopServlet",
+						type:"post",
+						data:{
+							page: encodeURI(pageNumber),
+							petsType: encodeURI($petsType),
+							serviceType: encodeURI($serviceType)
+						},
+						cache:false,
+						dataType:"json",
+						success:function(data) {
+							console.log(data);
+							var resp=data.shop;
+							
+							var $product=$("<div>").addClass("products-block");
+							if(resp.length==0){
+								alert("接受List的长度为零");
+								return false;
+							}
+							
+							$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
+							$(".products-block").remove();
+							for(var i = 0; i < resp.length; i ++) {
+								var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
+								var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
+								var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
+								var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
+								var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
+								var $content=$("<article>");
+								var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
+									+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
+								var $move=$("<div>").addClass("clearfix");
+								var $goodbox=$("<div>").addClass("products-row");
+								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
+								
+								$link.append($picture);
+								$content.append($name);
+								$content.append($credit);
+								$content.append($shopTel);
+								$content.append($address);
+								$content.append($jump);
+								
+								$goodbox.append($link);
+								$goodbox.append($content);
+								$goodbox.append($move);
+								$goodbox.find("*").not("button").attr("style","border:0px;");
+								$goodbox.find("p").attr("style","border:0px;color:black;");
+								
+								$product.append($goodbox);
+								
+								$jump.click(function(){
+									var $shopImg=$(this).val();
+									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
+									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
+									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
+									var $search=encodeURI(encodeURI(document.getElementById("search").value));
+									var $tel=$(this).parent().find(".tel").attr("value");
+									
+									alert("您点击了"+$Name);
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
+									alert("已经打开了新窗口");
+								});
+							}
+							$(".col-md-9").append($product);
+						}
+					});
+					
+					alert("前一页加载完成");
 				});
-				
-				alert("前一页加载完成");
-			});
 			</script>
 			<!-- //turn to last page-->
 			
 			<!-- @||@ turn to next page-->
 			<script>
-			$("button#nextpage").click(function(){
-				alert("您点击了后一页按钮");
-				pageNumer=pageNumber+1;
-				
-				$.ajax({
-					url:"SearchShopServlet",
-					type:"post",
-					data:{
-						page: pageNumber,
-						petsType: encodeURI($value),
-						serviceType: encodeURI($value)
-					},
-					cache:false,
-					dataType:"json",
-
-					success:function(data) {
-						console.log(data);
-						var resp=data.shop;
-						
-						var $product=$("<div>").addClass("products-block");
-						if(resp.length==0){
-							alert("这已经是最后一页了");
-							pageNumber=pageNumber-1;
-							return false;
-						}
-						
-						$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
-						$(".products-block").remove();
-						for(var i = 0; i < resp.length; i ++) {
-							var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
-							var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
-							var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
-							var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
-							var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
-							var $content=$("<article>");
-							var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
-								+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
-							var $move=$("<div>").addClass("clearfix");
-							var $goodbox=$("<div>").addClass("products-row");
-							var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
-							
-							$link.append($picture);
-							$content.append($name);
-							$content.append($credit);
-							$content.append($shopTel);
-							$content.append($address);
-							$content.append($jump);
-							
-							$goodbox.append($link);
-							$goodbox.append($content);
-							$goodbox.append($move);
-							$goodbox.find("*").not("button").attr("style","border:0px;");
-							$goodbox.find("p").attr("style","border:0px;color:black;");
-							
-							$product.append($goodbox);
-							
-							$jump.click(function(){
-								var $shopImg=$(this).val();
-								var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
-								var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
-								var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-								var $search=encodeURI(encodeURI(document.getElementById("search").value));
-								var $tel=$(this).parent().find(".tel").attr("value");
-								
-								alert("您点击了"+$Name);
-								window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
-								alert("已经打开了新窗口");
-							});
-						}
-						$(".col-md-9").append($product);
+				$("button#nextpage").click(function(){
+					var $petsType=document.getElementById("petsType").value;
+					var $serviceType=document.getElementById("serviceType").value;
+					
+					alert("您的搜索请求：宠物类型："+$petsType);
+					if($petsType==-1){
+						alert("宠物类型的输入不能为空");
+						return false;
 					}
+					alert("您的搜索请求：服务类型："+$serviceType);
+					if($serviceType==-1){
+						alert("服务类型的输入不能为空");
+						return false;
+					}
+					
+					alert("您点击了后一页按钮");
+					pageNumer=pageNumber+1;
+					
+					$.ajax({
+						url:"SearchShopServlet",
+						type:"post",
+						data:{
+							page: encodeURI(pageNumber),
+							petsType: encodeURI($petsType),
+							serviceType: encodeURI($serviceType)
+						},
+						cache:false,
+						dataType:"json",
+
+						success:function(data) {
+							console.log(data);
+							var resp=data.shop;
+							
+							var $product=$("<div>").addClass("products-block");
+							if(resp.length==0){
+								alert("这已经是最后一页了");
+								pageNumber=pageNumber-1;
+								return false;
+							}
+							
+							$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
+							$(".products-block").remove();
+							for(var i = 0; i < resp.length; i ++) {
+								var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
+								var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
+								var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
+								var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
+								var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
+								var $content=$("<article>");
+								var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
+									+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
+								var $move=$("<div>").addClass("clearfix");
+								var $goodbox=$("<div>").addClass("products-row");
+								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
+								
+								$link.append($picture);
+								$content.append($name);
+								$content.append($credit);
+								$content.append($shopTel);
+								$content.append($address);
+								$content.append($jump);
+								
+								$goodbox.append($link);
+								$goodbox.append($content);
+								$goodbox.append($move);
+								$goodbox.find("*").not("button").attr("style","border:0px;");
+								$goodbox.find("p").attr("style","border:0px;color:black;");
+								
+								$product.append($goodbox);
+								
+								$jump.click(function(){
+									var $shopImg=$(this).val();
+									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
+									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
+									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
+									var $search=encodeURI(encodeURI(document.getElementById("search").value));
+									var $tel=$(this).parent().find(".tel").attr("value");
+									
+									alert("您点击了"+$Name);
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
+									alert("已经打开了新窗口");
+								});
+							}
+							$(".col-md-9").append($product);
+						}
+					});
+					
+					alert("后一页加载完成");
 				});
-				
-				alert("后一页加载完成");
-			});
 			</script>
 			<!-- //turn to next page-->
 			
