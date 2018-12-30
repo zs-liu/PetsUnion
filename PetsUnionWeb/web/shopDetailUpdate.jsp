@@ -147,44 +147,34 @@ response.setDateHeader("Expires",0);
 		}
 	%>
 
-<script type="text/javascript">
-$(document).ready(function() {
-	$("#exit").click(function(){
-		$.session.remove("loggedId");
-		$.session.remove("loggedType");
-		$.session.remove("loggedTel");
-		$.session.remove("shopName");
-	})
-});
-</script>
-	
-	<body data-spy="scroll" data-offset="100">
-			<!-- header -->
-			<div class="header">
-				<div class="uniform-header"><!--header-one--> 
-					<div class="uniform-header-right">
-						<ul>
-							<li class="dropdown head-dpdn">
-								<%
-								if(userID==null){
-								%>
-								<a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i>请登录<span class="caret"></span></a>
-								<%
-								}
-								else{
-								%>
-								<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href= <%=mainPage%> >主页 </a></li>
-									<li><a href="index.jsp" id="exit">退出登录</a></li>  
-								</ul> 
-								<%}%>
-							</li> 
-						</ul>
-					</div>
-					<div class="clearfix"> </div> 
+<body data-spy="scroll" data-offset="100">
+		<!-- header -->
+		<div class="header">
+			<div class="uniform-header"><!--header-one--> 
+				<div class="uniform-header-right">
+					<ul>
+						<li class="dropdown head-dpdn">
+							<%
+							if(userID==null){
+							%>
+							<a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i>请登录<span class="caret"></span></a>
+							<%
+							}
+							else{
+							%>
+							<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href= <%=mainPage%> >个人主页 </a></li> 
+								<li><a href="exit.jsp">退出登录</a></li>  
+								<li><a href="index.jsp">主页 </a></li>  
+							</ul> 
+							<%}%>
+						</li> 
+					</ul>
 				</div>
+				<div class="clearfix"> </div> 
 			</div>
+		</div>
 
 	<div class="shop-page">
 		<div class="container">
@@ -200,6 +190,7 @@ $(document).ready(function() {
 					<input type="text" class="form-control" name="shopTel"  id="shopTel" placeholder="shopTel">
 				</form>
 				<a class="btn btn-primary" id="confirm1">确认修改</a>
+				<p id="message1"></p>
 			</div>
 		</div>
 
@@ -233,22 +224,26 @@ $(document).ready(function() {
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#confirm1").click(function(){
-			x=$("#shopDetailForm").serializeArray();
-			console.log(x);
 			$.ajax({
 			url:"ShopDetailUpdateServlet",
 			type:"post",
 			data:{
 				flag:2,
 				shopName:encodeURI("<%=shopname%>"),
-				instruction:$("#instruction").val(),
-				address:$("#address").val(),
-				shopHours:$("#shopHours").val(),
-				shopTel:$("#shopTel").val(),
+				instruction:encodeURI($("#instruction").val()),
+				address:encodeURI($("#address").val()),
+				shopHours:encodeURI($("#shopHours").val()),
+				shopTel:encodeURI($("#shopTel").val()),
 			},
 			cache:false,
-			success:function(){
-				alert("shopdetail posted");
+			success:function(data){
+				alert("register success");
+                if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
+                    window.location.href=data.returnPath;
+                }
+                else{
+                    $("#message1").text(data.errorMessage);
+                }
 			}
 		})
 		})
@@ -276,31 +271,13 @@ $(document).ready(function() {
 						<td class="center">price</td>
 					</tr>
 				
-					<!-- <tr class="tr1">
-
-					<form id="form1">
-						<td class="center">
-							<input type="text" class="form-control" name="serviceIntro" value="name">
-						</td>
-						<td class="center">
-							<input type="text" class="form-control" name="serviceType" value="name">
-						</td>
-						<td class="center">
-							<input type="text" class="form-control" name="petsType" value="name">
-						</td>
-						<td class="center">
-							<input type="text" class="form-control" name="price" value="name">
-						</td>
-					</form>
-					</tr> -->
-				
 				  </tbody>
 			  </table>    
 			  <div class="col">
 					<a class="btn btn-primary" id="new1">新建</a>
 					<a class="btn btn-primary" id="confirm2">确认</a>
 			  </div>
-			  
+			  <p id="message2"></p>
 			</div>
 		</div>
 	</div>
@@ -377,8 +354,14 @@ $(document).ready(function() {
 				serviceTable:encodeURI(x)
 			},
 			cache:false,
-			success:function(){
-				alert("table posted");
+			success:function(data){
+				alert("register success");
+                if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
+                    window.location.href=data.returnPath;
+                }
+                else{
+                    $("#message2").text(data.errorMessage);
+                }
 			}
 		})
 		$("tr").filter(".tr1").remove();
@@ -386,15 +369,6 @@ $(document).ready(function() {
 		$("#new1").show();
 		})
 	</script>
-
-	<!-- return to searchShop -->
-	<script type="text/javascript">
-	$("button#submit").click(function (){
-		var $value=document.getElementById("search").value;
-		window.location.href = "searchShop.jsp?search="+$value;
-	});
-	</script>
-	<!-- return to searchShop -->
 		
 	<!-- //cart-js -->  
 	
