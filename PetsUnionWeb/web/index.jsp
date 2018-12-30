@@ -152,6 +152,17 @@ response.setDateHeader("Expires",0);
 	}
 %>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#exit").click(function(){
+		$.session.remove("loggedId");
+		$.session.remove("loggedType");
+		$.session.remove("loggedTel");
+		$.session.remove("shopName");
+	})
+});
+</script>
+
 <body data-spy="scroll" data-offset="100">
 		<!-- header -->
 		<div class="header">
@@ -170,7 +181,7 @@ response.setDateHeader("Expires",0);
 							<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href= <%=mainPage%> >主页 </a></li> 
-								<li><a href="index.jsp">切换账号</a></li>  
+								<li><a href="index.jsp" id="exit">退出登录</a></li>   
 							</ul> 
 							<%}%>
 						</li> 
@@ -192,34 +203,15 @@ response.setDateHeader("Expires",0);
 					<a href="shopLogin.jsp" class="app-btn wow bounceIn home_btn_color_one" data-wow-delay=".6s" ><font face="Microsoft YaHei" size="+1">宠物店</font></a>
 					<a href="ownerLogin.jsp" class="app-btn wow bounceIn home_btn_color_two" data-wow-delay=".8s"><font face="Microsoft YaHei" size="+1">宠物主</font></a>
 				</div>
-				<form>
-				<div class="form-group col-lg-4 col-lg-offset-4">
-					<input type="text" placeholder="用户名/username" class="form-control" name="ownerName">
-					<button class="btn home_btn">搜索</button>
+				<div class="home_btn">
+					<a href="searchShop.jsp" class="app-btn wow bounceIn home_btn_color_three" data-wow-delay=".7s" ><font face="Microsoft YaHei" size="+1">开始搜索您心仪的宠物店</font></a>
 				</div>
-			</form>
 			</div> 
 		  </div><!--- END COL -->				  
 		</div><!--- END ROW -->
 	</div><!--- END CONTAINER -->
 </section>
 <!-- END  HOME -->	
-
-<script type="text/javascript">
-	$("button#submit").click(function (){
-		var $value=document.getElementById("search").value;
-		alert("您的搜索请求："+$value);
-		if($value==""){
-			alert("您的输入不能为空");
-			return false;
-		}
-			
-		window.location.href = "searchShop.jsp?search="+encodeURI(encodeURI($value));
-		
-		alert("跳转页面完成");
-	});
-</script>
-
 
 <!-- scrolltopcontrol js -->
 	<script src="assets/js/scrolltopcontrol.js"></script>									
