@@ -253,7 +253,7 @@
 					<li class="dropdown head-dpdn">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> 我的账号<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="login.html">登录/注册 </a></li> 
+							<li><a id="login" href="index.jsp">登录/注册 </a></li> 
 						</ul> 
 					</li> 
 				</ul>
@@ -264,7 +264,7 @@
 		<div class="header-two"><!-- header-two -->
 			<div class="container">
 				<div class="header-logo">
-					<h1><a href="index.html"><span>PETS</span>union </a></h1>
+					<h1><a href="index.jsp"><span>PETS</span>union </a></h1>
 					<h2>Your stores. Your friends.</h2> 
 				</div>	
 				<div class="header-search">

@@ -181,7 +181,7 @@
 		<div class="header-two"><!-- header-two -->
 			<div class="container">
 				<div class="header-logo">
-					<h1><a href="index.html"><span>PETS</span>union </a></h1>
+					<h1><a href="index.jsp"><span>PETS</span>union </a></h1>
 					<h2>Your stores. Your friends.</h2> 
 				</div>	
 				<div class="header-search">
@@ -380,7 +380,7 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:encodeURI('<////%= session.getAttribute("Id")%>'),
+				useId:encodeURI("<%= session.getAttribute("loggedId")%>"),
 				status: encodeURI(0)
 			},
 			cache:false,
@@ -437,7 +437,7 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:encodeURI('<////%= session.getAttribute("loggedId")%>'),
+				useId:encodeURI("<%= session.getAttribute("loggedId")%>"),
 				status: encodeURI(1)
 			},
 			cache:false,
