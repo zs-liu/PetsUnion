@@ -583,11 +583,10 @@
 									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
 									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-									var $search=encodeURI(encodeURI(document.getElementById("search").value));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
 									alert("您点击了"+$Name);
-									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);
 									alert("已经打开了新窗口");
 								});
 							}
@@ -677,7 +676,6 @@
 									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
 									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-									var $search=encodeURI(encodeURI(document.getElementById("search").value));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
 									alert("您点击了"+$Name);
