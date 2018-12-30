@@ -292,21 +292,21 @@
 		alert("开始加载历史订单界面！");
 		
 		$.ajax({
-			url:"OwnerReservationServlet",
+			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:encodeURI("<%= session.getAttribute("loggedId")%>"),
+				shopName:encodeURI("<%= session.getAttribute("shopName")%>"),
 				status: encodeURI(2)
 			},
 			cache:false,
 			dataType:"json",
-			success:function(resp) {
-				console.log(resp);
+			success:function(data) {
+				console.log(data);
+				resp = data.reservation;
 				
 				var number=resp.length;
 				var iter=0;
-				while(iter<=number){
-					iter=iter+1;
+				while(iter<number){
 					
 					var $tr = $("<tr></tr>");
 					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
@@ -319,6 +319,7 @@
 					$tr.append("<td>"+ resp[iter].comment+"</td>");
 
 					$tr.appendTo($(".hovertable"));
+					iter=iter+1;
 				}
 			}
 		});
