@@ -38,9 +38,9 @@ public class OwnerDAO {
                 if (ownerPw.equals(result.getString("userPw"))) {
                     owner.setOwnerName(result.getString("userName"));
                     return StaticPara.LoginRegisterPara.success;
+                } else {
+                    return StaticPara.LoginRegisterPara.loginWrongPassword;
                 }
-            } else {
-                return StaticPara.LoginRegisterPara.loginWrongPassword;
             }
 
         } catch (SQLException sqlE) {

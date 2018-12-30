@@ -11,6 +11,7 @@ import java.io.IOException;
 import service.ShopService;
 import bean.OwnerBean;
 import tools.StaticPara.LoginRegisterPara;
+import tools.URICoder;
 
 @WebServlet(name = "/ShopLoginServlet")
 public class ShopLoginServlet extends HttpServlet {
@@ -30,8 +31,8 @@ public class ShopLoginServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String ownerId = request.getParameter("ownerId");
-        String ownerPw = request.getParameter("ownerPw");
+        String ownerId = URICoder.getURLDecoderString(request.getParameter("ownerId"));
+        String ownerPw = URICoder.getURLDecoderString(request.getParameter("ownerPw"));
         String returnPath = request.getParameter("returnPath");
 
         OwnerBean owner = new OwnerBean(ownerId);

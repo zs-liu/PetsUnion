@@ -326,21 +326,21 @@
 			url:"OwnerReservationServlet",
 			type:"post",
 			data:{
-				useId:encodeURI("<%=session.getAttribute("loggedId")%>"),
-				status: encodeURI(2)
+				userId:encodeURI("<%=session.getAttribute("loggedId")%>"),
+				status: encodeURI(1)
 			},
 			cache:false,
 			dataType:"json",
-			success:function(resp) {
-				console.log(resp);
-				
+			success:function(data) {
+				console.log(data);
+
+				var resp = data.reservation;
 				$("#myname").text("<%=session.getAttribute("loggedName")%>");
 				$("#myimg").attr("src", "images/s1.jpg");//头像
 				
 				var number=resp.length;
 				var iter=0;
-				while(iter<=number){
-					iter=iter+1;
+				while(iter<number){
 					
 					var $tr = $("<tr></tr>");
 					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
@@ -352,6 +352,7 @@
 					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 
 					$tr.appendTo($(".hovertable"));
+					iter=iter+1;
 				}
 			}
 		});

@@ -215,7 +215,7 @@
 					var $serviceType=decodeURI(getQuery("serviceType"));
 					alert("上一个页面请求的服务类型是："+$serviceType);
 					
-					$("#petsType")..val($petsType);
+					$("#petsType").val($petsType);
 					$("#serviceType").val($serviceType);
 				
 					if(<%=session.getAttribute("loggedId")%>!=null){

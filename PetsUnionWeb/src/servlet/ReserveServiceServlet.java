@@ -2,6 +2,7 @@ package servlet;
 
 import tools.StaticPara.SqlPara;
 import service.ReservationService;
+import tools.URICoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,14 +23,14 @@ public class ReserveServiceServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String returnPath = request.getParameter("returnPath");
-        String shopName = request.getParameter("shopName");
-        String userId = request.getParameter("userId");
+        String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
+        String userId = URICoder.getURLDecoderString(request.getParameter("userId"));
         String petsOwnerTel = request.getParameter("petsOwnerTel");
-        String petsType = request.getParameter("petsType");
-        String serviceType = request.getParameter("serviceType");
-        String serBeginTime = request.getParameter("serBeginTime");
-        String serEndTime = request.getParameter("serEndTime");
-        String comment = request.getParameter("comment");
+        String petsType = URICoder.getURLDecoderString(request.getParameter("petsType"));
+        String serviceType = URICoder.getURLDecoderString(request.getParameter("serviceType"));
+        String serBeginTime = URICoder.getURLDecoderString(request.getParameter("serBeginTime"));
+        String serEndTime = URICoder.getURLDecoderString(request.getParameter("serEndTime"));
+        String comment = URICoder.getURLDecoderString(request.getParameter("comment"));
 
         int result = ReservationService.insert(shopName, userId, petsOwnerTel, petsType, serviceType,
                 serBeginTime, serEndTime, comment);
