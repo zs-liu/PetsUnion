@@ -290,7 +290,7 @@
 					petsOwnerTel:encodeURI(decodeURI(getQuery("petsOwnerTel"))),
 					userId:encodeURI("<%=session.getAttribute("loggedId")%>"),
 					comment: encodeURI($("textarea.reserve").val()),
-					returnPath:encodeURI("ownerMainPage.jsp"))
+					returnPath:encodeURI("ownerMainPage.jsp")
 				},
 				cache:false,
 				dataType:"json",

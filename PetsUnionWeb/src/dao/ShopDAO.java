@@ -221,18 +221,17 @@ public class ShopDAO {
         ResultSet result = null;
 
         //language=MySQL
-        String sql = "UPDATE petsshop SET instruction=?,shopImgUrl=?,address=?,shopHours=?,shopTel=? WHERE shopName=?";
+        String sql = "UPDATE petsshop SET instruction=?,address=?,shopHours=?,shopTel=? WHERE shopName=?";
 
         try {
             conn = DBUtils.getConn();
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, instruction);
-            pstmt.setString(2, shopImgUrl);
-            pstmt.setString(3, address);
-            pstmt.setString(4, shopHours);
-            pstmt.setString(5, shopTel);
-            pstmt.setString(6, shopName);
+            pstmt.setString(2, address);
+            pstmt.setString(3, shopHours);
+            pstmt.setString(4, shopTel);
+            pstmt.setString(5, shopName);
             pstmt.executeUpdate();
 
         } catch (SQLException sqlE) {

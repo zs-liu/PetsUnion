@@ -61,9 +61,14 @@ public class ShopDetailServlet extends HttpServlet {
             response.setCharacterEncoding("utf-8");
             PrintWriter out = response.getWriter();
             out.println(json.toString());
+
         } else {
-            request.setAttribute("errorMessage", "InvalidRequest");
-            request.getRequestDispatcher("/404.jsp").forward(request, response);
+            JSONObject jsonResponse = new JSONObject();
+            jsonResponse.put("errorMessage", "InvalidRequest");
+            jsonResponse.put("returnPath", "/404.jsp");
+            response.setCharacterEncoding("utf-8");
+            PrintWriter out = response.getWriter();
+            out.println(jsonResponse.toString());
         }
     }
 

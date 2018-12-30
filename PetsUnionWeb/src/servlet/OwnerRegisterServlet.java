@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import bean.OwnerBean;
+import org.json.JSONObject;
 import service.OwnerService;
 import tools.StaticPara.LoginRegisterPara;
 import tools.URICoder;
@@ -39,6 +41,7 @@ public class OwnerRegisterServlet extends HttpServlet {
         owner.setOwnerPw(userPw);
         owner.setOwnerTel(userTel);
 
+        JSONObject jsonResponse = new JSONObject();
         int result = OwnerService.registerCheck(owner);
 
         if (result == LoginRegisterPara.success) {
@@ -46,21 +49,26 @@ public class OwnerRegisterServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("registered", userId);
 
+            jsonResponse.put("errorMessage", "Success");
             if (returnPath != null) {
-                request.getRequestDispatcher(returnPath).forward(request, response);
+                jsonResponse.put("returnPath", returnPath);
             } else {
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                jsonResponse.put("returnPath", "/index.jsp");
             }
+
         } else if (result == LoginRegisterPara.registerExistsName) {
-            request.setAttribute("errorMessage", "NameExists");
-            request.getRequestDispatcher("/ownerRegister.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "IdExists");
+            jsonResponse.put("returnPath","/ownerRegister.jsp");
         } else if (result == LoginRegisterPara.invalid) {
-            request.setAttribute("errorMessage", "NameOrPasswordNull");
-            request.getRequestDispatcher("/ownerRegister.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "NameOrPasswordNull");
+            jsonResponse.put("returnPath","/ownerRegister.jsp");
         } else if (result == LoginRegisterPara.sqlError) {
-            request.setAttribute("errorMessage", "SqlError");
-            request.getRequestDispatcher("/404.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "SqlError");
+            jsonResponse.put("returnPath","/404.jsp");
         }
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        out.println(jsonResponse.toString());
     }
 
     /**
