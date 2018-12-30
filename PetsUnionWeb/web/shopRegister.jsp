@@ -22,7 +22,9 @@ response.setDateHeader("Expires",0);
 <!-- Latest Bootstrap min CSS -->
 <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">				
 <!-- Style CSS -->
-<link rel="stylesheet" href="assets/css/style.css">								
+<link rel="stylesheet" href="assets/css/style.css">		
+<script src="js/jquery-2.2.3.min.js"></script> 
+
 </head>
 
 <body data-spy="scroll" data-offset="100">
@@ -34,39 +36,64 @@ response.setDateHeader("Expires",0);
 		  <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 text-center">
 			<div class="hero-text">
 				<h2><font color="black" face="Microsoft YaHei" size="+3">宠物店注册</font></h2>
-				<form action="ShopRegisterServlet" method ="post">
+				<form>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-							<input type="text" placeholder="ID/userId" class="form-control" name="ownerId">
+							<input type="text" placeholder="ID/userId" class="form-control" id="ownerId">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="text" placeholder="用户名/username" class="form-control" name="ownerName">
+						<input type="text" placeholder="用户名/username" class="form-control" id="ownerName">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="password" placeholder="密码/password" class="form-control" name="ownerPw">
+						<input type="password" placeholder="密码/password" class="form-control" id="ownerPw">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="text" placeholder="宠物店名/shopname" class="form-control" name="shopName">
+						<input type="text" placeholder="宠物店名/shopname" class="form-control" id="shopName">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="text" placeholder="地址/address" class="form-control" name="address">
+						<input type="text" placeholder="地址/address" class="form-control" id="address">
 					</div>
 					<div class="form-group col-lg-4 col-lg-offset-4">
-						<input type="text" placeholder="电话/Tel" class="form-control" name="ownerTel">
+						<input type="text" placeholder="电话/Tel" class="form-control" id="ownerTel">
                     </div>
-                    <%
-                    try{
-                    String message=request.getAttribute("errorMessage").toString();
-                    %>
+                   
                     <div class="form-group col-lg-4 col-lg-offset-4">
-                        <p><%=message%></p>
+                        <p id="message"></p>
                     </div>
-                    <% } catch (Exception e){} %>
 					<div class="form-group col-lg-4 col-lg-offset-4">
 						<div class="home_btn">
-							<button type="submit" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">注册</font></button>
+							<button id = "confirm" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">注册</font></button>
 						</div>
                     </div>
 				</form>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#confirm").click(function(){
+			$.ajax({
+			url:"ShopRegisterServlet",
+			type:"post",
+			data:{
+				ownerId:encodeURI($("#ownerId").val()),
+				ownerName:encodeURI($("#ownerName").val()),
+				ownerPw:encodeURI($("#ownerPw").val()),
+				shopName:encodeURI($("#shopName").val()),
+				address:encodeURI($("#address").val()),
+				ownerTel:encodeURI($("#ownerTel").val())
+			},
+			cache:false,
+			success:function(data){
+				alert("register success");
+                if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
+                    window.location.href=data.returnPath;
+                }
+                else{
+                    $("#message").text(data.errorMessage);
+                }
+			}
+		})
+		})
+	})
+</script>
 			</div> 
 		  </div><!--- END COL -->				  
 		</div><!--- END ROW -->

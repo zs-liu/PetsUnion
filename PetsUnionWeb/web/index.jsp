@@ -152,17 +152,6 @@ response.setDateHeader("Expires",0);
 	}
 %>
 
-<script type="text/javascript">
-$(document).ready(function() {
-	$("#exit").click(function(){
-		$.session.remove("loggedId");
-		$.session.remove("loggedType");
-		$.session.remove("loggedTel");
-		$.session.remove("shopName");
-	})
-});
-</script>
-
 <body data-spy="scroll" data-offset="100">
 		<!-- header -->
 		<div class="header">
@@ -180,8 +169,9 @@ $(document).ready(function() {
 							%>
 							<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href= <%=mainPage%> >主页 </a></li> 
-								<li><a href="index.jsp" id="exit">退出登录</a></li>   
+								<li><a href= <%=mainPage%> >个人主页 </a></li> 
+								<li><a href="exit.jsp">退出登录</a></li>  
+								<li><a href="index.jsp">主页 </a></li>  
 							</ul> 
 							<%}%>
 						</li> 
