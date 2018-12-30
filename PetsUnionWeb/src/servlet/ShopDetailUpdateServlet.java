@@ -32,7 +32,7 @@ public class ShopDetailUpdateServlet extends HttpServlet {
         int flag = Integer.parseInt(request.getParameter("flag"));
         if (flag == ShopDetailUpdateServletPara.priceInsert || flag == ShopDetailUpdateServletPara.priceDelete) {
             String returnPath = request.getParameter("returnPath");
-            String shopName = request.getParameter("shopName");
+            String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
             JSONArray serviceTable = new JSONArray(URICoder.getURLDecoderString(request.getParameter("serviceTable")));
             for (int i = 0; i < serviceTable.length(); i++) {
                 JSONObject service = serviceTable.getJSONObject(i);
@@ -61,11 +61,11 @@ public class ShopDetailUpdateServlet extends HttpServlet {
 
         } else if (flag == ShopDetailUpdateServletPara.basic) {
             String returnPath = request.getParameter("returnPath");
-            String shopName = request.getParameter("shopName");
-            String instruction = request.getParameter("instruction");
+            String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
+            String instruction = URICoder.getURLDecoderString(request.getParameter("instruction"));
             String shopImgUrl = request.getParameter(" shopImgUrl");
-            String address = request.getParameter("address");
-            String shopHours = request.getParameter("shopHours");
+            String address = URICoder.getURLDecoderString(request.getParameter("address"));
+            String shopHours = URICoder.getURLDecoderString(request.getParameter("shopHours"));
             String shopTel = request.getParameter("shopTel");
 
             int result = ShopService.updateInfoByShop(shopName, instruction, shopImgUrl, address, shopHours, shopTel);

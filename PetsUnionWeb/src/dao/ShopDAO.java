@@ -55,10 +55,6 @@ public class ShopDAO {
                 return StaticPara.LoginRegisterPara.loginWrongPassword;
             }
 
-            if (result.next()) {
-                owner.setShopName(result.getString("shopName"));
-            }
-
         } catch (SQLException sqlE) {
             sqlE.printStackTrace();
             return StaticPara.LoginRegisterPara.sqlError;

@@ -127,7 +127,7 @@
 		<div class="header-two"><!-- header-two -->
 			<div class="container">
 				<div class="header-logo">
-					<h1><a href="index.html"><span>PETS</span>union </a></h1>
+					<h1><a href="index.jsp"><span>PETS</span>union </a></h1>
 					<h2>Your stores. Your friends.</h2> 
 				</div>	
 				<div class="header-search">
@@ -172,7 +172,7 @@
 	<!-- products -->
 	<div class="products">	 
 		<div class="container">
-			<div class="col-md-9 product-uniform-right" >
+			<div class="col-md-9 product-uniform-right"  style="width:100%;float:none;">
 				<ol class="breadcrumb breadcrumb1">
 					<li><a href="index.jsp">首页</a></li>
 					<li class="active">搜索页面</li>
@@ -215,7 +215,7 @@
 					var $serviceType=decodeURI(getQuery("serviceType"));
 					alert("上一个页面请求的服务类型是："+$serviceType);
 					
-					$("#petsType")..val($petsType);
+					$("#petsType").val($petsType);
 					$("#serviceType").val($serviceType);
 				
 					if(<%=session.getAttribute("loggedId")%>!=null){
@@ -289,11 +289,10 @@
 									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
 									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-									var $search=encodeURI(encodeURI(document.getElementById("search").value));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
 									alert("您点击了"+$Name);
-									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);
 									alert("已经打开了新窗口");
 								});
 							}
@@ -428,11 +427,10 @@
 									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
 									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-									var $search=encodeURI(encodeURI(document.getElementById("search").value));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
 									alert("您点击了"+$Name);
-									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);
 									alert("已经打开了新窗口");
 								});
 							}
@@ -584,11 +582,10 @@
 									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
 									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-									var $search=encodeURI(encodeURI(document.getElementById("search").value));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
 									alert("您点击了"+$Name);
-									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);
 									alert("已经打开了新窗口");
 								});
 							}
@@ -678,11 +675,10 @@
 									var $cre=encodeURI(encodeURI($(this).parent().find(".credit").attr("value")));
 									var $add=encodeURI(encodeURI($(this).parent().find(".address").attr("value")));
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
-									var $search=encodeURI(encodeURI(document.getElementById("search").value));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
 									alert("您点击了"+$Name);
-									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel+"&search="+$search);
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);
 									alert("已经打开了新窗口");
 								});
 							}
@@ -695,46 +691,6 @@
 			</script>
 			<!-- //turn to next page-->
 			
-			<div class="col-md-3 rsidebar">
-				<div class="rsidebar-top">
-					<div class="slider-left">
-						<h4>按均价筛选</h4>            
-						<div class="row row1 scroll-pane">
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>0 - $100 </label>
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>$100 - $200 </label> 
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>$200 - $250  </label> 
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>$250 - $300 </label> 
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>$350 - $400 </label> 
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>$450 - $500  </label> 
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>More</label> 
-						</div> 
-					</div>
-					<div class="sidebar-row">
-						<h4>按距离筛选</h4>            
-						<div class="row row1 scroll-pane">
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>0 - 500米 </label>
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>500米 - 1公里 </label> 
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>1公里 - 5公里  </label> 
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>5公里 - 20公里 </label> 
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>同城 </label> 
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>More</label> 
-						</div> 
-					</div>
-					<div class="sidebar-row">
-						<h4>按折扣筛选</h4>
-						<div class="row row1 scroll-pane">
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>70%以上 </label>
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>70% - 60% </label>
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>50% - 40% </label>
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% </label>
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% </label>
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% </label>
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% </label>
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>5%以下</label>
-						</div>
-					</div>		 
-				</div>
-			</div>
 			<div class="clearfix"> </div>
 			
 			<!-- recommendations -->

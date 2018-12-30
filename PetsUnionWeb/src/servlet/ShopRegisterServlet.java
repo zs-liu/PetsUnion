@@ -13,6 +13,7 @@ import service.ShopService;
 import bean.OwnerBean;
 import bean.ShopBean;
 import tools.StaticPara.LoginRegisterPara;
+import tools.URICoder;
 
 @WebServlet(name = "ShopRegisterServlet")
 public class ShopRegisterServlet extends HttpServlet {
@@ -32,12 +33,12 @@ public class ShopRegisterServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String ownerId = request.getParameter("ownerId");
-        String ownerName = request.getParameter("ownerName");
-        String ownerPw = request.getParameter("ownerPw");
+        String ownerId = URICoder.getURLDecoderString(request.getParameter("ownerId"));
+        String ownerName = URICoder.getURLDecoderString(request.getParameter("ownerName"));
+        String ownerPw = URICoder.getURLDecoderString(request.getParameter("ownerPw"));
         String ownerTel = request.getParameter("ownerTel");
-        String shopName = request.getParameter("shopName");
-        String address = request.getParameter("address");
+        String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
+        String address = URICoder.getURLDecoderString(request.getParameter("address"));
         String returnPath = request.getParameter("returnPath");
 
         OwnerBean owner = new OwnerBean(ownerId);

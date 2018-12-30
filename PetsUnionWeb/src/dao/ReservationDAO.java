@@ -127,7 +127,7 @@ public class ReservationDAO {
             pstmt.setString(8, serEndTime);
             pstmt.setString(9, comment);
 
-            result = pstmt.executeQuery();
+            pstmt.executeUpdate();
             return StaticPara.SqlPara.success;
 
         } catch (SQLException sqlE) {
@@ -160,7 +160,7 @@ public class ReservationDAO {
             pstmt.setInt(1, status);
             pstmt.setInt(2, orderId);
 
-            result = pstmt.executeQuery();
+            pstmt.executeUpdate();
             return StaticPara.SqlPara.success;
 
         } catch (SQLException sqlE) {

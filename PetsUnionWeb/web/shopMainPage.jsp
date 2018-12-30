@@ -181,7 +181,7 @@
 		<div class="header-two"><!-- header-two -->
 			<div class="container">
 				<div class="header-logo">
-					<h1><a href="index.html"><span>PETS</span>union </a></h1>
+					<h1><a href="index.jsp"><span>PETS</span>union </a></h1>
 					<h2>Your stores. Your friends.</h2> 
 				</div>	
 				<div class="header-search">
@@ -363,7 +363,7 @@
 			type:"post",
 			data:{
 				flag:encodeURI(1),
-				shopName:encodeURI("<%= session.getAttribute("loggedId")%>")
+				shopName:encodeURI("<%= session.getAttribute("shopName")%>")
 			},
 			cache:false,
 			dataType:"json",
@@ -380,25 +380,23 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:encodeURI('<////%= session.getAttribute("Id")%>'),
+				shopName:encodeURI("<%= session.getAttribute("shopName")%>"),
 				status: encodeURI(0)
 			},
 			cache:false,
 			dataType:"json",
-			success:function(resp) {
-				console.log(resp);
+			success:function(data) {
+				console.log(data);
 				
 				alert("开始加载未确认订单");
-				
+				var resp = data.reservation;
 				var number=resp.length;
 				var iter=0;
-				while(iter<=number){
-					iter=iter+1;
-					
+				while(iter<number){
 					var $tr = $("<tr></tr>");
 					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
 					$tr.append("<td>"+ resp[iter].orderId +"</td>");
-					$tr.append("<td>"+ resp[iter].Status +"</td>");
+					$tr.append("<td>"+ resp[iter].status +"</td>");
 					$tr.append("<td>"+ resp[iter].shopName +"</td>");
 					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 					$tr.append("<td>"+ resp[iter].serviceType+"</td>");
@@ -416,17 +414,24 @@
 							url:"ReservationUpdateServlet",
 							type:"post",
 							data:{
-								orderId: $value
+								orderId: $value,
+								status: 1
 							},
 							cache:false,
 							dataType:"json",
 							success:function(resp) {
-								reload();
+								alert("reload");
+								window.location.reload();
+							},
+							error:function (resp) {
+								alert("error");
+								window.location.reload();
 							}
 						});
 					});
 					
 					$tr.appendTo($(".hovertable#comfirm"));
+					iter=iter+1;
 				}
 				
 				alert("未确认订单加载完成");
@@ -437,25 +442,25 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:encodeURI('<////%= session.getAttribute("loggedId")%>'),
+				shopName:encodeURI("<%= session.getAttribute("shopName")%>"),
 				status: encodeURI(1)
 			},
 			cache:false,
 			dataType:"json",
-			success:function(resp) {
-				console.log(resp);
+			success:function(data) {
+				console.log(data);
 				
 				alert("开始加载未完成订单");
 
+				var resp = data.reservation;
 				var number=resp.length;
 				var iter=0;
-				while(iter<=number){
-					iter=iter+1;
+				while(iter<number){
 					
 					var $tr = $("<tr></tr>");
 					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
 					$tr.append("<td>"+ resp[iter].orderId +"</td>");
-					$tr.append("<td>"+ resp[iter].Status +"</td>");
+					$tr.append("<td>"+ resp[iter].status +"</td>");
 					$tr.append("<td>"+ resp[iter].shopName +"</td>");
 					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 					$tr.append("<td>"+ resp[iter].serviceType+"</td>");
@@ -473,17 +478,24 @@
 							url:"ReservationUpdateServlet",
 							type:"post",
 							data:{
-								orderId: $value
+								orderId: $value,
+								status: 2
 							},
 							cache:false,
-							dataType:"jsonp",
+							dataType:"json",
 							success:function(resp) {
-								reload();
+								alert("reload");
+								window.location.reload();
+							},
+							error:function (resp) {
+								alert("error");
+								window.location.reload();
 							}
 						});
 					});
 					
 					$tr.appendTo($(".hovertable#complete"));
+					iter=iter+1;
 				}
 				
 				alert("未完成订单加载完成");
