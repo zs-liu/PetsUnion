@@ -9,9 +9,9 @@
 		<meta name="keywords" content="" />
 		
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-	  <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+	    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 
 		
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
@@ -317,7 +317,7 @@
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
 				<div class="move-text">
-					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="*"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });

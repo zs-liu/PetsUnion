@@ -157,7 +157,7 @@
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
 				<div class="move-text">
-					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="*"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -257,17 +257,17 @@
 							
 							var $product=$("<div>").addClass("products-block");
 							for(var i = 0; i < resp.length; i ++) {
-								var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
-								var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
-								var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
-								var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
+								var $shopTel=$("<p>").addClass("tel").attr("value",resp[i].shopTel).append($("<span>").append("电话:"+resp[i].shopTel));
+								var $credit=$("<p>").addClass("credit").attr("value",resp[i].instruction).append($("<span>").append("评分:"+resp[i].instruction));
+								var $address=$("<p>").addClass("address").attr("value",resp[i].address).append($("<span>").append("地点:"+resp[i].address));
+								var $name=$("<p>").addClass("name").attr("value",resp[i].shopName).append($("<span>").append("店名:"+resp[i].shopName));
 								var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
 								var $content=$("<article>");
 								var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
 									+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
 								var $move=$("<div>").addClass("clearfix");
 								var $goodbox=$("<div>").addClass("products-row");
-								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
+								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("style","margin-left:70px;").attr("id","jump").append($("<P>").text("查看详情/预约"));
 								
 								$link.append($picture);
 								$content.append($name);
@@ -280,7 +280,7 @@
 								$goodbox.append($content);
 								$goodbox.append($move);
 								$goodbox.find("*").not("button").attr("style","border:0px;");
-								$goodbox.find("p").attr("style","border:0px;color:black;");
+								$goodbox.find("span").attr("style","padding-left:2em;color:black;");
 
 								$product.append($goodbox);
 								
@@ -396,17 +396,17 @@
 							var resp=data.shop;
 							var $product=$("<div>").addClass("products-block");
 							for(var i = 0; i < resp.length; i ++) {
-								var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
-								var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
-								var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
-								var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
+								var $shopTel=$("<p>").addClass("tel").attr("value",resp[i].shopTel).append($("<span>").append("电话:"+resp[i].shopTel));
+								var $credit=$("<p>").addClass("credit").attr("value",resp[i].instruction).append($("<span>").append("评分:"+resp[i].instruction));
+								var $address=$("<p>").addClass("address").attr("value",resp[i].address).append($("<span>").append("地点:"+resp[i].address));
+								var $name=$("<p>").addClass("name").attr("value",resp[i].shopName).append($("<span>").append("店名:"+resp[i].shopName));
 								var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
 								var $content=$("<article>");
 								var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
 									+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
 								var $move=$("<div>").addClass("clearfix");
 								var $goodbox=$("<div>").addClass("products-row");
-								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
+								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").attr("style","margin-left:70px;").append($("<P>").text("查看详情/预约"));
 								
 								$link.append($picture);
 								$content.append($name);
@@ -419,7 +419,7 @@
 								$goodbox.append($content);
 								$goodbox.append($move);
 								$goodbox.find("*").not("button").attr("style","border:0px;");
-								$goodbox.find("p").attr("style","border:0px;color:black;");
+								$goodbox.find("span").attr("style","padding-left:2em;color:black;");
 								
 								$product.append($goodbox);
 								$jump.click(function(){
@@ -550,17 +550,17 @@
 							$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
 							$(".products-block").remove();
 							for(var i = 0; i < resp.length; i ++) {
-								var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
-								var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
-								var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
-								var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
+								var $shopTel=$("<p>").addClass("tel").attr("value",resp[i].shopTel).append($("<span>").append("电话:"+resp[i].shopTel));
+								var $credit=$("<p>").addClass("credit").attr("value",resp[i].instruction).append($("<span>").append("评分:"+resp[i].instruction));
+								var $address=$("<p>").addClass("address").attr("value",resp[i].address).append($("<span>").append("地点:"+resp[i].address));
+								var $name=$("<p>").addClass("name").attr("value",resp[i].shopName).append($("<span>").append("店名:"+resp[i].shopName));
 								var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
 								var $content=$("<article>");
 								var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
 									+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
 								var $move=$("<div>").addClass("clearfix");
 								var $goodbox=$("<div>").addClass("products-row");
-								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
+								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").attr("style","margin-left:70px;").append($("<P>").text("查看详情/预约"));
 								
 								$link.append($picture);
 								$content.append($name);
@@ -573,7 +573,7 @@
 								$goodbox.append($content);
 								$goodbox.append($move);
 								$goodbox.find("*").not("button").attr("style","border:0px;");
-								$goodbox.find("p").attr("style","border:0px;color:black;");
+								$goodbox.find("span").attr("style","padding-left:2em;color:black;");
 								
 								$product.append($goodbox);
 								
@@ -643,17 +643,17 @@
 							$("div.product-top").find("p").text("搜索结果: 第"+pageNumber+"页");
 							$(".products-block").remove();
 							for(var i = 0; i < resp.length; i ++) {
-								var $shopTel=$("<p>").text("电话:").addClass("tel").attr("value",resp[i].shopTel).append(resp[i].shopTel);
-								var $credit=$("<p>").text("评分:").addClass("credit").attr("value",resp[i].instruction).append(resp[i].instruction);
-								var $address=$("<p>").text("地点:").addClass("address").attr("value",resp[i].address).append(resp[i].address);
-								var $name=$("<p>").text("店名:").addClass("name").attr("value",resp[i].shopName).append(resp[i].shopName);
+								var $shopTel=$("<p>").addClass("tel").attr("value",resp[i].shopTel).append($("<span>").append("电话:"+resp[i].shopTel));
+								var $credit=$("<p>").addClass("credit").attr("value",resp[i].instruction).append($("<span>").append("评分:"+resp[i].instruction));
+								var $address=$("<p>").addClass("address").attr("value",resp[i].address).append($("<span>").append("地点:"+resp[i].address));
+								var $name=$("<p>").addClass("name").attr("value",resp[i].shopName).append($("<span>").append("店名:"+resp[i].shopName));
 								var $picture=$("<img>").addClass("img").attr("src", resp[i].shopImgUrl).attr("alt", resp[i].shopName);
 								var $content=$("<article>");
 								var $link=$("<a>").attr("herf", "shopDetail.jsp?shopName="+resp[i].shopName+"&credit="+resp[i].instruction+"&address="+resp[i].address
 									+"&img="+resp[i].shopImgUrl+"&shopTel="+resp[i].shopTel);
 								var $move=$("<div>").addClass("clearfix");
 								var $goodbox=$("<div>").addClass("products-row");
-								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").append($("<P>").text("查看详情/预约"));
+								var $jump=$("<button>").attr("value",resp[i].shopImgUrl).attr("id","jump").attr("style","margin-left:70px;").append($("<P>").text("查看详情/预约"));
 								
 								$link.append($picture);
 								$content.append($name);
@@ -666,7 +666,7 @@
 								$goodbox.append($content);
 								$goodbox.append($move);
 								$goodbox.find("*").not("button").attr("style","border:0px;");
-								$goodbox.find("p").attr("style","border:0px;color:black;");
+								$goodbox.find("span").attr("style","padding-left:2em;color:black;");
 								
 								$product.append($goodbox);
 								
@@ -715,9 +715,9 @@
 					<div class="item">
 						<div class="glry-w3agile-grids agileits">
 							<div class="new-tag"><h6>优惠 </h6></div>
-							<a href="products1.html"><img src="images/f2.jpg" alt="img"></a>
+							<a href="*"><img src="images/f2.jpg" alt="img"></a>
 							<div class="view-caption agileits-w3layouts">           
-								<h4><a href="products1.html">THU宠物中心1</a></h4>
+								<h4><a href="*">THU宠物中心1</a></h4>
 								<p>业务：宠物护理</p>
 								<h5>5星</h5>
 							</div>        
@@ -725,9 +725,9 @@
 					</div>
 					<div class="item">
 						<div class="glry-w3agile-grids agileits">
-							<a href="products1.html"><img src="images/f2.jpg" alt="img"></a>
+							<a href="*"><img src="images/f2.jpg" alt="img"></a>
 							<div class="view-caption agileits-w3layouts">           
-								<h4><a href="products1.html">THU宠物中心1</a></h4>
+								<h4><a href="*">THU宠物中心1</a></h4>
 								<p>业务：宠物护理</p>
 								<h5>5星</h5>
 							</div>        
@@ -736,9 +736,9 @@
 					<div class="item">
 						<div class="glry-w3agile-grids agileits">
 							<div class="new-tag"><h6>距离近 </h6></div>
-							<a href="products1.html"><img src="images/f2.jpg" alt="img"></a>
+							<a href="*"><img src="images/f2.jpg" alt="img"></a>
 							<div class="view-caption agileits-w3layouts">           
-								<h4><a href="products1.html">THU宠物中心1</a></h4>
+								<h4><a href="*">THU宠物中心1</a></h4>
 								<p>业务：宠物护理</p>
 								<h5>5星</h5>
 							</div>        
@@ -747,9 +747,9 @@
 					<div class="item">
 						<div class="glry-w3agile-grids agileits">
 							<div class="new-tag"><h6>高评价 </h6></div>
-							<a href="products1.html"><img src="images/f2.jpg" alt="img"></a>
+							<a href="*"><img src="images/f2.jpg" alt="img"></a>
 							<div class="view-caption agileits-w3layouts">           
-								<h4><a href="products1.html">THU宠物中心1</a></h4>
+								<h4><a href="*">THU宠物中心1</a></h4>
 								<p>业务：宠物护理</p>
 								<h5>5星</h5>
 							</div>        
@@ -758,9 +758,9 @@
 					<div class="item">
 						<div class="glry-w3agile-grids agileits">
 							<div class="new-tag"><h6>新开业 </h6></div>
-							<a href="products1.html"><img src="images/f2.jpg" alt="img"></a>
+							<a href="*"><img src="images/f2.jpg" alt="img"></a>
 							<div class="view-caption agileits-w3layouts">           
-								<h4><a href="products1.html">THU宠物中心1</a></h4>
+								<h4><a href="*">THU宠物中心1</a></h4>
 								<p>业务：宠物护理</p>
 								<h5>5星</h5>
 							</div>        
@@ -769,9 +769,9 @@
 					<div class="item">
 						<div class="glry-w3agile-grids agileits">
 							<div class="new-tag"><h6>距离近 </h6></div>
-							<a href="products1.html"><img src="images/f2.jpg" alt="img"></a>
+							<a href="*"><img src="images/f2.jpg" alt="img"></a>
 							<div class="view-caption agileits-w3layouts">           
-								<h4><a href="products1.html">THU宠物中心1</a></h4>
+								<h4><a href="*">THU宠物中心1</a></h4>
 								<p>业务：宠物护理</p>
 								<h5>5星</h5>
 							</div>        
@@ -779,9 +779,9 @@
 					</div>
 					<div class="item">
 						<div class="glry-w3agile-grids agileits">
-							<a href="products1.html"><img src="images/f2.jpg" alt="img"></a>
+							<a href="*"><img src="images/f2.jpg" alt="img"></a>
 							<div class="view-caption agileits-w3layouts">           
-								<h4><a href="products1.html">THU宠物中心1</a></h4>
+								<h4><a href="*">THU宠物中心1</a></h4>
 								<p>业务：宠物护理</p>
 								<h5>5星</h5>
 							</div>        
@@ -790,9 +790,9 @@
 					<div class="item">
 						<div class="glry-w3agile-grids agileits">
 							<div class="new-tag"><h6>开业 </h6></div>
-							<a href="products1.html"><img src="images/f2.jpg" alt="img"></a>
+							<a href="*"><img src="images/f2.jpg" alt="img"></a>
 							<div class="view-caption agileits-w3layouts">           
-								<h4><a href="products1.html">THU宠物中心1</a></h4>
+								<h4><a href="*">THU宠物中心1</a></h4>
 								<p>业务：宠物护理</p>
 								<h5>5星</h5>
 							</div>        
