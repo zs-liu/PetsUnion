@@ -225,16 +225,8 @@
 						else 
 							$("#login").attr("herf", "shopMainPage.jsp").attr("id","mainPage").text("个人界面");
 						
-						var $exitA=$("<a>").text("退出登录").attr("herf","*");
+						var $exitA=$("<a>").text("退出登录").attr("herf","exit.jsp");
 						var $exit=$("<li>").append($exitA);
-						
-						$exitA.click(function(){
-							$.session.remove("loggedId");
-							$.session.remove("loggedName");
-							$.session.remove("loggedType");
-							$.session.remove("loggedTel");
-							window.location.reload();
-						})
 						
 						$("ul.dropdown-menu").append($exit);
 						$("ul.dropdown-menu").find("*").not("button").attr("style","border:0px;");
