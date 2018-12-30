@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import service.ReservationService;
 import tools.StaticPara.ReservationStatusPara;
+import tools.URICoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +31,7 @@ public class OwnerReservationServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = request.getParameter("userId");
+        String userId = URICoder.getURLDecoderString(request.getParameter("userId"));
         int status = Integer.parseInt(request.getParameter("status"));
         if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone
                 || status == ReservationStatusPara.confirm) {

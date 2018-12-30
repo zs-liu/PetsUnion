@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import bean.ShopBean;
 import service.ShopService;
 import tools.StaticPara.ShopDetailServletPara;
+import tools.URICoder;
 import bean.ServiceBean;
 
 @WebServlet(name = "ShopDetailServlet")
@@ -34,9 +35,9 @@ public class ShopDetailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int flag = Integer.parseInt(request.getParameter("flag"));
         if (flag == ShopDetailServletPara.fullFlag) {
-            String shopName = request.getParameter("shopName");
-            String petsType = request.getParameter("petsType");
-            String serviceType = request.getParameter("serviceType");
+            String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
+            String petsType = URICoder.getURLDecoderString(request.getParameter("petsType"));
+            String serviceType = URICoder.getURLDecoderString(request.getParameter("serviceType"));
             List<ServiceBean> serviceList = ShopService.getServicesByShop(shopName, petsType, serviceType);
 
             JSONObject json = new JSONObject();
@@ -52,7 +53,7 @@ public class ShopDetailServlet extends HttpServlet {
             out.println(json.toString());
 
         } else if (flag == ShopDetailServletPara.updateFlag) {
-            String shopName = request.getParameter("shopName");
+            String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
             ShopBean shop = ShopService.getServicesByShop(shopName);
 
             JSONObject json = shop.toJSON();

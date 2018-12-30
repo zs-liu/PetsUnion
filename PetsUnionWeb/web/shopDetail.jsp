@@ -499,10 +499,10 @@
 			$("#collapseFour p").text("这里是 权责说明");
 			$("#headingThree a").append("("+0+")");
 			
-			$("#firstimg").attr("src", "images/s1.jpg");
+			$("#firstimg").attr("src", $shopImgUrl);
 			$("#secondimg").attr("src", "images/s2.jpg");
 			$("#thirdimg").attr("src", "images/s3.jpg");
-			$("#firstthumb").attr("data-thumb", "images/s1.jpg");
+			$("#firstthumb").attr("data-thumb", $shopImgUrl);
 			$("#secondthumb").attr("data-thumb", "images/s2.jpg");
 			$("#thirdthumb").attr("data-thumb", "images/s3.jpg");
 				

@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import service.ShopService;
 import tools.StaticPara.ShowPara;
+import tools.URICoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +27,8 @@ public class SearchShopServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String petsType = request.getParameter("petsType");
-        String serviceType = request.getParameter("serviceType");
+        String petsType = URICoder.getURLDecoderString(request.getParameter("petsType"));
+        String serviceType = URICoder.getURLDecoderString(request.getParameter("serviceType"));
         int pageNumber = Integer.parseInt(request.getParameter("page"));
 
         int perPage = ShowPara.perPage;

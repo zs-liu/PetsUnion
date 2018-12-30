@@ -11,6 +11,7 @@ import java.io.IOException;
 import bean.OwnerBean;
 import service.OwnerService;
 import tools.StaticPara.LoginRegisterPara;
+import tools.URICoder;
 
 @WebServlet(name = "OwnerRegisterServlet")
 public class OwnerRegisterServlet extends HttpServlet {
@@ -27,9 +28,9 @@ public class OwnerRegisterServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = request.getParameter("userId");
-        String userName = request.getParameter("userName");
-        String userPw = request.getParameter("userPw");
+        String userId = URICoder.getURLDecoderString(request.getParameter("userId"));
+        String userName = URICoder.getURLDecoderString(request.getParameter("userName"));
+        String userPw = URICoder.getURLDecoderString(request.getParameter("userPw"));
         String userTel = request.getParameter("userTel");
         String returnPath = request.getParameter("returnPath");
 
