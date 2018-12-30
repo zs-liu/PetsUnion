@@ -69,7 +69,7 @@ response.setDateHeader("Expires",0);
 				userId:encodeURI($("#userId").val()),
 				userName:encodeURI($("#userName").val()),
 				userPw:encodeURI($("#userPw").val()),
-				userTel:encodeURI($("#userTel").val()),
+				userTel:encodeURI($("#userTel").val())
 			},
 			cache:false,
 			success:function(data){
