@@ -8,7 +8,7 @@ response.setHeader("Pragrma","no-cache");
 response.setDateHeader("Expires",0);
 %>
 	<head>
-		<title>shop</title>
+		<title>shopDetailUpdate</title>
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -146,6 +146,17 @@ response.setDateHeader("Expires",0);
 			mainPage="shopMainPage.jsp";
 		}
 	%>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#exit").click(function(){
+		$.session.remove("loggedId");
+		$.session.remove("loggedType");
+		$.session.remove("loggedTel");
+		$.session.remove("shopName");
+	})
+});
+</script>
 	
 	<body data-spy="scroll" data-offset="100">
 			<!-- header -->
@@ -165,7 +176,7 @@ response.setDateHeader("Expires",0);
 								<a class="dropdown-toggle" data-toggle="dropdown" id="user"><i class="fa fa-user" aria-hidden="true"></i><%=userID%><span class="caret"></span></a>
 								<ul class="dropdown-menu">
 									<li><a href= <%=mainPage%> >主页 </a></li>
-									<li><a href="index.jsp">切换账号</a></li>  
+									<li><a href="index.jsp" id="exit">退出登录</a></li>  
 								</ul> 
 								<%}%>
 							</li> 
@@ -174,27 +185,6 @@ response.setDateHeader("Expires",0);
 					<div class="clearfix"> </div> 
 				</div>
 			</div>
-
-		
-		<div class="header-two"><!-- header-two -->
-			<div class="container">
-				<div class="header-logo">
-					<h1><a href="index.html"><span>PETS</span>union </a></h1>
-					<h2>Your stores. Your friends.</h2> 
-				</div>	
-				<div class="header-search">
-					<form method="#">
-						<input type="search" id="search" placeholder="请输入您要搜索的关键词..." required="">
-						<button type="button" id="submit" class="btn btn-default" aria-label="Left Align" >
-							<i class="fa fa-search" aria-hidden="true"> </i>
-						</button>
-					</form>
-				</div>
-				<div class="clearfix"> </div>
-			</div>		
-		</div><!-- //header-two -->
-		
-
 
 	<div class="shop-page">
 		<div class="container">
@@ -222,7 +212,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:1,
-				shopName:"<%=shopname%>"
+				shopName:encodeURI("<%=shopname%>"),
 			},
 			cache:false,
 			dataType:"json",
@@ -250,7 +240,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:2,
-				shopName:"<%=shopname%>",
+				shopName:encodeURI("<%=shopname%>"),
 				instruction:$("#instruction").val(),
 				address:$("#address").val(),
 				shopHours:$("#shopHours").val(),
@@ -324,7 +314,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:1,
-				shopName:"<%=shopname%>"
+				shopName:encodeURI("<%=shopname%>"),
 			},
 			cache:false,
 			dataType:"json",
@@ -383,7 +373,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				flag:0,
-				shopName:"<%=shopname%>",
+				shopName:encodeURI("<%=shopname%>"),
 				serviceTable:encodeURI(x)
 			},
 			cache:false,
