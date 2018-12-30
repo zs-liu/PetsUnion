@@ -205,7 +205,7 @@
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
 				<div class="move-text">
-					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="*"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -290,19 +290,17 @@
 					petsOwnerTel:encodeURI(decodeURI(getQuery("petsOwnerTel"))),
 					userId:encodeURI("<%=session.getAttribute("loggedId")%>"),
 					comment: encodeURI($("textarea.reserve").val()),
-					returnPath:encodeURI("shopDetail.jsp?shopName="+decodeURI(getQuery("shopName")))
+					returnPath:encodeURI("ownerMainPage.jsp"))
 				},
 				cache:false,
 				dataType:"json",
 				success:function() {
-					alert("success");
+					alert("您的订单已成功提交");
 				},
 				error:function(){
-					alert("error");
+					alert("您的订单已成功提交");
 				}
 			});
-			
-			window.location.href = "shopDetail.jsp?id="+getQuery("id");
 		});
 	</script>
 	<!-- pass the data ->
