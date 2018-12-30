@@ -269,7 +269,7 @@
 				</div>	
 				<div class="header-search">
 					<label for="petsType_select" style="font-size:1.4em;font-weight:400;">宠物类型：</label>
-					<select id="petsType" name="petsType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 45px;">
+					<select id="petsType1" name="petsType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 45px;">
 						<option value='-1' style='display: none'></option>
 						<option value="狗狗" style="">狗  狗</option> 
 						<option value="猫猫">猫  猫</option> 
@@ -277,7 +277,7 @@
 						<option value="蜘蛛">蜘  蛛</option>
 					</select>
 					<label for="serviceType_select" style="padding-left:80px;font-size:1.4em;font-weight:400;">服务类型：</label>
-					<select id="serviceType" name="serviceType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 30px;">
+					<select id="serviceType1" name="serviceType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 30px;">
 						<option value='-1' style='display: none'></option>
 						<option value="宠物护理">宠物护理</option> 
 						<option value="宠物寄养">宠物寄养</option> 
@@ -294,8 +294,8 @@
 		<!-- @--@ return to searchShop -->
 		<script type="text/javascript">
 			$("button#submit").click(function (){
-				var $petsType=document.getElementById("petsType").value;
-				var $serviceType=document.getElementById("serviceType").value;
+				var $petsType=document.getElementById("petsType1").value;
+				var $serviceType=document.getElementById("serviceType1").value;
 				
 				alert("您的搜索请求：宠物类型："+$petsType);
 				if($petsType==-1){
@@ -473,7 +473,6 @@
 		$(document).ready(function(){
 			alert("开始加载商店界面！");
 			
-			var $search=decodeURI(getQuery("search"));
 			var $shopName=decodeURI(getQuery("shopName"));
 			alert("上一个页面请求的宠物店是："+$shopName);
 			var $credit=decodeURI(getQuery("credit"));
