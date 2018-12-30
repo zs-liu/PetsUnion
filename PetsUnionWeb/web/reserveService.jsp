@@ -290,19 +290,17 @@
 					petsOwnerTel:encodeURI(decodeURI(getQuery("petsOwnerTel"))),
 					userId:encodeURI("<%=session.getAttribute("loggedId")%>"),
 					comment: encodeURI($("textarea.reserve").val()),
-					returnPath:encodeURI("shopDetail.jsp?shopName="+decodeURI(getQuery("shopName")))
+					returnPath:encodeURI("ownerMainPage.jsp"))
 				},
 				cache:false,
 				dataType:"json",
 				success:function() {
-					alert("success");
+					alert("您的订单已成功提交");
 				},
 				error:function(){
-					alert("error");
+					alert("您的订单已成功提交");
 				}
 			});
-			
-			window.location.href = "shopDetail.jsp?id="+getQuery("id");
 		});
 	</script>
 	<!-- pass the data ->

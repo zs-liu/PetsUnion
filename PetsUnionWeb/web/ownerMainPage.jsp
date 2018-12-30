@@ -336,7 +336,7 @@
 
 				var resp = data.reservation;
 				$("#myname").text("<%=session.getAttribute("loggedName")%>");
-				$("#myimg").attr("src", "images/s1.jpg");//头像
+				$("#myimg").attr("src", "images/s1.jpg");
 				
 				var number=resp.length;
 				var iter=0;

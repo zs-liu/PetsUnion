@@ -220,7 +220,6 @@
 							var $serBeginTime=encodeURI(encodeURI($("input#serBeginTime").val()));
 							var $serEndTime=encodeURI(encodeURI($("input#serEndTime").val()));
 							var $petsOwnerTel=encodeURI(encodeURI($("input#petsOwnerTel").val()));
-							//var $userId=encodeURI(encodeURI("<%=session.getAttribute("loggedId")%>"));
 							var $shopName=encodeURI(encodeURI($("input#shopName").val()));	
 							
 							window.open("reserveService.jsp?shopName="+$shopName+"&serviceType="+$serviceType+"&serBeginTime="+$serBeginTime
@@ -360,26 +359,15 @@
 				<p style="color:black;font-size:110%;" id="shopHours"></p>
 				<p style="color:black;font-size:110%;" id="address"></p>
 				<p style="color:black;font-size:110%;" id="phone-number"></p>
-				<form action="#" method="post">
-					<input type="hidden" name="cmd" value="_cart" />
-					<input type="hidden" name="add" value="1" /> 
-					<input type="hidden" name="w3ls_item" value="Snow Blower" /> 
-					<input type="hidden" name="amount" value="540.00" /> 
-					<br>
-					<button type="button" style="font-size:110%;" class="w3ls-cart" id="reserve" >
+				<button type="button" style="font-size:110%;" class="w3ls-cart" id="reserve" >
 						<i class="fa fa-cart-plus" aria-hidden="true"></i> 预约</button>
-				</form>
 			</div>
 			<div class="clearfix"> </div> 
 						
 			<div id="dialog-form" title="预约申请">
 				<p class="validateTips">所有的表单字段都是必填的。</p>
 		 
-				<form action="" method="post"><fieldset><!--因为要进行中文转码，手动进行URL传参-->
-					<label for="petsType">宠物类型</label>
-					<input type="text" name="petsType" id="petsType" value="" class="text ui-widget-content ui-corner-all">
-					<label for="serviceType">服务类型</label>
-					<input type="text" name="serviceType" id="serviceType" value="" class="text ui-widget-content ui-corner-all">
+				<form action="" method="post"><fieldset>
 					<label for="serBeginTime">起始时间</label>
 					<input type="text" name="serBeginTime" id="serBeginTime" value="" class="text ui-widget-content ui-corner-all">
 					<label for="serEndTime">截止时间</label>
@@ -387,20 +375,10 @@
 					<label for="petsOwnerTel">您的常用手机号</label>
 					<input type="text" name="petsOwnerTel" id="petsOwnerTel" value="" class="text ui-widget-content ui-corner-all">
 					<input type="hidden" name="shopName" id="shopName" value="" class="text ui-widget-content ui-corner-all">
+					<input type="hidden" id="petsType" value="" class="text ui-widget-content ui-corner-all">
+					<input type="hidden" id="serviceType" value="" class="text ui-widget-content ui-corner-all">
 				</fieldset></form>	
 			</div>
-			
-			<!-- @--@ open_dialog -->
-			<script type="text/javascript">
-				$("button#reserve").click(function(){
-					if("<%=session.getAttribute("loggedType")%>"!="petsOwner"){
-						alert("预约前，请以用户身份登录");
-					}
-					else
-						$( "#dialog-form" ).dialog( "open" );
-				});
-			</script>
-			<!-- open dialog -->
 			
 			<!-- collapse-tabs -->
 			<div class="collpse tabs">
@@ -530,9 +508,25 @@
 						$tr.append("<td>"+ resp.service[iter].serviceType +"</td>");
 						$tr.append("<td>"+ resp.service[iter].price +"</td>");
 						$tr.append("<td>"+ resp.service[iter].serviceIntro +"</td>");
+						
+						var $button=$("<button>").attr("value",resp.service[iter].petsType).attr("id",resp.service[iter].serviceType).append($("<P>").text("预约申请"));
+						$td=$("<td>").append($button);
+						$tr.append($td);
+						
+						$button.click(function(){
+							if("<%=session.getAttribute("loggedType")%>"!="petsOwner"){
+								alert("预约前，请以用户身份登录");
+							}
+							else{
+								alert("宠物类型是："+$(this).val()+" 服务类型是："+$(this).attr("id"));
+								$("input#petsType").val($(this).val());
+								$("input#serviceType").val($(this).attr("id"));
+								$( "#dialog-form" ).dialog( "open" );
+							}
+						});
 
 						$tr.appendTo($(".hovertable"));
-						
+			
 						iter=iter+1;
 					}
 				}
