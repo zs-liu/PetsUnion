@@ -33,9 +33,11 @@ public class OwnerReservationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = URICoder.getURLDecoderString(request.getParameter("userId"));
         int status = Integer.parseInt(request.getParameter("status"));
+        System.out.println(userId);
+        System.out.println(status);
         if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone
                 || status == ReservationStatusPara.confirm) {
-            List<ReservationBean> reservationList = ReservationService.searchForShop(userId, status);
+            List<ReservationBean> reservationList = ReservationService.searchForUser(userId, status);
 
             JSONObject json = new JSONObject();
             JSONArray reservationJsonList = new JSONArray();
