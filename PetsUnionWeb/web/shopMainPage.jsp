@@ -380,7 +380,7 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:encodeURI('<////%= session.getAttribute("Id")%>'),
+				useId:encodeURI("<%= session.getAttribute("loggedId")%>"),
 				status: encodeURI(0)
 			},
 			cache:false,
@@ -437,7 +437,7 @@
 			url:"ShopReservationServlet",
 			type:"post",
 			data:{
-				useId:encodeURI('<////%= session.getAttribute("loggedId")%>'),
+				useId:encodeURI("<%= session.getAttribute("loggedId")%>"),
 				status: encodeURI(1)
 			},
 			cache:false,
