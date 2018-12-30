@@ -253,7 +253,7 @@
 					<li class="dropdown head-dpdn">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> 我的账号<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="login.html">登录/注册 </a></li> 
+							<li><a id="login" href="index.jsp">登录/注册 </a></li> 
 						</ul> 
 					</li> 
 				</ul>
@@ -499,10 +499,10 @@
 			$("#collapseFour p").text("这里是 权责说明");
 			$("#headingThree a").append("("+0+")");
 			
-			$("#firstimg").attr("src", "images/s1.jpg");
+			$("#firstimg").attr("src", $shopImgUrl);
 			$("#secondimg").attr("src", "images/s2.jpg");
 			$("#thirdimg").attr("src", "images/s3.jpg");
-			$("#firstthumb").attr("data-thumb", "images/s1.jpg");
+			$("#firstthumb").attr("data-thumb", $shopImgUrl);
 			$("#secondthumb").attr("data-thumb", "images/s2.jpg");
 			$("#thirdthumb").attr("data-thumb", "images/s3.jpg");
 				
