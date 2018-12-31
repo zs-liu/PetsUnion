@@ -81,9 +81,10 @@ response.setDateHeader("Expires",0);
 				ownerTel:encodeURI($("#ownerTel").val())
 			},
 			cache:false,
+			dataType:"json",
 			success:function(data){
 				alert("register success");
-                if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
+                if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
                     window.location.href=data.returnPath;
                 }
                 else{

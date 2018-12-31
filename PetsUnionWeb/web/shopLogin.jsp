@@ -62,9 +62,10 @@ response.setDateHeader("Expires",0);
 				ownerPw:encodeURI($("#ownerPw").val()),
 			},
 			cache:false,
+            dataType:"json",
 			success:function(data){
 				alert("login success");
-                if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
+                if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
                     window.location.href=data.returnPath;
                 }
                 else{

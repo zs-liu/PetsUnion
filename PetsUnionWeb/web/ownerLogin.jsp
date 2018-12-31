@@ -35,10 +35,10 @@ response.setDateHeader("Expires",0);
                         <h2><font color="black" face="Microsoft YaHei" size="+3">宠物主登录</font></h2>
                         <form>
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="text" placeholder="用户Id/userId" class="form-control" name="userId">
+                                <input type="text" placeholder="用户Id/userId" class="form-control" id="userId">
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="password" placeholder="密码/password" class="form-control" name="userPw">
+                                <input type="password" placeholder="密码/password" class="form-control" id="userPw">
 
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
@@ -63,9 +63,11 @@ response.setDateHeader("Expires",0);
 				userPw:encodeURI($("#userPw").val()),
 			},
 			cache:false,
+            dataType:"json",
 			success:function(data){
 				alert("login success");
-                if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
+                if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
+                    alert(data.returnPath);
                     window.location.href=data.returnPath;
                 }
                 else{

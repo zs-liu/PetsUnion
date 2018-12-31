@@ -13,7 +13,7 @@ public class DBUtils {
         String url = "jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
         String username = "root";
-        String password = "123456"; // use your configuration
+        String password = "LzscsL"; // use your configuration
 
         Connection conn = null;
         try {
