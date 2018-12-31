@@ -50,9 +50,9 @@ public class ShopDAO {
                     }
 
                     return StaticPara.LoginRegisterPara.success;
+                } else {
+                    return StaticPara.LoginRegisterPara.loginWrongPassword;
                 }
-            } else {
-                return StaticPara.LoginRegisterPara.loginWrongPassword;
             }
 
         } catch (SQLException sqlE) {
@@ -61,7 +61,7 @@ public class ShopDAO {
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
-        return StaticPara.LoginRegisterPara.unknown;
+        return StaticPara.LoginRegisterPara.loginWrongPassword;
     }
 
     /**

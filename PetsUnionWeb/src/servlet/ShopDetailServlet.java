@@ -56,6 +56,16 @@ public class ShopDetailServlet extends HttpServlet {
             String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
             ShopBean shop = ShopService.getServicesByShop(shopName);
 
+            if (shop == null) {
+                JSONObject jsonResponse = new JSONObject();
+                jsonResponse.put("errorMessage", "InvalidRequest");
+                jsonResponse.put("returnPath", "/404.jsp");
+                response.setCharacterEncoding("utf-8");
+                PrintWriter out = response.getWriter();
+                out.println(jsonResponse.toString());
+                return;
+            }
+
             JSONObject json = shop.toJSON();
 
             response.setCharacterEncoding("utf-8");

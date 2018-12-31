@@ -70,6 +70,9 @@ public class ShopRegisterServlet extends HttpServlet {
         } else if (result == LoginRegisterPara.registerExistsName) {
             jsonResponse.put("errorMessage", "IdExists");
             jsonResponse.put("returnPath","/shopRegister.jsp");
+        } else if (result == LoginRegisterPara.registerExistsShop) {
+            jsonResponse.put("errorMessage", "ShopExists");
+            jsonResponse.put("returnPath","/shopRegister.jsp");
         } else if (result == LoginRegisterPara.invalid) {
             jsonResponse.put("errorMessage", "NameOrPasswordNull");
             jsonResponse.put("returnPath","/shopRegister.jsp");
