@@ -360,7 +360,6 @@
 		$(".shop-page").find("*").attr("style","border:0px;");
 		$(".shop-page").find("button").attr("style","font-size:110%;width:120px;heigt:50px;");
 
-		
 		alert("用户界面加载完成！");
 	});
 	</script>

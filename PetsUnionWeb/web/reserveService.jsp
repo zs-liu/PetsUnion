@@ -296,9 +296,11 @@
 				dataType:"json",
 				success:function() {
 					alert("您的订单已成功提交");
+					window.location.href = "ownerMainPage.jsp";
 				},
 				error:function(){
 					alert("您的订单已成功提交");
+					window.location.href = "ownerMainPage.jsp";
 				}
 			});
 		});

@@ -266,53 +266,9 @@
 					<h1><a href="index.jsp"><span>PETS</span>union </a></h1>
 					<h2>Your stores. Your friends.</h2> 
 				</div>	
-				<div class="header-search">
-					<label for="petsType_select" style="font-size:1.4em;font-weight:400;">宠物类型：</label>
-					<select id="petsType1" name="petsType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 45px;">
-						<option value='-1' style='display: none'></option>
-						<option value="狗狗" style="">狗  狗</option> 
-						<option value="猫猫">猫  猫</option> 
-						<option value="仓鼠">仓  鼠</option>
-						<option value="蜘蛛">蜘  蛛</option>
-					</select>
-					<label for="serviceType_select" style="padding-left:80px;font-size:1.4em;font-weight:400;">服务类型：</label>
-					<select id="serviceType1" name="serviceType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 30px;">
-						<option value='-1' style='display: none'></option>
-						<option value="宠物护理">宠物护理</option> 
-						<option value="宠物寄养">宠物寄养</option> 
-						<option value="宠物美容">宠物美容</option>
-					</select>
-					<button type="button" id="submit" style="margin-left:50px;width: 50px;height: 45px;background: #FF5809;" >
-						<i class="fa fa-search" aria-hidden="true"> </i>
-					</button>
-				</div>
 				<div class="clearfix"> </div>
 			</div>		
 		</div><!-- //header-two -->
-		
-		<!-- @--@ return to searchShop -->
-		<script type="text/javascript">
-			$("button#submit").click(function (){
-				var $petsType=document.getElementById("petsType1").value;
-				var $serviceType=document.getElementById("serviceType1").value;
-				
-				alert("您的搜索请求：宠物类型："+$petsType);
-				if($petsType==-1){
-					alert("宠物类型的输入不能为空");
-					return false;
-				}
-				alert("您的搜索请求：服务类型："+$serviceType);
-				if($serviceType==-1){
-					alert("服务类型的输入不能为空");
-					return false;
-				}
-					
-				window.location.href = "searchShop.jsp?petsType="+encodeURI(encodeURI($petsType))+"&serviceType="+encodeURI(encodeURI($serviceType));
-				
-				alert("跳转页面完成");
-			});
-		</script>
-		<!-- return to searchShop -->
 		
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
@@ -359,8 +315,7 @@
 				<p style="color:black;font-size:110%;" id="shopHours"></p>
 				<p style="color:black;font-size:110%;" id="address"></p>
 				<p style="color:black;font-size:110%;" id="phone-number"></p>
-				<button type="button" style="font-size:110%;" class="w3ls-cart" id="reserve" >
-						<i class="fa fa-cart-plus" aria-hidden="true"></i> 预约</button>
+				<p style="color:black;font-size:110%;">请点开下面的“业务介绍”进行预约</p>
 			</div>
 			<div class="clearfix"> </div> 
 						
