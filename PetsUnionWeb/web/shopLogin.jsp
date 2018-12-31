@@ -21,6 +21,7 @@ response.setDateHeader("Expires",0);
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <!-- Style CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="js/jquery-2.2.3.min.js"></script> 
 </head>
 
 <body data-spy="scroll" data-offset="100">
@@ -32,28 +33,49 @@ response.setDateHeader("Expires",0);
                 <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 text-center">
                     <div class="hero-text">
                         <h2><font color="black" face="Microsoft YaHei" size="+3">宠物店登录</font></h2>
-                        <form action="ShopLoginServlet" method ="post">
+                        <form>
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="text" placeholder="用户Id/userId" class="form-control" name="ownerId">
+                                <input type="text" placeholder="用户Id/userId" class="form-control" id="ownerId">
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <input type="password" placeholder="密码/password" class="form-control" name="ownerPw">
+                                <input type="password" placeholder="密码/password" class="form-control" id="ownerPw">
                             </div>
-                            <%
-                                try{
-                                String message=request.getAttribute("errorMessage").toString();
-                            %>
                             <div class="form-group col-lg-4 col-lg-offset-4">
-                                <p><%=message%></p>
+                                <p id="message"></p>
                             </div>
-                            <% } catch (Exception e){}%>
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <div class="home_btn">
-                                    <button type="submit" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">登录</font></button>
+                                    <button id="confirm" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">登录</font></button>
                                     <a href="shopRegister.jsp" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
                                 </div>
                             </div>
                         </form>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#confirm").click(function(){
+			$.ajax({
+			url:"ShopLoginServlet",
+			type:"post",
+			data:{
+				ownerId:encodeURI($("#ownerId").val()),
+				ownerPw:encodeURI($("#ownerPw").val()),
+			},
+			cache:false,
+            dataType:"json",
+			success:function(data){
+				alert("login success");
+                if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
+                    window.location.href=data.returnPath;
+                }
+                else{
+                    $("#message").text(data.errorMessage);
+                }
+			}
+		})
+		})
+	})
+</script>
                     </div>
                 </div><!--- END COL -->
             </div><!--- END ROW -->
