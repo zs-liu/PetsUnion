@@ -59,7 +59,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				ownerId:encodeURI($("#ownerId").val()),
-				ownerPw:encodeURI($("#ownerPw").val()),
+				ownerPw:encodeURI($("#ownerPw").val())
 			},
 			cache:false,
             dataType:"json",

@@ -60,7 +60,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				userId:encodeURI($("#userId").val()),
-				userPw:encodeURI($("#userPw").val()),
+				userPw:encodeURI($("#userPw").val())
 			},
 			cache:false,
             dataType:"json",
