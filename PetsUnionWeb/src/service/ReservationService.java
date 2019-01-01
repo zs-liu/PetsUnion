@@ -18,7 +18,7 @@ public class ReservationService {
 
     public static int insert(String shopName, String userId, String petsOwnerTel, String petsType, String serviceType,
                              String serBeginTime, String serEndTime, String comment) {
-        if (shopName == null || userId == null || petsType == null) {
+        if (shopName.equals("") || userId.equals("") || petsType.equals("")) {
             return SqlPara.invalid;
         } else {
             return ReservationDAO.insert(shopName, userId, petsOwnerTel, petsType, serviceType,

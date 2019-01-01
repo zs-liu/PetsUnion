@@ -16,7 +16,7 @@ public class ShopService {
      * @return whether login successful
      */
     public static int loginCheck(OwnerBean owner) {
-        if (owner.getOwnerId() == null || owner.getOwnerPw() == null) return LoginRegisterPara.invalid;
+        if (owner.getOwnerId().equals("") || owner.getOwnerPw().equals("")) return LoginRegisterPara.invalid;
         owner.setOwnerPw(SHA.SHA256(owner.getOwnerPw()));
         return ShopDAO.login(owner);
     }
@@ -27,10 +27,10 @@ public class ShopService {
      * @return whether register successful
      */
     public static int registerCheck(OwnerBean owner, ShopBean shop) {
-        if (owner.getOwnerName() == null || owner.getOwnerPw() == null
-                || shop.getShopName() == null || shop.getAddress() == null) return LoginRegisterPara.invalid;
+        if (owner.getOwnerName().equals("") || owner.getOwnerPw().equals("")
+                || shop.getShopName().equals("") || shop.getAddress().equals("")) return LoginRegisterPara.invalid;
         owner.setOwnerPw(SHA.SHA256(owner.getOwnerPw()));
-        if (shop.getShopImgUrl() == null) {
+        if (shop.getShopImgUrl() == null || shop.getShopImgUrl().equals("")) {
             int number = (int) (1 + Math.random() * (9));
             shop.setShopImgUrl("images/portrait/portrait" + number + ".png");
         }

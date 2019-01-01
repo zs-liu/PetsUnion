@@ -236,6 +236,7 @@ response.setDateHeader("Expires",0);
 				shopTel:encodeURI($("#shopTel").val()),
 			},
 			cache:false,
+			dataType:"json",
 			success:function(data){
 				alert("register success");
                 if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
@@ -341,7 +342,7 @@ response.setDateHeader("Expires",0);
 				serviceType:$("#serviceType").val(),
 				petsType:$("#petsType").val(),
 				price:$("#price").val()
-			}
+			};
 			x.push(data);
 			x=JSON.stringify(x);
 			console.log(x);
@@ -354,16 +355,19 @@ response.setDateHeader("Expires",0);
 				serviceTable:encodeURI(x)
 			},
 			cache:false,
+			dataType:"json",
 			success:function(data){
 				alert("register success");
                 if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
-                    window.location.href=data.returnPath;
+                	alert("jump");
+                    window.location.replace(data.returnPath);
+                    alert("jump to")
                 }
                 else{
                     $("#message2").text(data.errorMessage);
                 }
 			}
-		})
+		});
 		$("tr").filter(".tr1").remove();
 		$("#confirm2").hide();
 		$("#new1").show();

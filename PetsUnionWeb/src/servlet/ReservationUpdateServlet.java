@@ -1,5 +1,6 @@
 package servlet;
 
+import org.json.JSONObject;
 import service.ReservationService;
 import tools.StaticPara;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "ReservationUpdateServlet")
 public class ReservationUpdateServlet extends HttpServlet {
@@ -29,18 +31,23 @@ public class ReservationUpdateServlet extends HttpServlet {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         int status = Integer.parseInt(request.getParameter("status"));
 
+        JSONObject jsonResponse = new JSONObject();
         int result = ReservationService.update(orderId, status);
 
         if (result == StaticPara.SqlPara.success) {
+            jsonResponse.put("errorMessage", "Success");
             if (returnPath != null) {
-                request.getRequestDispatcher(returnPath).forward(request, response);
+                jsonResponse.put("returnPath", returnPath);
             } else {
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                jsonResponse.put("returnPath", "/index.jsp");
             }
         } else if (result == StaticPara.SqlPara.sqlError) {
-            request.setAttribute("errorMessage", "SqlError");
-            request.getRequestDispatcher("/404.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "SqlError");
+            jsonResponse.put("returnPath", "/404.jsp");
         }
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        out.println(jsonResponse.toString());
     }
 
     /**

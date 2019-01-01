@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.acl.Owner;
 
+import org.json.JSONObject;
 import service.ShopService;
 import bean.OwnerBean;
 import bean.ShopBean;
@@ -50,6 +52,7 @@ public class ShopRegisterServlet extends HttpServlet {
         shop.setOwnerId(ownerId);
         shop.setAddress(address);
 
+        JSONObject jsonResponse = new JSONObject();
         int result = ShopService.registerCheck(owner, shop);
 
         if (result == LoginRegisterPara.success) {
@@ -57,21 +60,29 @@ public class ShopRegisterServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("registered", owner.getOwnerName());
 
+            jsonResponse.put("errorMessage", "Success");
             if (returnPath != null) {
-                request.getRequestDispatcher(returnPath).forward(request, response);
+                jsonResponse.put("returnPath", returnPath);
             } else {
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                jsonResponse.put("returnPath", "/index.jsp");
             }
+
         } else if (result == LoginRegisterPara.registerExistsName) {
-            request.setAttribute("errorMessage", "NameExists");
-            request.getRequestDispatcher("/shopRegister.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "IdExists");
+            jsonResponse.put("returnPath","/shopRegister.jsp");
+        } else if (result == LoginRegisterPara.registerExistsShop) {
+            jsonResponse.put("errorMessage", "ShopExists");
+            jsonResponse.put("returnPath","/shopRegister.jsp");
         } else if (result == LoginRegisterPara.invalid) {
-            request.setAttribute("errorMessage", "NameOrPasswordNull");
-            request.getRequestDispatcher("/shopRegister.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "NameOrPasswordNull");
+            jsonResponse.put("returnPath","/shopRegister.jsp");
         } else if (result == LoginRegisterPara.sqlError) {
-            request.setAttribute("errorMessage", "SqlError");
-            request.getRequestDispatcher("/404.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "SqlError");
+            jsonResponse.put("returnPath","/404.jsp");
         }
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        out.println(jsonResponse.toString());
     }
 
     /**

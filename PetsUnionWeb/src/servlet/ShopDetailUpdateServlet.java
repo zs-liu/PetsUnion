@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "ShopDetailUpdateServlet")
 public class ShopDetailUpdateServlet extends HttpServlet {
@@ -30,6 +31,7 @@ public class ShopDetailUpdateServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int flag = Integer.parseInt(request.getParameter("flag"));
+        JSONObject jsonResponse = new JSONObject();
         if (flag == ShopDetailUpdateServletPara.priceInsert || flag == ShopDetailUpdateServletPara.priceDelete) {
             String returnPath = request.getParameter("returnPath");
             String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
@@ -49,14 +51,17 @@ public class ShopDetailUpdateServlet extends HttpServlet {
                 }
 
                 if (result == SqlPara.sqlError) {
-                    request.setAttribute("errorMessage", "SqlError");
-                    request.getRequestDispatcher("/404.jsp").forward(request, response);
+                    jsonResponse.put("errorMessage", "SqlError");
+                    jsonResponse.put("returnPath", "/404.jsp");
+                    break;
                 }
             }
             if (returnPath != null) {
-                request.getRequestDispatcher(returnPath).forward(request, response);
+                jsonResponse.put("errorMessage", "Success");
+                jsonResponse.put("returnPath", returnPath);
             } else {
-                request.getRequestDispatcher("/shopDetailUpdate.jsp").forward(request, response);
+                jsonResponse.put("errorMessage", "Success");
+                jsonResponse.put("returnPath", "/shopDetailUpdate.jsp");
             }
 
         } else if (flag == ShopDetailUpdateServletPara.basic) {
@@ -70,20 +75,24 @@ public class ShopDetailUpdateServlet extends HttpServlet {
 
             int result = ShopService.updateInfoByShop(shopName, instruction, shopImgUrl, address, shopHours, shopTel);
             if (result == SqlPara.success) {
+                jsonResponse.put("errorMessage", "Success");
                 if (returnPath != null) {
-                    request.getRequestDispatcher(returnPath).forward(request, response);
+                    jsonResponse.put("returnPath", returnPath);
                 } else {
-                    request.getRequestDispatcher("/shopDetailUpdate.jsp").forward(request, response);
+                    jsonResponse.put("returnPath", "/shopDetailUpdate.jsp");
                 }
             } else if (result == SqlPara.sqlError) {
-                request.setAttribute("errorMessage", "SqlError");
-                request.getRequestDispatcher("/404.jsp").forward(request, response);
+                jsonResponse.put("errorMessage", "SqlError");
+                jsonResponse.put("returnPath", "/404.jsp");
             }
 
         } else {
-            request.setAttribute("errorMessage", "InvalidRequest");
-            request.getRequestDispatcher("/404.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "InvalidRequest");
+            jsonResponse.put("returnPath", "/404.jsp");
         }
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        out.println(jsonResponse.toString());
     }
 
     /**

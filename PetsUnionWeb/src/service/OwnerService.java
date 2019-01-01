@@ -12,7 +12,7 @@ public class OwnerService {
      * @return whether login successful
      */
     public static int loginCheck(OwnerBean owner) {
-        if (owner.getOwnerId() == null || owner.getOwnerPw() == null) return LoginRegisterPara.invalid;
+        if (owner.getOwnerId().equals("") || owner.getOwnerPw().equals("")) return LoginRegisterPara.invalid;
         owner.setOwnerPw(SHA.SHA256(owner.getOwnerPw())); 
         return OwnerDAO.login(owner);
     }
@@ -22,7 +22,7 @@ public class OwnerService {
      * @return whether register successful
      */
     public static int registerCheck(OwnerBean owner) {
-        if (owner.getOwnerName() == null || owner.getOwnerPw() == null) return LoginRegisterPara.invalid;
+        if (owner.getOwnerName().equals("") || owner.getOwnerPw().equals("")) return LoginRegisterPara.invalid;
         owner.setOwnerPw(SHA.SHA256(owner.getOwnerPw()));
         return OwnerDAO.register(owner);
     }
