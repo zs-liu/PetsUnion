@@ -45,7 +45,7 @@ response.setDateHeader("Expires",0);
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <div class="home_btn">
-                                    <button id="confirm" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">登录</font></button>
+                                    <a  class="btn home_btn_color_two" id="confirm"><font face="Microsoft YaHei" size="3px">登录</font></a>
                                     <a href="shopRegister.jsp" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@ response.setDateHeader("Expires",0);
 			success:function(data){
 				alert("login success");
                 if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
-                    window.location.href=data.returnPath;
+                    window.location.replace(data.returnPath);
                 }
                 else{
                     $("#message").text(data.errorMessage);
