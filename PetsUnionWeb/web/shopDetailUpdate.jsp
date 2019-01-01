@@ -178,16 +178,16 @@ response.setDateHeader("Expires",0);
 
 	<div class="shop-page">
 		<div class="container">
-			<h2>shopDetail</h2>
+			<h2>商店信息</h2>
 			<div class="detail_images">
 				<div id="shopImg" src=""></div>
 			</div>
 			<div class="row-fluid">
 				<form action="" id="shopDetailForm">
-					<input type="text" class="form-control" name="instruction" id="instruction" placeholder="instruction">
-					<input type="text" class="form-control" name="address" id="address" placeholder="address">
-					<input type="text" class="form-control" name="shopHours"  id="shopHours" placeholder="shopHours">
-					<input type="text" class="form-control" name="shopTel"  id="shopTel" placeholder="shopTel">
+					<input type="text" class="form-control" name="instruction" id="instruction" placeholder="介绍/instruction">
+					<input type="text" class="form-control" name="address" id="address" placeholder="地址/address">
+					<input type="text" class="form-control" name="shopHours"  id="shopHours" placeholder="营业时间/shopHours">
+					<input type="text" class="form-control" name="shopTel"  id="shopTel" placeholder="电话/shopTel">
 				</form>
 				<a class="btn btn-primary" id="confirm1">确认修改</a>
 				<p id="message1"></p>
@@ -238,9 +238,9 @@ response.setDateHeader("Expires",0);
 			cache:false,
 			dataType:"json",
 			success:function(data){
-				alert("register success");
-                if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
-                    window.location.href=data.returnPath;
+				alert("update success");
+                if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
+                    window.location.replace(data.returnPath);
                 }
                 else{
                     $("#message1").text(data.errorMessage);
@@ -257,20 +257,20 @@ response.setDateHeader("Expires",0);
 				<table class="table table-striped table-bordered datatable">
 				  <thead>
 					  <tr>
-						  <th>serviceIntro</th>
-						  <th>serviceType</th>
-						  <th>petsType</th>
-						  <th>price</th>
+						  <th>服务说明</th>
+						  <th>服务种类</th>
+						  <th>宠物种类</th>
+						  <th>价格</th>
 					  </tr>
 				  </thead>
 				  <tbody>
             
-					<tr class="tr0">
+					<%-- <tr class="tr0">
 						<td class="center">intro1</td>
 						<td class="center">type1</td>
 						<td class="center">petstype1</td>
 						<td class="center">price</td>
-					</tr>
+					</tr> --%>
 				
 				  </tbody>
 			  </table>    
@@ -357,11 +357,9 @@ response.setDateHeader("Expires",0);
 			cache:false,
 			dataType:"json",
 			success:function(data){
-				alert("register success");
-                if(data.returnPath=="404.jsp" || data.errorMessage=="Success"){
-                	alert("jump");
+				alert("update success");
+                if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
                     window.location.replace(data.returnPath);
-                    alert("jump to")
                 }
                 else{
                     $("#message2").text(data.errorMessage);
