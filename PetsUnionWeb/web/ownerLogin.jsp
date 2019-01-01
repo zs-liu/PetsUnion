@@ -84,6 +84,12 @@ response.setDateHeader("Expires",0);
         </div><!--- END CONTAINER -->
     </section>
     <!-- END  HOME -->
-
+    
+	<!-- menu js aim -->
+	<script src="js/jquery.menu-aim.js"> </script>
+	<script src="js/main.js"></script> <!-- Resource jQuery -->
+	<!-- //menu js aim --> 
+	
+    <script src="js/bootstrap.js"></script>
     </body>
 </html>
