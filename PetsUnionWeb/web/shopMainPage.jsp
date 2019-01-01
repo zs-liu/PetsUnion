@@ -235,7 +235,7 @@
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
 				<div class="move-text">
-					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="*"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -282,7 +282,7 @@
 							<div class="panel-body">
 								<table class="hovertable" id="comfirm" width=1000px>
 									<tr>
-										<th>订单号</th><th>订单状态</th><th>顾客名</th><th>预约时间</th><th>服务类型</th><th>宠物类型</th><th>执行操作</th>
+										<th>订单号</th><th>订单状态</th><th>顾客名</th><th>预约时间</th><th>服务类型</th><th>宠物类型</th><th>用户留言</th><th>执行操作</th>
 									</tr>
 									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
 										<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td> -->
@@ -401,6 +401,7 @@
 					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 					$tr.append("<td>"+ resp[iter].serviceType+"</td>");
 					$tr.append("<td>"+ resp[iter].petsType+"</td>");
+					$tr.append("<td>"+ resp[iter].comment+"</td>");
 					
 					var $button=$("<button>").attr("value",resp[iter].orderId).attr("id","confirm").append($("<P>").text("确认"));
 					$td=$("<td>").append($button);

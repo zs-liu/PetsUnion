@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import org.json.JSONObject;
 import service.OwnerService;
 import bean.OwnerBean;
 import tools.StaticPara.LoginRegisterPara;
@@ -35,6 +37,7 @@ public class OwnerLoginServlet extends HttpServlet {
         OwnerBean owner = new OwnerBean(userId);
         owner.setOwnerPw(userPw);
 
+        JSONObject jsonResponse = new JSONObject();
         int result = OwnerService.loginCheck(owner);
 
         if (result == LoginRegisterPara.success) {
@@ -45,20 +48,24 @@ public class OwnerLoginServlet extends HttpServlet {
             session.setAttribute("loggedTel", owner.getOwnerTel());
             session.setAttribute("loggedType", "petsOwner");
 
+            jsonResponse.put("errorMessage", "Success");
             if (returnPath != null) {
-                request.getRequestDispatcher(returnPath).forward(request, response);
+                jsonResponse.put("returnPath", returnPath);
             } else {
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                jsonResponse.put("returnPath", "/index.jsp");
             }
 
         } else if (result == LoginRegisterPara.loginWrongPassword
                 || result == LoginRegisterPara.invalid) {
-            request.setAttribute("errorMessage", "WrongPassword");
-            request.getRequestDispatcher("/ownerLogin.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "WrongPassword");
+            jsonResponse.put("returnPath", "/ownerLogin.jsp");
         } else if (result == LoginRegisterPara.sqlError) {
-            request.setAttribute("errorMessage", "SqlError");
-            request.getRequestDispatcher("/404.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "SqlError");
+            jsonResponse.put("returnPath", "/404.jsp");
         }
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        out.println(jsonResponse.toString());
     }
 
     /**

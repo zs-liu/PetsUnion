@@ -1,5 +1,6 @@
 package servlet;
 
+import org.json.JSONObject;
 import tools.StaticPara.SqlPara;
 import service.ReservationService;
 import tools.URICoder;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "ReserveServiceServlet")
 public class ReserveServiceServlet extends HttpServlet {
@@ -22,7 +24,7 @@ public class ReserveServiceServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String returnPath = request.getParameter("returnPath");
+        String returnPath = URICoder.getURLDecoderString(request.getParameter("returnPath"));
         String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
         String userId = URICoder.getURLDecoderString(request.getParameter("userId"));
         String petsOwnerTel = request.getParameter("petsOwnerTel");
@@ -35,19 +37,24 @@ public class ReserveServiceServlet extends HttpServlet {
         int result = ReservationService.insert(shopName, userId, petsOwnerTel, petsType, serviceType,
                 serBeginTime, serEndTime, comment);
 
+        JSONObject jsonResponse = new JSONObject();
         if (result ==  SqlPara.success) {
+            jsonResponse.put("errorMessage", "Success");
             if (returnPath != null) {
-                request.getRequestDispatcher(returnPath).forward(request, response);
+                jsonResponse.put("returnPath", returnPath);
             } else {
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                jsonResponse.put("returnPath", "/index.jsp");
             }
         } else if (result == SqlPara.sqlError) {
-            request.setAttribute("errorMessage", "SqlError");
-            request.getRequestDispatcher("/404.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "SqlError");
+            jsonResponse.put("returnPath", "/404.jsp");
         } else if (result == SqlPara.invalid) {
-            request.setAttribute("errorMessage", "Invalid");
-            request.getRequestDispatcher("/reserveService.jsp").forward(request, response);
+            jsonResponse.put("errorMessage", "Invalid");
+            jsonResponse.put("returnPath", "/reserveService.jsp");
         }
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        out.println(jsonResponse.toString());
     }
 
     /**

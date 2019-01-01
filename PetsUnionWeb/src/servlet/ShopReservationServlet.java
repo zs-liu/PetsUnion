@@ -48,8 +48,12 @@ public class ShopReservationServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println(json.toString());
         } else {
-            request.setAttribute("errorMessage", "InvalidReservationStatus");
-            request.getRequestDispatcher("/404.jsp").forward(request, response);
+            JSONObject jsonResponse = new JSONObject();
+            jsonResponse.put("errorMessage", "InvalidReservationStatus");
+            jsonResponse.put("returnPath", "/404.jsp");
+            response.setCharacterEncoding("utf-8");
+            PrintWriter out = response.getWriter();
+            out.println(jsonResponse.toString());
         }
     }
 

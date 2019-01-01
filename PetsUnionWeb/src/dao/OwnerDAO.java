@@ -49,7 +49,7 @@ public class OwnerDAO {
         } finally {
             DBUtils.closeAll(result, pstmt, conn);
         }
-        return StaticPara.LoginRegisterPara.unknown;
+        return StaticPara.LoginRegisterPara.loginWrongPassword;
     }
 
     /**

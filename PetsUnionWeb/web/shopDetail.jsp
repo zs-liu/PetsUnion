@@ -9,9 +9,9 @@
 		<meta name="keywords" content="" />
 		
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-	  <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+	    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 
 		
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
@@ -220,7 +220,6 @@
 							var $serBeginTime=encodeURI(encodeURI($("input#serBeginTime").val()));
 							var $serEndTime=encodeURI(encodeURI($("input#serEndTime").val()));
 							var $petsOwnerTel=encodeURI(encodeURI($("input#petsOwnerTel").val()));
-							//var $userId=encodeURI(encodeURI("<%=session.getAttribute("loggedId")%>"));
 							var $shopName=encodeURI(encodeURI($("input#shopName").val()));	
 							
 							window.open("reserveService.jsp?shopName="+$shopName+"&serviceType="+$serviceType+"&serBeginTime="+$serBeginTime
@@ -267,58 +266,14 @@
 					<h1><a href="index.jsp"><span>PETS</span>union </a></h1>
 					<h2>Your stores. Your friends.</h2> 
 				</div>	
-				<div class="header-search">
-					<label for="petsType_select" style="font-size:1.4em;font-weight:400;">宠物类型：</label>
-					<select id="petsType1" name="petsType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 45px;">
-						<option value='-1' style='display: none'></option>
-						<option value="狗狗" style="">狗  狗</option> 
-						<option value="猫猫">猫  猫</option> 
-						<option value="仓鼠">仓  鼠</option>
-						<option value="蜘蛛">蜘  蛛</option>
-					</select>
-					<label for="serviceType_select" style="padding-left:80px;font-size:1.4em;font-weight:400;">服务类型：</label>
-					<select id="serviceType1" name="serviceType_select" style="font-size:1.2em;font-weight:500;width:150px;height:40px;padding: 0 0 0 30px;">
-						<option value='-1' style='display: none'></option>
-						<option value="宠物护理">宠物护理</option> 
-						<option value="宠物寄养">宠物寄养</option> 
-						<option value="宠物美容">宠物美容</option>
-					</select>
-					<button type="button" id="submit" style="margin-left:50px;width: 50px;height: 45px;background: #FF5809;" >
-						<i class="fa fa-search" aria-hidden="true"> </i>
-					</button>
-				</div>
 				<div class="clearfix"> </div>
 			</div>		
 		</div><!-- //header-two -->
 		
-		<!-- @--@ return to searchShop -->
-		<script type="text/javascript">
-			$("button#submit").click(function (){
-				var $petsType=document.getElementById("petsType1").value;
-				var $serviceType=document.getElementById("serviceType1").value;
-				
-				alert("您的搜索请求：宠物类型："+$petsType);
-				if($petsType==-1){
-					alert("宠物类型的输入不能为空");
-					return false;
-				}
-				alert("您的搜索请求：服务类型："+$serviceType);
-				if($serviceType==-1){
-					alert("服务类型的输入不能为空");
-					return false;
-				}
-					
-				window.location.href = "searchShop.jsp?petsType="+encodeURI(encodeURI($petsType))+"&serviceType="+encodeURI(encodeURI($serviceType));
-				
-				alert("跳转页面完成");
-			});
-		</script>
-		<!-- return to searchShop -->
-		
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
 				<div class="move-text">
-					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="*"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -360,26 +315,14 @@
 				<p style="color:black;font-size:110%;" id="shopHours"></p>
 				<p style="color:black;font-size:110%;" id="address"></p>
 				<p style="color:black;font-size:110%;" id="phone-number"></p>
-				<form action="#" method="post">
-					<input type="hidden" name="cmd" value="_cart" />
-					<input type="hidden" name="add" value="1" /> 
-					<input type="hidden" name="w3ls_item" value="Snow Blower" /> 
-					<input type="hidden" name="amount" value="540.00" /> 
-					<br>
-					<button type="button" style="font-size:110%;" class="w3ls-cart" id="reserve" >
-						<i class="fa fa-cart-plus" aria-hidden="true"></i> 预约</button>
-				</form>
+				<p style="color:black;font-size:110%;">请点开下面的“业务介绍”进行预约</p>
 			</div>
 			<div class="clearfix"> </div> 
 						
 			<div id="dialog-form" title="预约申请">
 				<p class="validateTips">所有的表单字段都是必填的。</p>
 		 
-				<form action="" method="post"><fieldset><!--因为要进行中文转码，手动进行URL传参-->
-					<label for="petsType">宠物类型</label>
-					<input type="text" name="petsType" id="petsType" value="" class="text ui-widget-content ui-corner-all">
-					<label for="serviceType">服务类型</label>
-					<input type="text" name="serviceType" id="serviceType" value="" class="text ui-widget-content ui-corner-all">
+				<form action="" method="post"><fieldset>
 					<label for="serBeginTime">起始时间</label>
 					<input type="text" name="serBeginTime" id="serBeginTime" value="" class="text ui-widget-content ui-corner-all">
 					<label for="serEndTime">截止时间</label>
@@ -387,20 +330,10 @@
 					<label for="petsOwnerTel">您的常用手机号</label>
 					<input type="text" name="petsOwnerTel" id="petsOwnerTel" value="" class="text ui-widget-content ui-corner-all">
 					<input type="hidden" name="shopName" id="shopName" value="" class="text ui-widget-content ui-corner-all">
+					<input type="hidden" id="petsType" value="" class="text ui-widget-content ui-corner-all">
+					<input type="hidden" id="serviceType" value="" class="text ui-widget-content ui-corner-all">
 				</fieldset></form>	
 			</div>
-			
-			<!-- @--@ open_dialog -->
-			<script type="text/javascript">
-				$("button#reserve").click(function(){
-					if("<%=session.getAttribute("loggedType")%>"!="petsOwner"){
-						alert("预约前，请以用户身份登录");
-					}
-					else
-						$( "#dialog-form" ).dialog( "open" );
-				});
-			</script>
-			<!-- open dialog -->
 			
 			<!-- collapse-tabs -->
 			<div class="collpse tabs">
@@ -530,9 +463,25 @@
 						$tr.append("<td>"+ resp.service[iter].serviceType +"</td>");
 						$tr.append("<td>"+ resp.service[iter].price +"</td>");
 						$tr.append("<td>"+ resp.service[iter].serviceIntro +"</td>");
+						
+						var $button=$("<button>").attr("value",resp.service[iter].petsType).attr("id",resp.service[iter].serviceType).append($("<P>").text("预约申请"));
+						$td=$("<td>").append($button);
+						$tr.append($td);
+						
+						$button.click(function(){
+							if("<%=session.getAttribute("loggedType")%>"!="petsOwner"){
+								alert("预约前，请以用户身份登录");
+							}
+							else{
+								alert("宠物类型是："+$(this).val()+" 服务类型是："+$(this).attr("id"));
+								$("input#petsType").val($(this).val());
+								$("input#serviceType").val($(this).attr("id"));
+								$( "#dialog-form" ).dialog( "open" );
+							}
+						});
 
 						$tr.appendTo($(".hovertable"));
-						
+			
 						iter=iter+1;
 					}
 				}

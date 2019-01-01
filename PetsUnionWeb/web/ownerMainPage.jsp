@@ -235,7 +235,7 @@
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
 				<div class="move-text">
-					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="*"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -336,7 +336,7 @@
 
 				var resp = data.reservation;
 				$("#myname").text("<%=session.getAttribute("loggedName")%>");
-				$("#myimg").attr("src", "images/s1.jpg");//头像
+				$("#myimg").attr("src", "images/s1.jpg");
 				
 				var number=resp.length;
 				var iter=0;
@@ -360,7 +360,6 @@
 		$(".shop-page").find("*").attr("style","border:0px;");
 		$(".shop-page").find("button").attr("style","font-size:110%;width:120px;heigt:50px;");
 
-		
 		alert("用户界面加载完成！");
 	});
 	</script>

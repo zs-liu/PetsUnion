@@ -211,7 +211,7 @@
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
 				<div class="move-text">
-					<div class="marquee" style="width:1100px;float:none;"><a href="offers.html"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
+					<div class="marquee" style="width:1100px;float:none;"><a href="*"> 双十一萌宠PARTY，单身宠物不孤单...... <span>THU宠物护理中心开放日 </span> <span> 昌平宠物滑雪场，给您的宠物放个假吧!</span></a></div>
 					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
@@ -253,7 +253,7 @@
 		    <div class="reserve"><br><h1 class="reserve">您好，这是您的历史订单信息！</h1><br></div>
 			<table class="hovertable" width=1000px>
 				<tr>
-					<th>订单号</th><th>起止时间</th><th>宠物店名</th><th>服务类型</th><th>宠物类型</th><th>评价</th>
+					<th>订单号</th><th>起止时间</th><th>宠物店名</th><th>服务类型</th><th>宠物类型</th>
 				</tr>
 				<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
 					<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td><td>Item 1F</td> -->
@@ -312,15 +312,15 @@
 					$tr.append("<td>"+ resp.reservation[iter].shopName +"</td>");
 					$tr.append("<td>"+ resp.reservation[iter].serviceType +"</td>");
 					$tr.append("<td>"+ resp.reservation[iter].petsType +"</td>");
-					$tr.append("<td>"+ resp.reservation[iter].comment +"</td>");
-
+					
 					$tr.appendTo($(".hovertable"));
 
 					iter=iter+1;
 				 }
 			 }
 		 });
-
+		 
+		 $(".reservation-page").find("*").attr("style","border:0px;");
 		 alert("历史订单界面加载完成！");
 	 });
 	</script>
