@@ -21,6 +21,7 @@ public class StaticPara {
         public static final int toDo = 0;
         public static final int confirm = 1;
         public static final int haveDone = 2;
+        public static final int delete = 3;
     }
 
     public class ShopDetailUpdateServletPara {

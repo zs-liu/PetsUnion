@@ -148,14 +148,14 @@ public class ShopDAO {
     }
 
     /**
-     * update services of a certain shop, given certain service information
+     * update a service of a certain shop, given certain service information
      *
      * @param shopName     the ID of shop
      * @param serviceIntro the introduction of service
      * @param serviceType  the service type
      * @param petsType     the pet type of service
      * @param price        the service price
-     * @return
+     * @return whether update successful
      */
     public static int updateServiceByShop(String shopName, String serviceIntro, String serviceType,
                                           String petsType, String price) {
@@ -186,6 +186,16 @@ public class ShopDAO {
         return StaticPara.SqlPara.success;
     }
 
+    /**
+     * delete a service of a certain shop, given certain service information
+     *
+     * @param shopName     the ID of shop
+     * @param serviceIntro the introduction of service
+     * @param serviceType  the service type
+     * @param petsType     the pet type of service
+     * @param price        the service price
+     * @return whether delete successful
+     */
     public static int deleteServiceByShop(String shopName, String serviceIntro, String serviceType,
                                           String petsType, String price) {
         Connection conn = null;
@@ -213,7 +223,16 @@ public class ShopDAO {
         return StaticPara.SqlPara.success;
     }
 
-
+    /**
+     * update the information of a certain shop, given information
+     * @param shopName    the ID of shop
+     * @param instruction the instruction of shop
+     * @param shopImgUrl  the url of the image of shop (not use here)
+     * @param address     the address of shop
+     * @param shopHours   the shop hours
+     * @param shopTel     the telephone of shop
+     * @return whether update information successful
+     */
     public static int updateInfoByShop(String shopName, String instruction, String shopImgUrl,
                                        String address, String shopHours, String shopTel) {
         Connection conn = null;

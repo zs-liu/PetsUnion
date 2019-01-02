@@ -34,7 +34,7 @@ public class ShopReservationServlet extends HttpServlet {
         String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
         int status = Integer.parseInt(request.getParameter("status"));
         if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone
-                || status == ReservationStatusPara.confirm) {
+                || status == ReservationStatusPara.confirm || status == ReservationStatusPara.delete) {
             List<ReservationBean> reservationList = ReservationService.searchForShop(shopName, status);
 
             JSONObject json = new JSONObject();

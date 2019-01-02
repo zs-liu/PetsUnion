@@ -36,7 +36,7 @@ public class OwnerReservationServlet extends HttpServlet {
         System.out.println(userId);
         System.out.println(status);
         if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone
-                || status == ReservationStatusPara.confirm) {
+                || status == ReservationStatusPara.confirm || status == ReservationStatusPara.delete) {
             List<ReservationBean> reservationList = ReservationService.searchForUser(userId, status);
 
             JSONObject json = new JSONObject();

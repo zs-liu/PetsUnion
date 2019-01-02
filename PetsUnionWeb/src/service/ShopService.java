@@ -70,18 +70,35 @@ public class ShopService {
      * @param serviceType  the type of service
      * @param petsType     the type of pet
      * @param price        the price of service
-     * @return whether update seccessful
+     * @return whether insert service successful
      */
     public static int updateServiceByShop(String shopName, String serviceIntro, String serviceType,
                                           String petsType, String price) {
         return ShopDAO.updateServiceByShop(shopName, serviceIntro, serviceType, petsType, price);
     }
 
+    /**
+     * @param shopName     the ID of shop
+     * @param serviceIntro the introduction of service
+     * @param serviceType  the type of service
+     * @param petsType     the type of pet
+     * @param price        the price of service
+     * @return whether delete service successful
+     */
     public static int deleteServiceByShop(String shopName, String serviceIntro, String serviceType,
                                           String petsType, String price) {
         return ShopDAO.deleteServiceByShop(shopName, serviceIntro, serviceType, petsType, price);
     }
 
+    /**
+     * @param shopName    the ID of shop
+     * @param instruction the instruction of shop
+     * @param shopImgUrl  the url of the image of shop
+     * @param address     the address of shop
+     * @param shopHours   the shop hours
+     * @param shopTel     the telephone of shop
+     * @return whether update information successful
+     */
     public static int updateInfoByShop(String shopName, String instruction, String shopImgUrl,
                                        String address, String shopHours, String shopTel) {
         return ShopDAO.updateInfoByShop(shopName, instruction, shopImgUrl, address, shopHours, shopTel);
