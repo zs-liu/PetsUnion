@@ -529,7 +529,7 @@
 		});
 		
 		$(".shop-page").find("*").not("button").attr("style","border:0px;");
-		$(".shop-page").find("button").find("p").css("color","black");
+		$(".shop-page").find("button").find("p").css('color','black');
 		
 		alert("店主界面加载完成");
 	});
