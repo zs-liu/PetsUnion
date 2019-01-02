@@ -299,14 +299,16 @@
 								</table>
 							</div>
 						</div>
-						<div class="panel-heading" role="tab" id="headingOne">
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingTwo">
 							<h4 class="panel-title">
-								<a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-									<i class="fa fa-file-text-o fa-icon" aria-hidden="true"></i> 未通过的预约订单 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
-								</a>
+								<a class="collapsed pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+									<i class="fa fa-info-circle fa-icon" aria-hidden="true"></i> 未通过的预约订单 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
+								</a> 
 							</h4>
 						</div>
-						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 							<div class="panel-body">
 								<table class="hovertable" id="reject" width=1000px>
 									<tr>
