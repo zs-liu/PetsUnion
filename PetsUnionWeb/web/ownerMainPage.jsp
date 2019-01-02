@@ -277,7 +277,38 @@
 						</div>
 						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 							<div class="panel-body">
-								<table class="hovertable" width=1000px>
+								<table class="hovertable" id="doing" width=1000px>
+									<tr>
+										<th>订单号</th><th>订单状态</th><th>预约时间</th><th>宠物店名</th><th>服务类型</th><th>宠物类型</th>
+									</tr>
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 3A</td><td>Item 3B</td><td>Item 3C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 4A</td><td>Item 4B</td><td>Item 4C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 5A</td><td>Item 5B</td><td>Item 5C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+								</table>
+							</div>
+						</div>
+						<div class="panel-heading" role="tab" id="headingOne">
+							<h4 class="panel-title">
+								<a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+									<i class="fa fa-file-text-o fa-icon" aria-hidden="true"></i> 未通过的预约订单 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							<div class="panel-body">
+								<table class="hovertable" id="reject" width=1000px>
 									<tr>
 										<th>订单号</th><th>订单状态</th><th>预约时间</th><th>宠物店名</th><th>服务类型</th><th>宠物类型</th>
 									</tr>
@@ -341,17 +372,47 @@
 				var number=resp.length;
 				var iter=0;
 				while(iter<number){
-					
 					var $tr = $("<tr></tr>");
 					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
 					$tr.append("<td>"+ resp[iter].orderId +"</td>");
 					$tr.append("<td>"+ resp[iter].Status +"</td>");
+					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 					$tr.append("<td>"+ resp[iter].shopName +"</td>");
 					$tr.append("<td>"+ resp[iter].servicesType +"</td>");
 					$tr.append("<td>"+ resp[iter].petsType);
-					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 
-					$tr.appendTo($(".hovertable"));
+					$tr.appendTo($(".hovertable#doing"));
+					iter=iter+1;
+				}
+			}
+		});
+		
+		$.ajax({
+			url:"OwnerReservationServlet",
+			type:"post",
+			data:{
+				userId:encodeURI("<%=session.getAttribute("loggedId")%>"),
+				status: encodeURI(3)
+			},
+			cache:false,
+			dataType:"json",
+			success:function(data) {
+				console.log(data);
+
+				var resp = data.reservation;
+				var number=resp.length;
+				var iter=0;
+				while(iter<number){
+					var $tr = $("<tr></tr>");
+					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+					$tr.append("<td>"+ resp[iter].orderId +"</td>");
+					$tr.append("<td>"+ resp[iter].Status +"</td>");
+					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
+					$tr.append("<td>"+ resp[iter].shopName +"</td>");
+					$tr.append("<td>"+ resp[iter].servicesType +"</td>");
+					$tr.append("<td>"+ resp[iter].petsType);
+
+					$tr.appendTo($(".hovertable#reject"));
 					iter=iter+1;
 				}
 			}
@@ -359,6 +420,7 @@
 		
 		$(".shop-page").find("*").attr("style","border:0px;");
 		$(".shop-page").find("button").attr("style","font-size:110%;width:120px;heigt:50px;");
+		$(".shop-page").find("button").find("p").attr("style","color:black;");
 
 		alert("用户界面加载完成！");
 	});

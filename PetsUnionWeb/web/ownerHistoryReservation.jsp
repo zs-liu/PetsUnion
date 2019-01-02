@@ -321,6 +321,8 @@
 		 });
 		 
 		 $(".reservation-page").find("*").attr("style","border:0px;");
+		 $(".reservation-page").find("button").find("p").attr("style","color:black;");
+		 
 		 alert("历史订单界面加载完成！");
 	 });
 	</script>

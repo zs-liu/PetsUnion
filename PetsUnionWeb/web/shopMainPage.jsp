@@ -397,7 +397,7 @@
 					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
 					$tr.append("<td>"+ resp[iter].orderId +"</td>");
 					$tr.append("<td>"+ resp[iter].status +"</td>");
-					$tr.append("<td>"+ resp[iter].shopName +"</td>");
+					$tr.append("<td>"+ resp[iter].userId +"</td>");
 					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 					$tr.append("<td>"+ resp[iter].serviceType+"</td>");
 					$tr.append("<td>"+ resp[iter].petsType+"</td>");
@@ -405,6 +405,8 @@
 					
 					var $button=$("<button>").attr("value",resp[iter].orderId).attr("id","confirm").append($("<P>").text("确认"));
 					$td=$("<td>").append($button);
+					var $button1=$("<button>").attr("value",resp[iter].orderId).append($("<P>").text("拒绝"));
+					$td=$("<td>").append($button1);
 					$tr.append($td);
 					
 					$button.click(function(){
@@ -417,6 +419,30 @@
 							data:{
 								orderId: $value,
 								status: 1
+							},
+							cache:false,
+							dataType:"json",
+							success:function(resp) {
+								alert("reload");
+								window.location.reload();
+							},
+							error:function (resp) {
+								alert("error");
+								window.location.reload();
+							}
+						});
+					});
+					
+					$button1.click(function(){
+						var $value=$(this).val();
+						alert("您点击了拒绝按钮，订单号是"+$value);
+						
+						$.ajax({
+							url:"ReservationUpdateServlet",
+							type:"post",
+							data:{
+								orderId: $value,
+								status: 3
 							},
 							cache:false,
 							dataType:"json",
@@ -462,7 +488,7 @@
 					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
 					$tr.append("<td>"+ resp[iter].orderId +"</td>");
 					$tr.append("<td>"+ resp[iter].status +"</td>");
-					$tr.append("<td>"+ resp[iter].shopName +"</td>");
+					$tr.append("<td>"+ resp[iter].userId +"</td>");
 					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
 					$tr.append("<td>"+ resp[iter].serviceType+"</td>");
 					$tr.append("<td>"+ resp[iter].petsType+"</td>");
@@ -504,6 +530,7 @@
 		});
 		
 		$(".shop-page").find("*").not("button").attr("style","border:0px;");
+		$(".shop-page").find("button").find("p").attr("style","color:black;");
 		
 		alert("店主界面加载完成");
 	});

@@ -312,8 +312,8 @@
 					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
 					$tr.append("<td>"+ resp[iter].orderId +"</td>");
 					$tr.append("<td>"+ resp[iter].Status +"</td>");
-					$tr.append("<td>"+ resp[iter].shopName +"</td>");
 					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
+					$tr.append("<td>"+ resp[iter].userId+"</td>");
 					$tr.append("<td>"+ resp[iter].serviceType+"</td>");
 					$tr.append("<td>"+ resp[iter].petsType+"</td>");
 
@@ -324,6 +324,7 @@
 		});
 		
 		$(".reservation-page").find("*").not("button").attr("style","border:0px;");
+		$(".reservation-page").find("button").find("p").attr("style","color:black;");
 		
 		alert("历史订单界面加载完成！");
 	});
