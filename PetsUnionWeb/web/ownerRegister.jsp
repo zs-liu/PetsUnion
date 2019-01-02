@@ -62,6 +62,13 @@ response.setDateHeader("Expires",0);
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#confirm").click(function(){
+			if(!$("#userId").val()){
+				$("#message").text("ID不能为空");
+			}
+			else if(!$("#userPw").val()){
+				$("#message").text("密码不能为空");
+			}
+			else{
 			$.ajax({
 			url:"OwnerRegisterServlet",
 			type:"post",
@@ -81,8 +88,9 @@ response.setDateHeader("Expires",0);
                 else{
                     $("#message").text(data.errorMessage);
                 }
+				}
+			})
 			}
-		})
 		})
 	})
 </script>

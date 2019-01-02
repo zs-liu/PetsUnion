@@ -208,7 +208,6 @@ response.setDateHeader("Expires",0);
 			cache:false,
 			dataType:"json",
 			success:function(data){
-				console.log(data);
 				$("#instruction").val(data.instruction);
 				$("#address").val(data.address);
 				$("#shopHours").val(data.shopHours);
@@ -261,6 +260,7 @@ response.setDateHeader("Expires",0);
 						  <th>服务种类</th>
 						  <th>宠物种类</th>
 						  <th>价格</th>
+						  <th>操作</th>
 					  </tr>
 				  </thead>
 				  <tbody>
@@ -297,17 +297,50 @@ response.setDateHeader("Expires",0);
 			cache:false,
 			dataType:"json",
 			success:function(data){
-			console.log(data);
 			var i=0;
 			while(i<data.service.length){
 				var item = '<tr class="tr0">';
-				item+=('<td class="center">'+data.service[i].serviceIntro+'</td>');
-				item+=('<td class="center">'+data.service[i].serviceType+'</td>');
-				item+=('<td class="center">'+data.service[i].petsType+'</td>');
-				item+=('<td class="center">'+data.service[i].price+'</td>');
+				item+=('<td class="center serviceIntro">'+data.service[i].serviceIntro+'</td>');
+				item+=('<td class="center serviceType">'+data.service[i].serviceType+'</td>');
+				item+=('<td class="center petsType">'+data.service[i].petsType+'</td>');
+				item+=('<td class="center price">'+data.service[i].price+'</td>');
+				item+=('<td class="center"><button class="btn delete">删除</button></td></tr>');
 				$('tbody').append(item);
 				i+=1;
 			}
+			$(".delete").click(function(){
+				alert("clicked");
+			var x=[];
+			var data={
+				serviceIntro:$(this).parent().prevAll(".serviceIntro").text(),
+				serviceType:$(this).parent().prevAll(".serviceType").text(),
+				petsType:$(this).parent().prevAll(".petsType").text(),
+				price:$(this).parent().prevAll(".price").text()
+			};
+			x.push(data);
+			x=JSON.stringify(x);
+			console.log(x);
+			$.ajax({
+			url:"ShopDetailUpdateServlet",
+			type:"post",
+			data:{
+				flag:1,
+				shopName:encodeURI("<%=shopname%>"),
+				serviceTable:encodeURI(x)
+			},
+			cache:false,
+			dataType:"json",
+			success:function(data){
+				alert("delete success");
+                if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
+                    window.location.replace(data.returnPath);
+                }
+                else{
+                    $("#message2").text(data.errorMessage);
+                }
+			}
+			});
+			});
 			alert("table got");
 			}
 		});
@@ -321,10 +354,11 @@ response.setDateHeader("Expires",0);
 	$(document).ready(function(){
 		$("#new1").click(function(){
 			var newItem='<tr class="tr1"><form id="form1">';
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" id="serviceIntro" value="name"></td>';
-			newItem+='<td class="center"><input type="text" class="form-control" name="serviceType" id="serviceType" value="name"></td>';
-			newItem+='<td class="center"><input type="text" class="form-control" name="petsType"  id="petsType" value="name"></td>';
-			newItem+='<td class="center"><input type="text" class="form-control" name="price" id="price" value="name"></td></form></tr>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="serviceIntro" id="serviceIntro"></td>';
+			newItem+='<td class="center"><select id="serviceType"><option value="宠物护理">宠物护理</option><option value="宠物寄养">宠物寄养</option><option value="宠物美容">宠物美容</option></select></td>';
+			newItem+='<td class="center"><select id="petsType"><option value="狗狗">狗狗</option><option value="猫猫">猫猫</option><option value="仓鼠">仓鼠</option><option value="蜘蛛">蜘蛛</option></select></td>';
+			newItem+='<td class="center"><input type="text" class="form-control" name="price" id="price"></td>';
+			newItem+='<td class="center"></td></form></tr>';
 			$("tbody").append(newItem);
 			$("#confirm2").show();
 			$("#new1").hide();
