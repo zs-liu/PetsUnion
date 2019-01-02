@@ -271,6 +271,7 @@
 								$goodbox.append($link);
 								$goodbox.append($content);
 								$goodbox.append($move);
+								$goodbox.find("button").find("p").attr("style","color:black;");
 								$goodbox.find("*").not("button").attr("style","border:0px;");
 								$goodbox.find("span").attr("style","padding-left:2em;color:black;");
 
@@ -412,6 +413,7 @@
 								$goodbox.append($move);
 								$goodbox.find("*").not("button").attr("style","border:0px;");
 								$goodbox.find("span").attr("style","padding-left:2em;color:black;");
+								$goodbox.find("button").find("p").attr("style","color:black;");
 								
 								$product.append($goodbox);
 								$jump.click(function(){
@@ -566,6 +568,7 @@
 								$goodbox.append($move);
 								$goodbox.find("*").not("button").attr("style","border:0px;");
 								$goodbox.find("span").attr("style","padding-left:2em;color:black;");
+								$goodbox.find("button").find("p").attr("style","color:black;");
 								
 								$product.append($goodbox);
 								
@@ -659,6 +662,7 @@
 								$goodbox.append($move);
 								$goodbox.find("*").not("button").attr("style","border:0px;");
 								$goodbox.find("span").attr("style","padding-left:2em;color:black;");
+								$goodbox.find("button").find("p").attr("style","color:black;");
 								
 								$product.append($goodbox);
 								

@@ -488,6 +488,8 @@
 			});
 			
 			$(".shop-page").find("*").not("p").not("button").attr("style","border:0px;");
+			$(".shop-page").find("button").find("p").attr("style","color:black;");
+			
 			alert("商店界面加载完成！");
 		});
 	</script>
