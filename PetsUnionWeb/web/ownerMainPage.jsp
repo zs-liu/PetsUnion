@@ -310,7 +310,7 @@
 						</div>
 						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 							<div class="panel-body">
-								<table class="hovertable" id="complete" width=1000px>
+								<table class="hovertable" id="reject" width=1000px>
 									<tr>
 										<th>订单号</th><th>订单状态</th><th>预约时间</th><th>宠物店名</th><th>服务类型</th><th>宠物类型</th>
 									</tr>
