@@ -54,7 +54,7 @@ response.setDateHeader("Expires",0);
 
 					<div class="form-group col-lg-4 col-lg-offset-4">
 						<div class="home_btn">
-							<button class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">注册</font></button>
+							<a class="btn home_btn_color_two"  id = "confirm"><font face="Microsoft YaHei" size="3px">注册</font></a>
 						</div>
                     </div>
 				</form>
@@ -69,14 +69,14 @@ response.setDateHeader("Expires",0);
 				userId:encodeURI($("#userId").val()),
 				userName:encodeURI($("#userName").val()),
 				userPw:encodeURI($("#userPw").val()),
-				userTel:encodeURI($("#userTel").val()),
+				userTel:encodeURI($("#userTel").val())
 			},
 			cache:false,
 			dataType:"json",
 			success:function(data){
 				alert("register success");
                 if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
-                    window.location.href=data.returnPath;
+                    window.location.replace(data.returnPath);
                 }
                 else{
                     $("#message").text(data.errorMessage);
@@ -92,6 +92,13 @@ response.setDateHeader("Expires",0);
 	</div><!--- END CONTAINER -->
 </section>
 <!-- END  HOME -->	
+
+	<!-- menu js aim -->
+	<script src="js/jquery.menu-aim.js"> </script>
+	<script src="js/main.js"></script> <!-- Resource jQuery -->
+	<!-- //menu js aim --> 
+	
+    <script src="js/bootstrap.js"></script>
 
 </body>
 </html>

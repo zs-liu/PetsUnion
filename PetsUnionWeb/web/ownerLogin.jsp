@@ -46,7 +46,7 @@ response.setDateHeader("Expires",0);
                             </div>
                             <div class="form-group col-lg-4 col-lg-offset-4">
                                 <div class="home_btn">
-                                    <button id="confirm" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">登录</font></button>
+                                    <a id="confirm" class="btn home_btn_color_two"><font face="Microsoft YaHei" size="3px">登录</font></a>
                                     <a href="ownerRegister.jsp" class="btn home_btn_color_one"><font face="Microsoft YaHei" size="3px">注册</font></a>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@ response.setDateHeader("Expires",0);
 			type:"post",
 			data:{
 				userId:encodeURI($("#userId").val()),
-				userPw:encodeURI($("#userPw").val()),
+				userPw:encodeURI($("#userPw").val())
 			},
 			cache:false,
             dataType:"json",
@@ -68,7 +68,7 @@ response.setDateHeader("Expires",0);
 				alert("login success");
                 if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
                     alert(data.returnPath);
-                    window.location.href=data.returnPath;
+                    window.location.replace(data.returnPath);
                 }
                 else{
                     $("#message").text(data.errorMessage);
@@ -85,5 +85,11 @@ response.setDateHeader("Expires",0);
     </section>
     <!-- END  HOME -->
 
+	<!-- menu js aim -->
+	<script src="js/jquery.menu-aim.js"> </script>
+	<script src="js/main.js"></script> <!-- Resource jQuery -->
+	<!-- //menu js aim --> 
+	
+    <script src="js/bootstrap.js"></script>
     </body>
 </html>

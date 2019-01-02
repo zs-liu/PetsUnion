@@ -404,9 +404,8 @@
 					$tr.append("<td>"+ resp[iter].comment+"</td>");
 					
 					var $button=$("<button>").attr("value",resp[iter].orderId).attr("id","confirm").append($("<P>").text("确认"));
-					$td=$("<td>").append($button);
 					var $button1=$("<button>").attr("value",resp[iter].orderId).append($("<P>").text("拒绝"));
-					$td=$("<td>").append($button1);
+					$td=$("<td>").append($button).append($button1);
 					$tr.append($td);
 					
 					$button.click(function(){
@@ -530,7 +529,7 @@
 		});
 		
 		$(".shop-page").find("*").not("button").attr("style","border:0px;");
-		$(".shop-page").find("button").find("p").attr("style","color:black;");
+		$(".shop-page").find("button").find("p").css("color","black");
 		
 		alert("店主界面加载完成");
 	});
