@@ -69,6 +69,13 @@ response.setDateHeader("Expires",0);
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$("#confirm").click(function(){
+			if(!$("#ownerId").val()){
+				$("#message").text("ID不能为空");
+			}
+			else if(!$("#ownerPw").val()){
+				$("#message").text("密码不能为空");
+			}
+			else{
 			$.ajax({
 			url:"ShopRegisterServlet",
 			type:"post",
@@ -92,6 +99,7 @@ response.setDateHeader("Expires",0);
                 }
 			}
 		})
+			}
 		})
 	})
 </script>
