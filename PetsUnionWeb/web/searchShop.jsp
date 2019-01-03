@@ -207,19 +207,13 @@
 			<!-- @**@ load the shop information when first enter -->
 		    <script type="text/javascript">
 				$(document).ready(function(){
-					alert("开始加载搜索界面！");
-					
 					var $petsType=decodeURI(getQuery("petsType"));
-					alert("上一个页面请求的宠物类型是："+$petsType);
-					
 					var $serviceType=decodeURI(getQuery("serviceType"));
-					alert("上一个页面请求的服务类型是："+$serviceType);
 					
 					$("#petsType").val($petsType);
 					$("#serviceType").val($serviceType);
 				
 					if(<%=session.getAttribute("loggedId")%>!=null){
-						alert("用户ID："+"<%=session.getAttribute("loggedId")%>");
 						if("<%=session.getAttribute("loggedType")%>"=="petsOwner")
 							$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
 						else 
@@ -284,16 +278,12 @@
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
-									alert("您点击了"+$Name);
-									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);
-									alert("已经打开了新窗口");
+									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);									
 								});
 							}
 							$(".col-md-9").append($product);
 						}
 					});
-							
-					alert("搜索界面加载完成！");
 				});
 			</script>
 			<!-- //load the shop information when first enter -->
@@ -360,12 +350,10 @@
 					var $petsType=document.getElementById("petsType").value;
 					var $serviceType=document.getElementById("serviceType").value;
 					
-					alert("您的搜索请求：宠物类型："+$petsType);
 					if($petsType==-1){
 						alert("宠物类型的输入不能为空");
 						return false;
 					}
-					alert("您的搜索请求：服务类型："+$serviceType);
 					if($serviceType==-1){
 						alert("服务类型的输入不能为空");
 						return false;
@@ -423,16 +411,12 @@
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
-									alert("您点击了"+$Name);
 									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);
-									alert("已经打开了新窗口");
 								});
 							}
 							$(".col-md-9").append($product);
 						}
 					});
-					
-					alert("加载完成！");
 				});
 			</script>
 			<!-- load the shop information when click search button-->
@@ -502,18 +486,15 @@
 					var $petsType=document.getElementById("petsType").value;
 					var $serviceType=document.getElementById("serviceType").value;
 					
-					alert("您的搜索请求：宠物类型："+$petsType);
 					if($petsType==-1){
 						alert("宠物类型的输入不能为空");
 						return false;
 					}
-					alert("您的搜索请求：服务类型："+$serviceType);
 					if($serviceType==-1){
 						alert("服务类型的输入不能为空");
 						return false;
 					}
 					
-					alert("您点击了前一页按钮");
 					pageNumber=pageNumber-1;
 					if(pageNumber==0){
 						alert("这已经是最前一页了");
@@ -537,7 +518,7 @@
 							
 							var $product=$("<div>").addClass("products-block");
 							if(resp.length==0){
-								alert("接受List的长度为零");
+								alert("这已经是最前一页了");
 								return false;
 							}
 							
@@ -579,16 +560,12 @@
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
-									alert("您点击了"+$Name);
 									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);
-									alert("已经打开了新窗口");
 								});
 							}
 							$(".col-md-9").append($product);
 						}
 					});
-					
-					alert("前一页加载完成");
 				});
 			</script>
 			<!-- //turn to last page-->
@@ -599,18 +576,15 @@
 					var $petsType=document.getElementById("petsType").value;
 					var $serviceType=document.getElementById("serviceType").value;
 					
-					alert("您的搜索请求：宠物类型："+$petsType);
 					if($petsType==-1){
 						alert("宠物类型的输入不能为空");
 						return false;
 					}
-					alert("您的搜索请求：服务类型："+$serviceType);
 					if($serviceType==-1){
 						alert("服务类型的输入不能为空");
 						return false;
 					}
-					
-					alert("您点击了后一页按钮");
+
 					pageNumer=pageNumber+1;
 					
 					$.ajax({
@@ -673,16 +647,12 @@
 									var $Name=encodeURI(encodeURI($(this).parent().find(".name").attr("value")));
 									var $tel=$(this).parent().find(".tel").attr("value");
 									
-									alert("您点击了"+$Name);
 									window.open("shopDetail.jsp?shopName="+$Name+"&credit="+$cre+"&address="+$add+"&img="+$shopImg+"&shopTel="+$tel);
-									alert("已经打开了新窗口");
 								});
 							}
 							$(".col-md-9").append($product);
 						}
 					});
-					
-					alert("后一页加载完成");
 				});
 			</script>
 			<!-- //turn to next page-->

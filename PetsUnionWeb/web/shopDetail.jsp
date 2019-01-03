@@ -404,17 +404,13 @@
 	<!-- @**@ load the shop information when first enter-->
 	<script type="text/javascript">
 		$(document).ready(function(){
-			alert("开始加载商店界面！");
-			
 			var $shopName=decodeURI(getQuery("shopName"));
-			alert("上一个页面请求的宠物店是："+$shopName);
 			var $credit=decodeURI(getQuery("credit"));
 			var $address=decodeURI(getQuery("address"));
 			var $shopImgUrl=getQuery("img");
 			var $shopTel=getQuery("shopTel");
 
 			if(<%=session.getAttribute("loggedId")%>!=null){
-				alert("用户ID："+"<%=session.getAttribute("loggedId")%>");
 				if("<%=session.getAttribute("loggedType")%>"=="petsOwner")
 					$("#login").attr("herf", "ownerMainPage.jsp").attr("id","mainPage").text("个人界面");
 				else 
@@ -473,7 +469,6 @@
 								alert("预约前，请以用户身份登录");
 							}
 							else{
-								alert("宠物类型是："+$(this).val()+" 服务类型是："+$(this).attr("id"));
 								$("input#petsType").val($(this).val());
 								$("input#serviceType").val($(this).attr("id"));
 								$( "#dialog-form" ).dialog( "open" );
@@ -489,8 +484,6 @@
 			
 			$(".shop-page").find("*").not("p").not("button").attr("style","border:0px;");
 			$(".shop-page").find("button").find("p").attr("style","color:black;");
-			
-			alert("商店界面加载完成！");
 		});
 	</script>
 	<!-- //load the shop information when first enter-->

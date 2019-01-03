@@ -184,20 +184,16 @@
 				var $petsType=document.getElementById("petsType").value;
 				var $serviceType=document.getElementById("serviceType").value;
 				
-				alert("您的搜索请求：宠物类型："+$petsType);
 				if($petsType==-1){
 					alert("宠物类型的输入不能为空");
 					return false;
 				}
-				alert("您的搜索请求：服务类型："+$serviceType);
 				if($serviceType==-1){
 					alert("服务类型的输入不能为空");
 					return false;
 				}
 					
 				window.location.href = "searchShop.jsp?petsType="+encodeURI(encodeURI($petsType))+"&serviceType="+encodeURI(encodeURI($serviceType));
-				
-				alert("跳转页面完成");
 			});
 		</script>
 		<!-- return to searchShop -->
@@ -249,10 +245,6 @@
 	<!-- @--@ load the shop information -->
 	<script type="text/javascript">
 		$(document).ready(function(){
-			alert("开始加载订单确认界面！");
-			
-			alert("上一个页面请求的宠物店名是："+decodeURI(getQuery("shopName")));
-
 			$("#name").append(decodeURI(getQuery("shopName")));
 			$("#date").append(decodeURI(getQuery("serBeginTime"))+" - "+decodeURI(getQuery("serEndTime")));
 			$("#pet").append(decodeURI(getQuery("petsType")));
@@ -262,8 +254,6 @@
 			$(".reservation-page").find("*").not("button").attr("style","border:0px;");
 			//$(".reservation-page").find("textarea").attr("style","border:2px solid blue;");
 			$(".reservation-page").find("p").not("#comment").attr("style","border:0px;color:black;");
-			
-			alert("订单确认界面加载完成！");
 		});
 	</script>
 	<!-- load the shop information -->
@@ -271,8 +261,6 @@
 	<!-- @||@ pass the data -->
 	<script>
 		$("button#submit").click(function (){
-			alert("您点击了提交按钮");
-			
 			if("<%=session.getAttribute("loggedType")%>"!="petsOwner"){
 				alert("提交订单时，必须以用户身份在线");
 				return false;

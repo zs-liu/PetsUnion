@@ -214,20 +214,16 @@
 				var $petsType=document.getElementById("petsType").value;
 				var $serviceType=document.getElementById("serviceType").value;
 				
-				alert("您的搜索请求：宠物类型："+$petsType);
 				if($petsType==-1){
 					alert("宠物类型的输入不能为空");
 					return false;
 				}
-				alert("您的搜索请求：服务类型："+$serviceType);
 				if($serviceType==-1){
 					alert("服务类型的输入不能为空");
 					return false;
 				}
 					
 				window.location.href = "searchShop.jsp?petsType="+encodeURI(encodeURI($petsType))+"&serviceType="+encodeURI(encodeURI($serviceType));
-				
-				alert("跳转页面完成");
 			});
 		</script>
 		<!-- return to searchShop -->
@@ -304,11 +300,44 @@
 						<div class="panel-heading" role="tab" id="headingTwo">
 							<h4 class="panel-title">
 								<a class="collapsed pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-									<i class="fa fa-info-circle fa-icon" aria-hidden="true"></i> 未通过的预约订单 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
+									<i class="fa fa-info-circle fa-icon" aria-hidden="true"></i> 审核中的预约订单 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
 								</a> 
 							</h4>
 						</div>
 						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+							<div class="panel-body">
+								<table class="hovertable" id="checking" width=1000px>
+									<tr>
+										<th>订单号</th><th>订单状态</th><th>预约时间</th><th>宠物店名</th><th>服务类型</th><th>宠物类型</th>
+									</tr>
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 3A</td><td>Item 3B</td><td>Item 3C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 4A</td><td>Item 4B</td><td>Item 4C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+									<!-- <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';"> -->
+										<!-- <td>Item 5A</td><td>Item 5B</td><td>Item 5C</td><td>Item 1D</td><td>Item 1E</td> -->
+									<!-- </tr> -->
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingThree">
+							<h4 class="panel-title">
+								<a class="collapsed pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+									<i class="fa fa-info-circle fa-icon" aria-hidden="true"></i> 审核未通过的预约订单 <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
+								</a> 
+							</h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 							<div class="panel-body">
 								<table class="hovertable" id="reject" width=1000px>
 									<tr>
@@ -353,8 +382,6 @@
 	<!-- @**@ load user information when enter-->
 	<script type="text/javascript">
 	$(document).ready(function(){
-		alert("开始加载用户界面！");
-		
 		$.ajax({
 			url:"OwnerReservationServlet",
 			type:"post",
@@ -420,11 +447,40 @@
 			}
 		});
 		
+		$.ajax({
+			url:"OwnerReservationServlet",
+			type:"post",
+			data:{
+				userId:encodeURI("<%=session.getAttribute("loggedId")%>"),
+				status: encodeURI(0)
+			},
+			cache:false,
+			dataType:"json",
+			success:function(data) {
+				console.log(data);
+
+				var resp = data.reservation;
+				var number=resp.length;
+				var iter=0;
+				while(iter<number){
+					var $tr = $("<tr></tr>");
+					$tr.attr("onmouseover","this.style.backgroundColor='#ffff66';").attr("onmouseout","this.style.backgroundColor='#d4e3e5';");
+					$tr.append("<td>"+ resp[iter].orderId +"</td>");
+					$tr.append("<td>"+ resp[iter].status +"</td>");
+					$tr.append("<td>"+ resp[iter].serBeginTime+" - "+resp[iter].serEndTime+"</td>");
+					$tr.append("<td>"+ resp[iter].shopName +"</td>");
+					$tr.append("<td>"+ resp[iter].serviceType +"</td>");
+					$tr.append("<td>"+ resp[iter].petsType);
+
+					$tr.appendTo($(".hovertable#checking"));
+					iter=iter+1;
+				}
+			}
+		});
+		
 		$(".shop-page").find("*").attr("style","border:0px;");
 		$(".shop-page").find("button").attr("style","font-size:110%;width:120px;heigt:50px;");
 		$(".shop-page").find("button").find("p").attr("style","color:black;");
-
-		alert("用户界面加载完成！");
 	});
 	</script>
 	<!-- //load user information when enter-->
@@ -468,11 +524,7 @@
 	<!-- jump -->
 	<script>
 	$("button#history").click(function (){
-		alert("你点击了查看历史订单");
-		
 		window.open("ownerHistoryReservation.jsp");
-		
-		alert("新页面加载完成");
 	});
 	</script>
 	<!-- //jump-->
