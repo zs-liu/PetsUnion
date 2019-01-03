@@ -64,12 +64,11 @@ response.setDateHeader("Expires",0);
 			cache:false,
             dataType:"json",
 			success:function(data){
-				alert("login success");
                 if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
                     window.location.replace(data.returnPath);
                 }
                 else{
-                    $("#message").text(data.errorMessage);
+                    $("#message").text("用户ID或密码错误");
                 }
 			}
 		})

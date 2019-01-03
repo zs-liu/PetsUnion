@@ -212,7 +212,6 @@ response.setDateHeader("Expires",0);
 				$("#address").val(data.address);
 				$("#shopHours").val(data.shopHours);
 				$("#shopTel").val(data.shopTel);
-				alert("shopdetail got");
 			}
 		})
 	})
@@ -237,7 +236,6 @@ response.setDateHeader("Expires",0);
 			cache:false,
 			dataType:"json",
 			success:function(data){
-				alert("update success");
                 if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
                     window.location.replace(data.returnPath);
                 }
@@ -309,7 +307,6 @@ response.setDateHeader("Expires",0);
 				i+=1;
 			}
 			$(".delete").click(function(){
-				alert("clicked");
 			var x=[];
 			var data={
 				serviceIntro:$(this).parent().prevAll(".serviceIntro").text(),
@@ -331,7 +328,6 @@ response.setDateHeader("Expires",0);
 			cache:false,
 			dataType:"json",
 			success:function(data){
-				alert("delete success");
                 if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
                     window.location.replace(data.returnPath);
                 }
@@ -341,7 +337,6 @@ response.setDateHeader("Expires",0);
 			}
 			});
 			});
-			alert("table got");
 			}
 		});
 		$("#confirm2").hide();
@@ -391,7 +386,6 @@ response.setDateHeader("Expires",0);
 			cache:false,
 			dataType:"json",
 			success:function(data){
-				alert("update success");
                 if(data.returnPath=="/404.jsp" || data.errorMessage=="Success"){
                     window.location.replace(data.returnPath);
                 }
