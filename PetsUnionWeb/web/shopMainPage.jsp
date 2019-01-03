@@ -214,20 +214,16 @@
 				var $petsType=document.getElementById("petsType").value;
 				var $serviceType=document.getElementById("serviceType").value;
 				
-				alert("您的搜索请求：宠物类型："+$petsType);
 				if($petsType==-1){
 					alert("宠物类型的输入不能为空");
 					return false;
 				}
-				alert("您的搜索请求：服务类型："+$serviceType);
 				if($serviceType==-1){
 					alert("服务类型的输入不能为空");
 					return false;
 				}
 					
 				window.location.href = "searchShop.jsp?petsType="+encodeURI(encodeURI($petsType))+"&serviceType="+encodeURI(encodeURI($serviceType));
-				
-				alert("跳转页面完成");
 			});
 		</script>
 		<!-- return to searchShop -->
@@ -356,8 +352,6 @@
 	<!-- @**@ load user information when enter-->
 	<script type="text/javascript">
 	$(document).ready(function(){
-		alert("开始加载宠物店主界面！");
-		
 		$.ajax({
 			url:"ShopDetailServlet",
 			type:"post",
@@ -388,7 +382,6 @@
 			success:function(data) {
 				console.log(data);
 				
-				alert("开始加载未确认订单");
 				var resp = data.reservation;
 				var number=resp.length;
 				var iter=0;
@@ -410,7 +403,6 @@
 					
 					$button.click(function(){
 						var $value=$(this).val();
-						alert("您点击了确认按钮，订单号是"+$value);
 						
 						$.ajax({
 							url:"ReservationUpdateServlet",
@@ -422,11 +414,11 @@
 							cache:false,
 							dataType:"json",
 							success:function(resp) {
-								alert("reload");
+								alert("订单状态已更新");
 								window.location.reload();
 							},
 							error:function (resp) {
-								alert("error");
+								alert("订单状态已更新");
 								window.location.reload();
 							}
 						});
@@ -434,7 +426,6 @@
 					
 					$button1.click(function(){
 						var $value=$(this).val();
-						alert("您点击了拒绝按钮，订单号是"+$value);
 						
 						$.ajax({
 							url:"ReservationUpdateServlet",
@@ -446,11 +437,11 @@
 							cache:false,
 							dataType:"json",
 							success:function(resp) {
-								alert("reload");
+								alert("订单状态已更新");
 								window.location.reload();
 							},
 							error:function (resp) {
-								alert("error");
+								alert("订单状态已更新");
 								window.location.reload();
 							}
 						});
@@ -459,8 +450,6 @@
 					$tr.appendTo($(".hovertable#comfirm"));
 					iter=iter+1;
 				}
-				
-				alert("未确认订单加载完成");
 			}
 		});
 		
@@ -476,8 +465,6 @@
 			success:function(data) {
 				console.log(data);
 				
-				alert("开始加载未完成订单");
-
 				var resp = data.reservation;
 				var number=resp.length;
 				var iter=0;
@@ -498,7 +485,6 @@
 					
 					$button.click(function(){
 						var $value=$(this).val();
-						alert("您点击了完成按钮，订单号是"+$value);
 						
 						$.ajax({
 							url:"ReservationUpdateServlet",
@@ -510,11 +496,11 @@
 							cache:false,
 							dataType:"json",
 							success:function(resp) {
-								alert("reload");
+								alert("订单状态已更新");
 								window.location.reload();
 							},
 							error:function (resp) {
-								alert("error");
+								alert("订单状态已更新");
 								window.location.reload();
 							}
 						});
@@ -523,15 +509,11 @@
 					$tr.appendTo($(".hovertable#complete"));
 					iter=iter+1;
 				}
-				
-				alert("未完成订单加载完成");
 			}
 		});
 		
 		$(".shop-page").find("*").not("button").attr("style","border:0px;");
 		$(".shop-page").find("button").find("p").css('color','black');
-		
-		alert("店主界面加载完成");
 	});
 	</script>
 	<!-- //load user information when enter-->
@@ -607,11 +589,7 @@
 	<!-- @@ jump -->
 	<script>
 	$("button#history").click(function (){
-		alert("你点击了查看历史订单");
-		
 		window.open("shopHistoryReservation.jsp");
-		
-		alert("新页面加载完成");
 	});
 	</script>
 	<!-- //jump-->
@@ -619,11 +597,7 @@
 	<!-- @@ jump -->
 	<script>
 	$("button#data").click(function (){
-		alert("你点击了门店信息管理");
-		
 		window.open("shopDetailUpdate.jsp");
-		
-		alert("新页面加载完成");
 	});
 	</script>
 	<!-- //jump-->

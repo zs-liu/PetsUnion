@@ -229,20 +229,16 @@
 			var $petsType=document.getElementById("petsType").value;
 			var $serviceType=document.getElementById("serviceType").value;
 			
-			alert("您的搜索请求：宠物类型："+$petsType);
 			if($petsType==-1){
 				alert("宠物类型的输入不能为空");
 				return false;
 			}
-			alert("您的搜索请求：服务类型："+$serviceType);
 			if($serviceType==-1){
 				alert("服务类型的输入不能为空");
 				return false;
 			}
 				
 			window.location.href = "searchShop.jsp?petsType="+encodeURI(encodeURI($petsType))+"&serviceType="+encodeURI(encodeURI($serviceType));
-			
-			alert("跳转页面完成");
 		});
 	</script>
 	<!-- return to searchShop -->
@@ -289,8 +285,6 @@
 	<!-- @@ load user information when enter-->
 	<script type="text/javascript">
 	 $(document).ready(function(){
-		 alert("开始加载历史订单界面！");
-
 		 $.ajax({
 			 url:"OwnerReservationServlet",
 			 type:"post",
@@ -322,8 +316,6 @@
 		 
 		 $(".reservation-page").find("*").attr("style","border:0px;");
 		 $(".reservation-page").find("button").find("p").attr("style","color:black;");
-		 
-		 alert("历史订单界面加载完成！");
 	 });
 	</script>
 	<!-- //load user information when enter-->
