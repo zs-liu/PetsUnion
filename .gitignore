@@ -1,6 +1,8 @@
 # Java production:
 *.class
 
-# Sone floders:
+# Some floders:
 PetsUnionWeb/.idea
+PetsUnionWeb/.idea/*
 PetsUnionWeb/out
+PetsUnionWeb/out/*
