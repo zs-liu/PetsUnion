@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -33,6 +34,8 @@ public class ReserveServiceServlet extends HttpServlet {
         String serBeginTime = URICoder.getURLDecoderString(request.getParameter("serBeginTime"));
         String serEndTime = URICoder.getURLDecoderString(request.getParameter("serEndTime"));
         String comment = URICoder.getURLDecoderString(request.getParameter("comment"));
+        //HttpSession session = request.getSession();
+        //if (!session.getAttribute("loggedId").equals(userId)) return;
 
         int result = ReservationService.insert(shopName, userId, petsOwnerTel, petsType, serviceType,
                 serBeginTime, serEndTime, comment);

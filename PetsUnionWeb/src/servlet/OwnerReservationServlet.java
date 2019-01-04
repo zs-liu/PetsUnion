@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -33,6 +34,8 @@ public class OwnerReservationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = URICoder.getURLDecoderString(request.getParameter("userId"));
         int status = Integer.parseInt(request.getParameter("status"));
+        //HttpSession session = request.getSession();
+        //if (!session.getAttribute("loggedId").equals(userId)) return;
         if (status == ReservationStatusPara.toDo || status == ReservationStatusPara.haveDone
                 || status == ReservationStatusPara.confirm || status == ReservationStatusPara.delete) {
             List<ReservationBean> reservationList = ReservationService.searchForUser(userId, status);

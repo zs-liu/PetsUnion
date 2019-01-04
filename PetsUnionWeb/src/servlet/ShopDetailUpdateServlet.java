@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -36,6 +37,8 @@ public class ShopDetailUpdateServlet extends HttpServlet {
             String returnPath = request.getParameter("returnPath");
             String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
             JSONArray serviceTable = new JSONArray(URICoder.getURLDecoderString(request.getParameter("serviceTable")));
+            //HttpSession session = request.getSession();
+            //if (!session.getAttribute("shopName").equals(shopName)) return;
             for (int i = 0; i < serviceTable.length(); i++) {
                 JSONObject service = serviceTable.getJSONObject(i);
                 String serviceIntro = service.getString("serviceIntro");
@@ -72,6 +75,8 @@ public class ShopDetailUpdateServlet extends HttpServlet {
             String address = URICoder.getURLDecoderString(request.getParameter("address"));
             String shopHours = URICoder.getURLDecoderString(request.getParameter("shopHours"));
             String shopTel = request.getParameter("shopTel");
+            //HttpSession session = request.getSession();
+            //if (!session.getAttribute("shopName").equals(shopName)) return;
 
             int result = ShopService.updateInfoByShop(shopName, instruction, shopImgUrl, address, shopHours, shopTel);
             if (result == SqlPara.success) {
