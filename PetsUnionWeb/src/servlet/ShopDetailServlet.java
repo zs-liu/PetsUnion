@@ -5,7 +5,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -39,8 +38,6 @@ public class ShopDetailServlet extends HttpServlet {
             String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
             String petsType = URICoder.getURLDecoderString(request.getParameter("petsType"));
             String serviceType = URICoder.getURLDecoderString(request.getParameter("serviceType"));
-            //HttpSession session = request.getSession();
-            //if (!session.getAttribute("shopName").equals(shopName)) return;
             List<ServiceBean> serviceList = ShopService.getServicesByShop(shopName, petsType, serviceType);
 
             JSONObject json = new JSONObject();
@@ -57,8 +54,6 @@ public class ShopDetailServlet extends HttpServlet {
 
         } else if (flag == ShopDetailServletPara.updateFlag) {
             String shopName = URICoder.getURLDecoderString(request.getParameter("shopName"));
-            //HttpSession session = request.getSession();
-            //if (!session.getAttribute("shopName").equals(shopName)) return;
             ShopBean shop = ShopService.getServicesByShop(shopName);
 
             if (shop == null) {
